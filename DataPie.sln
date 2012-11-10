@@ -1,9 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPie", "DataPie\DataPie.csproj", "{5299B264-77C9-40A9-A74C-A66CD61966E3}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "DataPie_Setup\DataPie_Setup.vdproj", "{6C35FA0D-819D-4D6C-9716-30C57999A886}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +13,6 @@ Global
 		{5299B264-77C9-40A9-A74C-A66CD61966E3}.Debug|x86.Build.0 = Debug|x86
 		{5299B264-77C9-40A9-A74C-A66CD61966E3}.Release|x86.ActiveCfg = Release|x86
 		{5299B264-77C9-40A9-A74C-A66CD61966E3}.Release|x86.Build.0 = Release|x86
-		{6C35FA0D-819D-4D6C-9716-30C57999A886}.Debug|x86.ActiveCfg = Debug
-		{6C35FA0D-819D-4D6C-9716-30C57999A886}.Debug|x86.Build.0 = Debug
-		{6C35FA0D-819D-4D6C-9716-30C57999A886}.Release|x86.ActiveCfg = Release
-		{6C35FA0D-819D-4D6C-9716-30C57999A886}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

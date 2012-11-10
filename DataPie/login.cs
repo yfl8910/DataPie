@@ -261,10 +261,10 @@ namespace DataPie
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("Data Source=" + db.ServerName);
-            sb.Append(";Initial Catalog=master");
+            sb.Append(";Initial Catalog=master ;");
             if (db.ValidataType == "Windows身份认证")
             {
-                sb.Append("; Integrated Security=SSPI;");
+                sb.Append(" Integrated Security=SSPI;");
             }
             else
             {
@@ -281,10 +281,10 @@ namespace DataPie
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Data Source=" + db.ServerName);
-                sb.Append(";Initial Catalog=" + db.DataBase);
+                sb.Append(";Initial Catalog=" + db.DataBase + " ; ");
                 if (db.ValidataType == "Windows身份认证")
                 {
-                    sb.Append("; Integrated Security=SSPI;");
+                    sb.Append("Integrated Security=SSPI;");
                 }
                 else
                 {

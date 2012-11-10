@@ -55,11 +55,14 @@
             this.btnDtout = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
@@ -79,9 +82,7 @@
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -94,13 +95,13 @@
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnTP
@@ -395,25 +396,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "导出设置";
             // 
-            // button7
+            // groupBox8
             // 
-            this.button7.Location = new System.Drawing.Point(28, 88);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(138, 37);
-            this.button7.TabIndex = 59;
-            this.button7.Text = "导出（OFFICE方式）";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(28, 34);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(138, 37);
-            this.button6.TabIndex = 58;
-            this.button6.Text = "导出（OpenXML方式）";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.groupBox8.Controls.Add(this.button5);
+            this.groupBox8.Controls.Add(this.button3);
+            this.groupBox8.Location = new System.Drawing.Point(277, 147);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(204, 187);
+            this.groupBox8.TabIndex = 61;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "分多个EXCEL导出";
             // 
             // button5
             // 
@@ -425,15 +417,6 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(49, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
-            this.label2.TabIndex = 56;
-            this.label2.Text = "选择导出表：";
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(28, 34);
@@ -443,6 +426,57 @@
             this.button3.Text = "导出（OpenXML方式）";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.button8);
+            this.groupBox7.Controls.Add(this.button6);
+            this.groupBox7.Controls.Add(this.button7);
+            this.groupBox7.Location = new System.Drawing.Point(29, 147);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(227, 187);
+            this.groupBox7.TabIndex = 60;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "单个表导出";
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(28, 142);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(138, 39);
+            this.button8.TabIndex = 62;
+            this.button8.Text = "通过csv导出";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(28, 34);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(138, 37);
+            this.button6.TabIndex = 58;
+            this.button6.Text = "导出（OpenXML方式）";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(28, 88);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(138, 37);
+            this.button7.TabIndex = 59;
+            this.button7.Text = "导出（OFFICE方式）";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(49, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 12);
+            this.label2.TabIndex = 56;
+            this.label2.Text = "选择导出表：";
             // 
             // label4
             // 
@@ -613,6 +647,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 552);
             this.statusStrip1.Name = "statusStrip1";
@@ -626,38 +661,10 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
             this.toolStripStatusLabel1.Text = "提示信息：";
             // 
-            // groupBox7
+            // toolStripStatusLabel2
             // 
-            this.groupBox7.Controls.Add(this.button8);
-            this.groupBox7.Controls.Add(this.button6);
-            this.groupBox7.Controls.Add(this.button7);
-            this.groupBox7.Location = new System.Drawing.Point(29, 147);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(227, 187);
-            this.groupBox7.TabIndex = 60;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "单个表导出";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.button5);
-            this.groupBox8.Controls.Add(this.button3);
-            this.groupBox8.Location = new System.Drawing.Point(277, 147);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(204, 187);
-            this.groupBox8.TabIndex = 61;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "分多个EXCEL导出";
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(28, 142);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(138, 39);
-            this.button8.TabIndex = 62;
-            this.button8.Text = "通过csv导出";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
             // 
             // FormMain
             // 
@@ -688,6 +695,8 @@
             this.tabPage4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
@@ -695,8 +704,6 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -758,5 +765,6 @@
          private System.Windows.Forms.GroupBox groupBox8;
          private System.Windows.Forms.GroupBox groupBox7;
          private System.Windows.Forms.Button button8;
+         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
      }
  }

@@ -96,6 +96,7 @@ namespace DataPie
             listBox1.Items.Clear();
             listBox2.Items.Clear();
             textBox1.Text = "";
+            toolStripStatusLabel2.Text = db.DataBase;
 
         }
 
