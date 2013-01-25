@@ -2,9 +2,7 @@ DataPie
 功能：SQL server 2008、ORACLE与ACCESS 2007数据库的导入、导出、存储过程计算，支持EXCEL2007、EXCEL2003、ACCESS2007、
 CSV文件导入数据库，支持CSV文件转EXCEL文件。
 
-下载地址：http://datapie.codeplex.com/
-
-作者：杨福来,yfl8910@qq.com
+联系方式：yfl8910@qq.com
 
 更新
 DataPieV3.5  2013年1月25日
