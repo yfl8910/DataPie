@@ -27,8 +27,10 @@ namespace DataPie
 
         private void button2_Click(object sender, EventArgs e)
         {
+            
             DataTable[] ds = UiServices.GetDataTableFromCSV(this.textBox2.Text.ToString());
-            int time = UiServices.ExportExcel(ds, "BOOK1");
+            string filename = UiServices.ShowFileDialog("BOOK1");
+            int time = UiServices.ExportExcel(ds, "BOOK1", filename);
             GC.Collect();
             toolStripStatusLabel1.Text = string.Format("执行操作时间为:{0}秒", time);
             toolStripStatusLabel1.ForeColor = Color.Red;

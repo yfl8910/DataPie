@@ -65,10 +65,11 @@ namespace DataPie
         {
             try
             {
-                int time = UiServices.ExportExcel("Sheet1", sqlText.Text.ToString());
+                string filename = UiServices.ShowFileDialog("Sheet1");
+                int time = UiServices.ExportExcel("Sheet1", sqlText.Text.ToString(), filename);
                 toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", time);
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                GC.Collect();
+                MessageBox.Show("导出成功！");
               
             }
             catch (Exception ex)
@@ -102,18 +103,6 @@ namespace DataPie
 
         }
 
-        //private static string BuildQuery(TableSchema ts)
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    sb.Append("SELECT ");
-        //    for (int i = 0; i < ts.Columns.Count; i++)
-        //    {
-        //        sb.Append("[" + ts.Columns[i].ColumnName + "]");
-        //        if (i < ts.Columns.Count - 1)
-        //            sb.Append(", ");
-        //    } 
-        //    sb.Append(" FROM " + ts.TableSchemaName + "." + "[" + ts.TableName + "]");
-        //    return sb.ToString();
-        //}
+
     }
 }

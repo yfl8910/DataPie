@@ -8,7 +8,7 @@ namespace DataPie
     static class Program
     {
 
-        //public static login log = null; 
+        
   
         /// <summary>
         /// 应用程序的主入口点。

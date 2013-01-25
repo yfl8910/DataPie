@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using Kent.Boogaart.KBCsv;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Threading.Tasks;
 
 
 namespace DataPie
@@ -72,7 +73,7 @@ namespace DataPie
             Node.Name = "存储过程";
             Node.Text = "存储过程";
             treeView2.Nodes.Add(Node);
-              IList<string>  list = db.DBProvider.GetProcInfo();
+            IList<string> list = db.DBProvider.GetProcInfo();
             foreach (string s in list)
             {
                 TreeNode tn = new TreeNode();
@@ -85,14 +86,8 @@ namespace DataPie
             treeView2.ExpandAll();
 
             IEnumerable<string> totallist = tableList.Union(viewList);
-           
-          
-            //tableList = _DBConfig.DB.GetTableInfo();
-
             comboBox1.DataSource = tableList;
-
             comboBox4.DataSource = totallist.ToList();
-
             listBox1.Items.Clear();
             listBox2.Items.Clear();
             textBox1.Text = "";
@@ -129,26 +124,83 @@ namespace DataPie
             {
                 string tname = comboBox1.Text.ToString();
                 IList<string> List = db.DBProvider.GetColumnInfo(tname);
-
-                string fName = textBox1.Text.ToString();
-                Stopwatch watch = Stopwatch.StartNew();
-                watch.Start();
-
-                DataTable dt = UiServices.GetExcelDataTable(fName, comboBox1.Text.ToString());
-                try
-                {
-                    db.DBProvider.SqlBulkCopyImport(List, comboBox1.Text.ToString(), dt);
-                    MessageBox.Show("导入成功");
-                }
-                catch (Exception ee) { throw ee; }
-
-
-                watch.Stop();
-                GC.Collect();
-                toolStripStatusLabel1.Text = string.Format("导入的时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
+                string filename = textBox1.Text.ToString();
+                toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
+                Task t = TaskImport(List, filename, tname);
             }
         }
+        //excel异步方式导入
+        public async Task TaskImport(IList<string> List, string filename, string tname)
+        {
+
+            await Task.Run(() =>
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                watch.Start();
+                try
+                {
+                    DataTable dt = UiServices.GetExcelDataTable(filename, tname);
+                    db.DBProvider.SqlBulkCopyImport(List, comboBox1.Text.ToString(), dt);
+
+                }
+                catch (Exception ee) { throw ee; }
+                watch.Stop();
+                string s = "导入成功！";
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导入成功！");
+                GC.Collect();
+            });
+
+        }
+
+
+        //csv文件夹导入
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (textBox2.Text.ToString() == "" || comboBox1.Text.ToString() == "")
+            {
+                MessageBox.Show("请选择需要导入的文件夹和导入的表名！");
+                return;
+            }
+            string path = this.textBox2.Text.ToString();
+            string tname = comboBox1.Text.ToString();
+            IList<string> List = db.DBProvider.GetColumnInfo(tname);
+            toolStripStatusLabel1.Text = "导数中…";
+            toolStripStatusLabel1.ForeColor = Color.Red;
+            Task t = TaskImportCsv(List, path, tname);
+        }
+
+        //csv异步方式导入
+        public async Task TaskImportCsv(IList<string> List, string path, string tname)
+        {
+
+            await Task.Run(() =>
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                watch.Start();
+                DataTable[] dt = UiServices.GetDataTableFromCSV(path);
+                for (int i = 0; i < dt.Count(); i++)
+                {
+                    try
+                    {
+                        db.DBProvider.SqlBulkCopyImport(List, tname, dt[i]);
+                    }
+                    catch (Exception ee)
+                    {
+                        throw ee;
+                    }
+                }
+                watch.Stop();
+                string s = "导入成功！";
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导入成功");
+                GC.Collect();
+            });
+
+        }
+
+
 
         //导出EXCEL模板文件
         private void btnTP_Click(object sender, EventArgs e)
@@ -159,11 +211,13 @@ namespace DataPie
             }
             else
             {
-               
+
                 string TableName = comboBox1.Text.ToString();
-                int time = UiServices.ExportTemplate(TableName);
+                string filename = UiServices.ShowFileDialog(TableName);
+                int time = UiServices.ExportTemplate(TableName, filename);
                 toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", time);
                 toolStripStatusLabel1.ForeColor = Color.Red;
+                MessageBox.Show("导出成功！");
             }
 
         }
@@ -196,6 +250,22 @@ namespace DataPie
             }
         }
 
+        public static string ShowFileDialog(string FileName)
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog1.Filter = "excel2007|*.xlsx";
+            saveFileDialog1.FileName = FileName;
+            saveFileDialog1.DefaultExt = ".xlsx";
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return saveFileDialog1.FileName.ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         //导出数据
         private void btnDtout_Click(object sender, EventArgs e)
         {
@@ -210,15 +280,34 @@ namespace DataPie
                 {
                     SheetNames.Add(item.ToString());
                 }
-                int time = UiServices.ExportExcel(SheetNames);
-                toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", time);
+                string filename = UiServices.ShowFileDialog(SheetNames[0]);
+                toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                GC.Collect();
-               
+                Task t = TaskExport(SheetNames, filename);
 
             }
         }
+        //异步导出EXCEL
+        public async Task TaskExport(IList<string> SheetNames, string filename)
+        {
 
+            await Task.Run(() =>
+              {
+
+                  int time = UiServices.ExportExcel(SheetNames, filename);
+                  string s = string.Format("导出的时间为:{0}秒", time);
+                  this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                  MessageBox.Show("导数已完成！");
+                  GC.Collect();
+              });
+
+        }
+
+        private void ShowMessage(object o, System.EventArgs e)
+        {
+            toolStripStatusLabel1.Text = o.ToString();
+            toolStripStatusLabel1.ForeColor = Color.Red;
+        }
 
 
         //增加导出表名
@@ -245,7 +334,7 @@ namespace DataPie
             if (listBox1.SelectedIndex < 0)
             { MessageBox.Show("请选择删除的表"); }
             else
-            { 
+            {
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
             }
 
@@ -256,7 +345,8 @@ namespace DataPie
             login log = new login();
             log.Show();
         }
-
+        
+        //请求计算事件
         private void btnProcExe_Click(object sender, EventArgs e)
         {
             if (listBox2.Items.Count < 1)
@@ -265,31 +355,40 @@ namespace DataPie
             }
             else
             {
-                Stopwatch watch = Stopwatch.StartNew();
-                watch.Start();
-                DataTable dt = new DataTable();
-                toolStripStatusLabel1.Text = "";
+                IList<string> list = new List<string>();
                 foreach (var item in listBox2.Items)
                 {
+                    list.Add(item.ToString());
+                }
+                toolStripStatusLabel1.Text = "存储过程计算中…";
+                toolStripStatusLabel1.ForeColor = Color.Red;
+                Task t = TaskProcExeute(list);
+            }
+        }
+        
+        //异步方式存储过程调用
+        public async Task TaskProcExeute(IList<string> procs)
+        {
 
+            await Task.Run(() =>
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                watch.Start();
+                string s = "";
+                foreach (var item in procs)
+                {
                     int i = db.DBProvider.RunProcedure(item.ToString());
-                    if (i > 0) 
-                    {
-                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "存储过程:[" + item.ToString() + "]运算成功！" + "\r\n"; 
-                    }
-                    else 
-                    {
-                        toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "存储过程:[" + item.ToString() + "]运算失败！" + "\r\n";
-                    }
-
+                    if (i > 0)
+                    { s = "存储过程:[" + item.ToString() + "]运算成功！" + "\r\n"; }
+                    else
+                    { s = "存储过程:[" + item.ToString() + "]运算失败！" + "\r\n"; }
                 }
                 watch.Stop();
-                toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + string.Format("请求运算时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
-                toolStripStatusLabel1.ForeColor = Color.Red;
-                GC.Collect();
-                MessageBox.Show("请求运算结束");
-
-            }
+                s = s + string.Format("请求运算时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("请求运算结束！");
+                return;
+            });
         }
 
         private void btnProcAdd_Click(object sender, EventArgs e)
@@ -385,7 +484,7 @@ namespace DataPie
         }
 
 
-  
+
         private void listBox2_DoubleClick(object sender, EventArgs e)
         {
 
@@ -398,6 +497,7 @@ namespace DataPie
             listBox1.Items.RemoveAt(listBox1.SelectedIndex);
         }
 
+        //选择csv文件夹
         private void button1_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folder = new FolderBrowserDialog();
@@ -405,39 +505,6 @@ namespace DataPie
             {
                 this.textBox2.Text = folder.SelectedPath;
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (textBox2.Text.ToString() == "" || comboBox1.Text.ToString() == "")
-            {
-                MessageBox.Show("请选择需要导入的文件夹和导入的表名！");
-                return;
-            }
-            Stopwatch watch = Stopwatch.StartNew();
-            watch.Start();
-            DataTable[] dt = UiServices.GetDataTableFromCSV(this.textBox2.Text.ToString());
-            string tname = comboBox1.Text.ToString();
-            IList<string> List = db.DBProvider.GetColumnInfo(tname);
-   
-            for (int i = 0; i < dt.Count(); i++)
-            {
-                try
-                {
-                    db.DBProvider.SqlBulkCopyImport(List, comboBox1.Text.ToString(), dt[i]);
-
-                }
-                catch (Exception ee)
-                { 
-                    throw ee;
-                }
-            }
-            
-            watch.Stop();
-            GC.Collect();
-            MessageBox.Show("导入成功");
-            toolStripStatusLabel1.Text = string.Format("导入的时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
-            toolStripStatusLabel1.ForeColor = Color.Red;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -456,22 +523,25 @@ namespace DataPie
         {
             int pagesize = int.Parse(comboBox3.Text.ToString());
             string TableName = comboBox4.Text.ToString();
-
-            int time = UiServices.ExportExcel(TableName, pagesize);
-            toolStripStatusLabel1.Text = string.Format("分页OpenXML导出的时间为:{0}秒", time);
+            string filename = UiServices.ShowFileDialog(TableName);
+            toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            GC.Collect();
+            Task t = TaskExport(TableName, filename,pagesize);
         }
 
-        /// <summary>
-        /// 分页导出excel，office组件
-        /// </summary>
-        private void button5_Click(object sender, EventArgs e)
+        //异步导出分页OpenXMLL
+        public async Task TaskExport(string TableName, string filename, int pagesize)
         {
-          int pagesize = int.Parse(comboBox3.Text.ToString());
-          int time = UiServices.ExportOfficeExcel(comboBox4.Text.ToString(), pagesize);
-          toolStripStatusLabel1.Text = string.Format("分页office组件导出的时间为:{0}秒", time);
-          toolStripStatusLabel1.ForeColor = Color.Red;
+
+            await Task.Run(() =>
+            {
+
+                int time = UiServices.ExportExcel(TableName, pagesize, filename);
+                string s = string.Format("分页OpenXML方式导出的时间为:{0}秒", time);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导数已完成！");
+                GC.Collect();
+            });
         }
 
         /// <summary>
@@ -480,24 +550,28 @@ namespace DataPie
         private void button6_Click(object sender, EventArgs e)
         {
             string TableName = comboBox4.Text.ToString();
-            int time = UiServices.ExportExcel(TableName);
-            toolStripStatusLabel1.Text = string.Format("OpenXML导出的时间为:{0}秒", time);
+            string filename = UiServices.ShowFileDialog(TableName);
+            toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            GC.Collect();
+            Task t = TaskExport(TableName, filename);
         }
 
 
-        /// <summary>
-        /// 单excel，office组件
-        /// </summary>
-        private void button7_Click(object sender, EventArgs e)
+       //异步单openXML方式导出
+        public async Task TaskExport(string TableName, string filename)
         {
-            string TableName = comboBox4.Text.ToString();
-            int time = UiServices.ExportOfficeExcel(TableName);
-            toolStripStatusLabel1.Text = string.Format("office组件导出的时间为:{0}秒", time);
-            toolStripStatusLabel1.ForeColor = Color.Red;
-            GC.Collect();
+
+            await Task.Run(() =>
+              {
+                  int time = UiServices.ExportExcel(TableName, filename);
+                  string s = string.Format("单个OpenXML方式导出的时间为:{0}秒", time);
+                  this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                  MessageBox.Show("导数已完成！");
+                  GC.Collect();
+              });
+
         }
+
 
         private void cSVtoEXCEL工具ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -505,27 +579,73 @@ namespace DataPie
             csv.Show();
         }
 
+        /// <summary>
+        /// 单个csv
+        /// </summary>
         private void button8_Click(object sender, EventArgs e)
         {
             string TableName = comboBox4.Text.ToString();
-          
-            int time = UiServices.WriteDataTableToCsv(TableName);
-            toolStripStatusLabel1.Text = string.Format("csv导出的时间为:{0}秒", time);
-            toolStripStatusLabel1.ForeColor = Color.Red;
-            GC.Collect();
+            System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog1.Filter = "csv文件|*.csv";
+            saveFileDialog1.FileName = TableName;
+            saveFileDialog1.DefaultExt = ".csv";
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK && TableName!="")
+            {
+                string filename = saveFileDialog1.FileName.ToString();
+                toolStripStatusLabel1.Text = "导数中…";
+                toolStripStatusLabel1.ForeColor = Color.Red;
+                Task t = TaskExportCsv(TableName, filename);    
+            }         
+        }
+
+        //异步单个csv导出
+        public async Task TaskExportCsv(string TableName, string filename)
+        {
+            await Task.Run(() =>
+            {
+                int time = UiServices.WriteDataTableToCsv(TableName,filename);
+                string s = string.Format("单个csv方式导出的时间为:{0}秒", time);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导数已完成！");
+                GC.Collect();
+            });
 
         }
 
 
-      
-        
+        /// <summary>
+        /// 多个csv
+        /// </summary>
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string TableName = comboBox4.Text.ToString();
+            int pagesize = int.Parse(comboBox3.Text.ToString());
+            System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog1.Filter = "csv文件|*.csv";
+            saveFileDialog1.FileName = TableName;
+            saveFileDialog1.DefaultExt = ".csv";
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK && TableName != "")
+            {
+                string filename = saveFileDialog1.FileName.ToString();
+                toolStripStatusLabel1.Text = "导数中…";
+                toolStripStatusLabel1.ForeColor = Color.Red;
+                Task t = TaskExportCsv(TableName, filename,pagesize);
+            }  
+        }
 
+        //异步分页导出csv
+        public async Task TaskExportCsv(string TableName, string filename, int pagesize)
+        {
+            await Task.Run(() =>
+            {
+                int time = UiServices.WriteDataTableToCsv(TableName, pagesize, filename);
+                string s = string.Format("分页csv方式导出的时间为:{0}秒", time);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导数已完成！");
+                GC.Collect();
+            });
 
-
-
-
-
-
+        }
 
 
 
