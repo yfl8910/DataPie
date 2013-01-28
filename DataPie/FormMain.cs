@@ -12,7 +12,6 @@ using OfficeOpenXml.Style;
 using System.Diagnostics;
 using System.IO;
 using Kent.Boogaart.KBCsv;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Threading.Tasks;
 
 
@@ -141,7 +140,7 @@ namespace DataPie
                 try
                 {
                     DataTable dt = UiServices.GetExcelDataTable(filename, tname);
-                    db.DBProvider.SqlBulkCopyImport(List, comboBox1.Text.ToString(), dt);
+                    db.DBProvider.SqlBulkCopyImport(List, tname, dt);
 
                 }
                 catch (Exception ee) { throw ee; }
@@ -283,7 +282,9 @@ namespace DataPie
                 string filename = UiServices.ShowFileDialog(SheetNames[0]);
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                Task t = TaskExport(SheetNames, filename);
+                if (filename != null) 
+                { Task t = TaskExport(SheetNames, filename); }
+                
 
             }
         }
@@ -526,7 +527,9 @@ namespace DataPie
             string filename = UiServices.ShowFileDialog(TableName);
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            Task t = TaskExport(TableName, filename,pagesize);
+            if (filename != null) 
+            { Task t = TaskExport(TableName, filename, pagesize); }
+         
         }
 
         //异步导出分页OpenXMLL
@@ -553,7 +556,9 @@ namespace DataPie
             string filename = UiServices.ShowFileDialog(TableName);
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            Task t = TaskExport(TableName, filename);
+            if (filename != null) 
+            { Task t = TaskExport(TableName, filename); }
+           
         }
 
 

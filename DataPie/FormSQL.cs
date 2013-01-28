@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace DataPie
 {
@@ -66,10 +67,9 @@ namespace DataPie
             try
             {
                 string filename = UiServices.ShowFileDialog("Sheet1");
-                int time = UiServices.ExportExcel("Sheet1", sqlText.Text.ToString(), filename);
-                toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", time);
+                toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                MessageBox.Show("导出成功！");
+                Task t = TaskExport("Sheet1", sqlText.Text.ToString(), filename);
               
             }
             catch (Exception ex)
@@ -79,6 +79,27 @@ namespace DataPie
 
 
         }
+
+        public async Task TaskExport(string TableName,string sql, string filename)
+        {
+
+            await Task.Run(() =>
+            {
+                int time = UiServices.ExportExcel("Sheet1", sql, filename);
+                string s = string.Format("单个OpenXML方式导出的时间为:{0}秒", time);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导数已完成！");
+                GC.Collect();
+            });
+
+        }
+
+        private void ShowMessage(object o, System.EventArgs e)
+        {
+            toolStripStatusLabel1.Text = o.ToString();
+            toolStripStatusLabel1.ForeColor = Color.Red;
+        }
+
 
         private void toolStripButton2_Click_1(object sender, EventArgs e)
         {

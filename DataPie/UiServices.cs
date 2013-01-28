@@ -11,7 +11,7 @@ using OfficeOpenXml.Style;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Kent.Boogaart.KBCsv;
-using Excel = Microsoft.Office.Interop.Excel;
+
 
 namespace DataPie
 {
@@ -535,9 +535,12 @@ namespace DataPie
             { 
                 try
                 {
+                    Stopwatch watch = Stopwatch.StartNew();
+                    watch.Start();
                     DataTable dt = UiServices.GetDataTableFromName(TabelName);
-                    int i = SaveCsv(dt, FileName);                 
-                    return i;
+                     SaveCsv(dt, FileName);
+                    watch.Stop();
+                    return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
                 }
                 catch (Exception ex)
                 {
@@ -563,7 +566,7 @@ namespace DataPie
                 string sql = "select * from  [" + TabelName + "]";
                 int Count = (RecordCount - 1) / PageSize + 1;
                 FileInfo newFile = new FileInfo(FileName);
-                int sum = 0;
+               
                 for (int i = 1; i <= Count; i++)
                 {
                     string s = FileName.Substring(0, FileName.LastIndexOf("."));
@@ -577,12 +580,12 @@ namespace DataPie
                     }
 
                     DataTable dt = db.DBProvider.ReturnDataTable(sql, PageSize * (i - 1), PageSize);
-                    sum = +SaveCsv(dt, newfileName.ToString());
+                   SaveCsv(dt, newfileName.ToString());
 
                 }
                 watch.Stop();
-               
-                return sum;
+
+                return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
 
