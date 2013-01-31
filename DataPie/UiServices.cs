@@ -479,6 +479,7 @@ namespace DataPie
 
         #region 从DataTable导出到csv文件表
 
+        public static char quote = '"';
         public static int SaveCsv(DataTable dt, string filename)
         {
             Stopwatch watch = Stopwatch.StartNew();
@@ -494,7 +495,16 @@ namespace DataPie
             {
                 for (int j = 0; j < dt.Columns.Count; j++)
                 {
-                    sw.Write(dt.Rows[i][j].ToString() + ",");
+                    if (dt.Rows[i][j].ToString().Contains(quote))
+                    {
+                        string field = dt.Rows[i][j].ToString();
+                        field = field.Replace(quote.ToString(), string.Concat(quote, quote));
+                        sw.Write(quote.ToString() + field + quote.ToString() + ",");
+                    }
+                    else
+                    {
+                        sw.Write(quote.ToString() + dt.Rows[i][j].ToString() + quote.ToString() + ",");
+                    }
                 }
                 sw.Write(Environment.NewLine);//每写一行数据后换行
             }
