@@ -143,14 +143,26 @@ namespace DataPie
                     db.DBProvider.SqlBulkCopyImport(List, tname, dt);
 
                 }
-                catch (Exception ee) { throw ee; }
+                catch (Exception ee)
+                {
+                    this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                    return;
+                }
                 watch.Stop();
-                string s = "导入成功！";
+                string s = "导入成功！ 使用时间：" + watch.ElapsedMilliseconds / 1000+"秒";
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导入成功！");
                 GC.Collect();
             });
 
+        }
+
+        private void ShowErr(object o, System.EventArgs e)
+        {
+           toolStripStatusLabel1.Text = "发生错误！";
+           toolStripStatusLabel1.ForeColor = Color.Red;
+            Exception ee = o as Exception;
+            throw ee;
         }
 
 
@@ -178,7 +190,7 @@ namespace DataPie
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
-                DataTable[] dt = UiServices.GetDataTableFromCSV(path);
+                DataTable[] dt = UiServices.GetDataTableFromCSV(path,false);
                 for (int i = 0; i < dt.Count(); i++)
                 {
                     try
@@ -288,6 +300,9 @@ namespace DataPie
 
             }
         }
+
+
+
         //异步导出EXCEL
         public async Task TaskExport(IList<string> SheetNames, string filename)
         {
@@ -295,12 +310,25 @@ namespace DataPie
             await Task.Run(() =>
               {
 
-                  int time = UiServices.ExportExcel(SheetNames, filename);
-                  string s = string.Format("导出的时间为:{0}秒", time);
-                  this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                  MessageBox.Show("导数已完成！");
-                  GC.Collect();
+                  try
+                  {
+                      int time = UiServices.ExportExcel(SheetNames, filename);
+                      string s = string.Format("导出的时间为:{0}秒", time);
+                      this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                      MessageBox.Show("导数已完成！");
+                      GC.Collect();
+
+                  }
+                  catch (Exception ee)
+                  {  
+                      this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                      return;
+                  }
+                 
               });
+
+
+
 
         }
 

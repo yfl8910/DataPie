@@ -370,7 +370,7 @@ namespace DataPie
         }
 
         /// <summary>
-        /// 多个dt出到一个excel工作簿
+        /// 多个dt导出到一个sheet
         /// </summary>
         public static int ExportExcel(DataTable[] ds, string SheetName,  string filename)
         {
@@ -415,6 +415,51 @@ namespace DataPie
 
         }
 
+        /// <summary>
+        /// 多个dt导出多个sheet
+        /// </summary>
+        public static int ExportExcel(DataTable[] ds, string filename)
+        {
+
+
+            if (filename != null)
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                watch.Start();
+                FileInfo newFile = new FileInfo(filename);
+                if (newFile.Exists)
+                {
+                    newFile.Delete();
+                    newFile = new FileInfo(filename);
+                }
+                using (ExcelPackage package = new ExcelPackage(newFile))
+                {
+                    int num = ds.Count();
+                    //int pagesize = ds[0].Rows.Count;
+
+                    for (int i = 0; i < num; i++)
+                    {
+                        try
+                        {
+                            ExcelWorksheet ws = package.Workbook.Worksheets.Add(ds[i].TableName.ToString());
+                            ws.Cells["A1"].LoadFromDataTable(ds[i], true);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                    package.Save();
+                }
+                watch.Stop();
+                //MessageBox.Show("导出成功");
+                return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
+            }
+            return -1;
+
+        }
+
 
         #endregion
 
@@ -440,9 +485,9 @@ namespace DataPie
 
         #region 从csv文件夹获取DataTable集合
 
-        public static DataTable[] GetDataTableFromCSV(string DirectoryPath)
+        public static DataTable[] GetDataTableFromCSV(string DirectoryPath,bool rec)
         {
-            List<FileInfo> fileList = FileManager.FileList(DirectoryPath);
+            List<FileInfo> fileList = FileManager.FileList(DirectoryPath,rec);
             List<FileInfo> files = new List<FileInfo>();
             int n = 0;
             foreach (FileInfo f in fileList)
@@ -461,7 +506,8 @@ namespace DataPie
                     CsvReader r = new CsvReader(files[i].FullName);
                     r.ReadHeaderRecord();
                     System.Data.DataSet ds = new System.Data.DataSet();
-                    string tablename = "tb";
+                    //string tablename = "tb";
+                    string tablename = files[i].Name.Substring(0, files[i].Name.LastIndexOf("."));
                     int num = r.Fill(ds, tablename);
                     dt[i] = ds.Tables[0];
                 }

@@ -110,6 +110,8 @@
             this.dbTreeView.Size = new System.Drawing.Size(279, 586);
             this.dbTreeView.TabIndex = 1;
             this.dbTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.dbTreeView_AfterSelect);
+            this.dbTreeView.DoubleClick += new System.EventHandler(this.dbTreeView_DoubleClick);
+            this.dbTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dbTreeView_MouseDown);
             // 
             // splitContainer2
             // 

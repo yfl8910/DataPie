@@ -14,6 +14,7 @@ namespace DataPie
     public partial class FormSQL : Form
     {
         public static DBConfig _DBConfig;
+        private Point pi;
         public FormSQL()
         {
             InitializeComponent();
@@ -56,6 +57,48 @@ namespace DataPie
         {
 
         }
+        private void dbTreeView_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            pi = new Point(e.X, e.Y);
+        }
+
+        private void dbTreeView_DoubleClick(object sender, System.EventArgs e)
+        {
+            TreeNode node = this.dbTreeView.GetNodeAt(pi);
+            if (pi.X < node.Bounds.Left || pi.X > node.Bounds.Right)
+            {
+                //不触发事件   
+                return;
+            }
+            else
+            {
+                int i = dbTreeView.SelectedNode.GetNodeCount(false);
+                string tablename = dbTreeView.SelectedNode.Text.ToString();
+                if (i > 0 && tablename != "所有表：")
+                {
+                  IList<string> col = _DBConfig.DBProvider.GetColumnInfo(tablename);
+                  string sql=  BuildQuery(col,tablename);
+                  sqlText.Text = sql;
+                }
+                    
+            }
+        }
+
+        private static string BuildQuery(IList<string> col,string tablename)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT ");
+            sb.Append("\r\n");
+            for (int i = 0; i < col.Count; i++)
+            {
+                sb.Append("[" + col[i] + "]");
+                if (i < col.Count - 1)
+                    sb.Append(", ");
+                sb.Append("\r\n");
+            }
+            sb.Append("FROM " + "[" + tablename + "]");
+            return sb.ToString();
+        }
 
         private void FormSQL_Load(object sender, EventArgs e)
         {
@@ -86,9 +129,9 @@ namespace DataPie
             await Task.Run(() =>
             {
                 int time = UiServices.ExportExcel("Sheet1", sql, filename);
-                string s = string.Format("单个OpenXML方式导出的时间为:{0}秒", time);
+                string s = string.Format("导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             });
 

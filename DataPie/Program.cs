@@ -33,8 +33,6 @@ namespace DataPie
             {
 
                 Application.EnableVisualStyles();
-                //Application.SetCompatibleTextRenderingDefault(false);
-                //log = new login();
                 Application.Run(new login());
             }
         }
