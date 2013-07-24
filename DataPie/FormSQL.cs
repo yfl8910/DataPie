@@ -167,6 +167,42 @@ namespace DataPie
 
         }
 
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+                saveFileDialog1.Filter = "csv文件|*.csv";
+                saveFileDialog1.FileName = "out";
+                saveFileDialog1.DefaultExt = ".csv";
+                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string filename = saveFileDialog1.FileName.ToString();
+                    toolStripStatusLabel1.Text = "导数中…";
+                    toolStripStatusLabel1.ForeColor = Color.Red;
+                    Task t = WriteCsvFromsql(sqlText.Text.ToString(), filename);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task WriteCsvFromsql(string sql, string filename)
+        {
+            await Task.Run(() =>
+            {
+                int time = UiServices.WriteCsvFromsql(sql, filename);
+                string s = string.Format("单个csv方式导出的时间为:{0}秒", time);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导数已完成！");
+                GC.Collect();
+            });
+
+        }
+
 
     }
 }

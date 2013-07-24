@@ -648,6 +648,71 @@ namespace DataPie
 
         }
 
+        /// <summary>
+        /// 多个数据库表格导出到多个csv
+        /// </summary>
+        public static int ExportMuticsv(IList<string> TabelNames, string filename)
+        {
+            //string filename = ShowFileDialog(TabelNames[0]);
+
+            if (filename != null)
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                watch.Start();
+                IList<string> sqls = new List<string>();
+                IList<string> SheetNames = new List<string>();
+                foreach (var item in TabelNames)
+                {
+                    SheetNames.Add(item.ToString());
+                    sqls.Add("select * from  [" + item.ToString() + "]");
+                }
+                DataTable dt = new DataTable();
+
+
+                for (int i = 0; i < sqls.Count; i++)
+                {
+                    string s = filename.Substring(0, filename.LastIndexOf("\\"));
+                    StringBuilder newfileName = new StringBuilder(s);
+                    newfileName.Append("\\" + SheetNames[i] + ".csv");
+                    FileInfo newFile = new FileInfo(newfileName.ToString());
+                    if (newFile.Exists)
+                    {
+                        newFile.Delete();
+                        newFile = new FileInfo(newfileName.ToString());
+                    }
+                    dt = db.DBProvider.ReturnDataTable(sqls[i]);
+                    SaveCsv(dt, newFile.FullName);
+
+                }
+
+                watch.Stop();
+                return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
+            }
+
+            return -1;
+        }
+
+
+
+        public static int WriteCsvFromsql(string sql, string filename)
+        {
+
+            try
+            {
+                DataTable dt = UiServices.GetDataTableFromSQL(sql);
+                int i = SaveCsv(dt, filename);
+                return i;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return -1;
+
+        }
+
+
         #endregion
 
 

@@ -82,6 +82,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button7 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -298,6 +299,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.btnDtout);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -362,9 +364,9 @@
             // 
             // btnDtout
             // 
-            this.btnDtout.Location = new System.Drawing.Point(459, 396);
+            this.btnDtout.Location = new System.Drawing.Point(493, 395);
             this.btnDtout.Name = "btnDtout";
-            this.btnDtout.Size = new System.Drawing.Size(150, 48);
+            this.btnDtout.Size = new System.Drawing.Size(135, 48);
             this.btnDtout.TabIndex = 39;
             this.btnDtout.Text = "单个EXCEL导出";
             this.btnDtout.UseVisualStyleBackColor = true;
@@ -659,6 +661,16 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
             this.toolStripStatusLabel1.Text = "提示信息：";
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(322, 395);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(140, 48);
+            this.button7.TabIndex = 42;
+            this.button7.Text = "多个csv导出";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -759,5 +771,6 @@
          private System.Windows.Forms.Button button8;
          private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
          private System.Windows.Forms.Button button5;
+         private System.Windows.Forms.Button button7;
      }
  }

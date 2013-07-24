@@ -404,21 +404,35 @@ namespace DataPie
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
                 string s = "";
-                foreach (var item in procs)
+                try
                 {
-                    int i = db.DBProvider.RunProcedure(item.ToString());
-                    if (i > 0)
-                    { s = "存储过程:[" + item.ToString() + "]运算成功！" + "\r\n"; }
-                    else
-                    { s = "存储过程:[" + item.ToString() + "]运算失败！" + "\r\n"; }
+
+                    foreach (var item in procs)
+                    {
+                        int i = db.DBProvider.RunProcedure(item.ToString());
+                        if (i > 0)
+                        { s = "存储过程:[" + item.ToString() + "]运算成功！" + "\r\n"; }
+                        else
+                        { s = "存储过程:[" + item.ToString() + "]运算失败！" + "\r\n"; }
+                    }
+
+
                 }
+                catch (Exception ee)
+                {
+                    this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                    return;
+                }
+
                 watch.Stop();
+
                 s = s + string.Format("请求运算时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("请求运算结束！");
                 return;
             });
         }
+
 
         private void btnProcAdd_Click(object sender, EventArgs e)
         {
@@ -677,6 +691,65 @@ namespace DataPie
                 MessageBox.Show("导数已完成！");
                 GC.Collect();
             });
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count < 1)
+            {
+                MessageBox.Show("请选择需要导入的表名！");
+            }
+            else
+            {
+                IList<string> SheetNames = new List<string>();
+                foreach (var item in listBox1.Items)
+                {
+                    SheetNames.Add(item.ToString());
+                }
+
+
+                System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+                saveFileDialog1.Filter = "csv文件|*.csv";
+                saveFileDialog1.FileName = "output";
+                saveFileDialog1.DefaultExt = ".csv";
+                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string filename = saveFileDialog1.FileName.ToString();
+                    toolStripStatusLabel1.Text = "导数中…";
+                    toolStripStatusLabel1.ForeColor = Color.Red;
+                    Task t = TaskExportMuticsv(SheetNames, filename);
+                }
+
+
+            }
+        }
+        //异步导出多csv
+        public async Task TaskExportMuticsv(IList<string> SheetNames, string filename)
+        {
+
+            await Task.Run(() =>
+            {
+
+                try
+                {
+                    int time = UiServices.ExportMuticsv(SheetNames, filename);
+                    string s = string.Format("导出的时间为:{0}秒", time);
+                    this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                    MessageBox.Show("导数已完成！");
+                    GC.Collect();
+
+                }
+                catch (Exception ee)
+                {
+                    this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                    return;
+                }
+
+            });
+
+
+
 
         }
 
