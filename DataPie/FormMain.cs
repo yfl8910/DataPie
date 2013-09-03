@@ -86,6 +86,7 @@ namespace DataPie
 
             IEnumerable<string> totallist = tableList.Union(viewList);
             comboBox1.DataSource = tableList;
+            comboBox2.DataSource = tableList;
             comboBox4.DataSource = totallist.ToList();
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -183,6 +184,34 @@ namespace DataPie
         }
 
         //csv异步方式导入
+        //public async Task TaskImportCsv(IList<string> List, string path, string tname)
+        //{
+
+        //    await Task.Run(() =>
+        //    {
+        //        Stopwatch watch = Stopwatch.StartNew();
+        //        watch.Start();
+        //        DataTable[] dt = UiServices.GetDataTableFromCSV(path,false);
+        //        for (int i = 0; i < dt.Count(); i++)
+        //        {
+        //            try
+        //            {
+        //                db.DBProvider.SqlBulkCopyImport(List, tname, dt[i]);
+        //            }
+        //            catch (Exception ee)
+        //            {
+        //                this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+        //                return;
+        //            }
+        //        }
+        //        watch.Stop();
+        //        string s = "导入成功！";
+        //        this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+        //        MessageBox.Show("导入成功");
+        //        GC.Collect();
+        //    });
+
+        //}
         public async Task TaskImportCsv(IList<string> List, string path, string tname)
         {
 
@@ -190,16 +219,18 @@ namespace DataPie
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
-                DataTable[] dt = UiServices.GetDataTableFromCSV(path,false);
-                for (int i = 0; i < dt.Count(); i++)
+                List<FileInfo> filelist = UiServices.GetFilelist(path, false);
+                for (int i = 0; i < filelist.Count(); i++)
                 {
                     try
-                    {
-                        db.DBProvider.SqlBulkCopyImport(List, tname, dt[i]);
+                    {   
+                        DataTable dt = UiServices.GetDataTableFromfile(filelist[i]);
+                        db.DBProvider.SqlBulkCopyImport(List, tname, dt);
                     }
                     catch (Exception ee)
                     {
-                        throw ee;
+                        this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                        return;
                     }
                 }
                 watch.Stop();
@@ -210,7 +241,6 @@ namespace DataPie
             });
 
         }
-
 
 
         //导出EXCEL模板文件
@@ -750,6 +780,50 @@ namespace DataPie
 
 
 
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string tbname = comboBox2.Text.ToString();
+            string colname = comboBox5.Text.ToString();
+            string csql = " select distinct " + colname  + " from " +tbname;
+            string sql = " select * from  " + tbname + " where  " +  colname  + " = ";
+
+            IList<string> clums = new List<string>();
+            DataTable dt = UiServices.GetDataTableFromSQL(csql);
+            int num = dt.Rows.Count;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow _DataRowItem in dt.Rows)
+                {
+                    clums.Add(_DataRowItem[colname].ToString());
+                }
+            }
+            string filename = UiServices.ShowFileDialog(tbname);
+            Stopwatch watch = Stopwatch.StartNew();
+            watch.Start();
+            foreach (var a in clums)
+            {
+
+                string savepath = filename.Remove(filename.LastIndexOf('.')) + '_' + a + ".xlsx";
+
+                DataTable dt1 = UiServices.GetDataTableFromSQL(sql + "'" + a + "'");
+                UiServices.SaveExcel(savepath, dt1, "sheet1");
+
+            }
+            watch.Stop();
+            toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
+            toolStripStatusLabel1.ForeColor = Color.Red;
+            MessageBox.Show("导出成功");
+            GC.Collect();
+        }
+   
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            IList<string> List = db.DBProvider.GetColumnInfo(comboBox2.Text.ToString());
+            comboBox5.DataSource = List;
 
         }
 

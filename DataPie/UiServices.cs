@@ -692,7 +692,7 @@ namespace DataPie
             return -1;
         }
 
-
+     
 
         public static int WriteCsvFromsql(string sql, string filename)
         {
@@ -712,6 +712,52 @@ namespace DataPie
 
         }
 
+
+        #endregion
+
+        #region 读取文件到dt
+
+        public static DataTable GetDataTableFromfile(FileInfo file)
+        {
+
+
+            DataTable dt = new DataTable();
+            CsvReader r = new CsvReader(file.FullName);
+            r.ReadHeaderRecord();
+            System.Data.DataSet ds = new System.Data.DataSet();
+            string tablename = file.Name.Substring(0, file.Name.LastIndexOf("."));
+            int num = r.Fill(ds, tablename);
+            return ds.Tables[0];
+        }
+
+        #endregion
+
+        #region 从文件夹获取csv文件
+
+        public static List<FileInfo> GetFilelist(string DirectoryPath, bool rec)
+        {
+            List<FileInfo> fileList = FileManager.FileList(DirectoryPath, rec);
+            List<FileInfo> files = new List<FileInfo>();
+            int n = 0;
+            foreach (FileInfo f in fileList)
+            {
+                if (f.Extension == ".csv")
+                {
+                    n++;
+                    files.Add(f);
+                }
+            }
+            if (n > 0)
+            {
+                return files;
+            }
+            else
+            {
+                return null;
+            }
+
+
+        }
 
         #endregion
 

@@ -47,6 +47,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnDeleteOne = new System.Windows.Forms.Button();
             this.btnAddOne = new System.Windows.Forms.Button();
@@ -82,7 +83,12 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button7 = new System.Windows.Forms.Button();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.button9 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -102,6 +108,7 @@
             this.tabPage5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnTP
@@ -192,6 +199,7 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Location = new System.Drawing.Point(26, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -309,6 +317,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "数据导出(支持多表)";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(322, 395);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(140, 48);
+            this.button7.TabIndex = 42;
+            this.button7.Text = "多个csv导出";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // groupBox2
             // 
@@ -661,15 +679,68 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
             this.toolStripStatusLabel1.Text = "提示信息：";
             // 
-            // button7
+            // tabPage8
             // 
-            this.button7.Location = new System.Drawing.Point(322, 395);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(140, 48);
-            this.button7.TabIndex = 42;
-            this.button7.Text = "多个csv导出";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.tabPage8.Controls.Add(this.comboBox5);
+            this.tabPage8.Controls.Add(this.comboBox2);
+            this.tabPage8.Controls.Add(this.button10);
+            this.tabPage8.Controls.Add(this.label1);
+            this.tabPage8.Controls.Add(this.button9);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(772, 462);
+            this.tabPage8.TabIndex = 5;
+            this.tabPage8.Text = "数据分拆";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(300, 199);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(116, 45);
+            this.button9.TabIndex = 0;
+            this.button9.Text = "导出";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(124, 73);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 16);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "表名:";
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(116, 117);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(81, 35);
+            this.button10.TabIndex = 2;
+            this.button10.Text = "选择表名";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(233, 73);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(183, 24);
+            this.comboBox2.TabIndex = 3;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(233, 121);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(183, 24);
+            this.comboBox5.TabIndex = 4;
             // 
             // FormMain
             // 
@@ -710,6 +781,8 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -772,5 +845,11 @@
          private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
          private System.Windows.Forms.Button button5;
          private System.Windows.Forms.Button button7;
+         private System.Windows.Forms.TabPage tabPage8;
+         private System.Windows.Forms.ComboBox comboBox5;
+         private System.Windows.Forms.ComboBox comboBox2;
+         private System.Windows.Forms.Button button10;
+         private System.Windows.Forms.Label label1;
+         private System.Windows.Forms.Button button9;
      }
  }
