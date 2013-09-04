@@ -75,20 +75,21 @@
             this.treeView2 = new System.Windows.Forms.TreeView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSVtoEXCEL工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.button9 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -106,9 +107,10 @@
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage8.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.tabPage8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnTP
@@ -616,12 +618,61 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.groupBox9);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(772, 462);
+            this.tabPage8.TabIndex = 5;
+            this.tabPage8.Text = "数据分拆";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(140, 117);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(183, 24);
+            this.comboBox5.TabIndex = 4;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(140, 54);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(183, 24);
+            this.comboBox2.TabIndex = 3;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(14, 54);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 16);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "表名选择:";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(261, 177);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(116, 45);
+            this.button9.TabIndex = 0;
+            this.button9.Text = "导出";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.登陆ToolStripMenuItem,
             this.cSVtoEXCEL工具ToolStripMenuItem,
-            this.关于ToolStripMenuItem,
             this.退出ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -642,13 +693,6 @@
             this.cSVtoEXCEL工具ToolStripMenuItem.Size = new System.Drawing.Size(115, 21);
             this.cSVtoEXCEL工具ToolStripMenuItem.Text = "CSVtoEXCEL工具";
             this.cSVtoEXCEL工具ToolStripMenuItem.Click += new System.EventHandler(this.cSVtoEXCEL工具ToolStripMenuItem_Click);
-            // 
-            // 关于ToolStripMenuItem
-            // 
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.关于ToolStripMenuItem.Text = "关于";
-            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
@@ -679,74 +723,45 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
             this.toolStripStatusLabel1.Text = "提示信息：";
             // 
-            // tabPage8
+            // label5
             // 
-            this.tabPage8.Controls.Add(this.comboBox5);
-            this.tabPage8.Controls.Add(this.comboBox2);
-            this.tabPage8.Controls.Add(this.button10);
-            this.tabPage8.Controls.Add(this.label1);
-            this.tabPage8.Controls.Add(this.button9);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(772, 462);
-            this.tabPage8.TabIndex = 5;
-            this.tabPage8.Text = "数据分拆";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(14, 117);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(88, 16);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "列名选择：";
             // 
-            // button9
+            // groupBox9
             // 
-            this.button9.Location = new System.Drawing.Point(300, 199);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(116, 45);
-            this.button9.TabIndex = 0;
-            this.button9.Text = "导出";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.groupBox9.Controls.Add(this.label1);
+            this.groupBox9.Controls.Add(this.label5);
+            this.groupBox9.Controls.Add(this.button9);
+            this.groupBox9.Controls.Add(this.comboBox5);
+            this.groupBox9.Controls.Add(this.comboBox2);
+            this.groupBox9.Location = new System.Drawing.Point(138, 54);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(406, 238);
+            this.groupBox9.TabIndex = 6;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "数据分拆";
             // 
-            // label1
+            // label6
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(124, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "表名:";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(116, 117);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(81, 35);
-            this.button10.TabIndex = 2;
-            this.button10.Text = "选择表名";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(233, 73);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(183, 24);
-            this.comboBox2.TabIndex = 3;
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(233, 121);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(183, 24);
-            this.comboBox5.TabIndex = 4;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(732, 557);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 12);
+            this.label6.TabIndex = 50;
+            this.label6.Text = "杨福来 @ 2013";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(836, 574);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
@@ -777,12 +792,13 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage8.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -815,7 +831,6 @@
          private System.Windows.Forms.Button btnProcAdd;
          private System.Windows.Forms.ListBox listBox2;
          private System.Windows.Forms.TreeView treeView2;
-         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
          private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
          private System.Windows.Forms.TabPage tabPage4;
          private System.Windows.Forms.GroupBox groupBox4;
@@ -848,8 +863,10 @@
          private System.Windows.Forms.TabPage tabPage8;
          private System.Windows.Forms.ComboBox comboBox5;
          private System.Windows.Forms.ComboBox comboBox2;
-         private System.Windows.Forms.Button button10;
          private System.Windows.Forms.Label label1;
          private System.Windows.Forms.Button button9;
+         private System.Windows.Forms.Label label5;
+         private System.Windows.Forms.GroupBox groupBox9;
+         private System.Windows.Forms.Label label6;
      }
  }

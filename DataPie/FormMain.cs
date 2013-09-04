@@ -84,9 +84,9 @@ namespace DataPie
             treeView1.ExpandAll();
             treeView2.ExpandAll();
 
-            IEnumerable<string> totallist = tableList.Union(viewList);
+            IEnumerable<string> totallist = tableList.Union(new List<string> { "============" }).Union(viewList);
             comboBox1.DataSource = tableList;
-            comboBox2.DataSource = tableList;
+            comboBox2.DataSource = totallist.ToList();
             comboBox4.DataSource = totallist.ToList();
             listBox1.Items.Clear();
             listBox2.Items.Clear();
@@ -234,7 +234,7 @@ namespace DataPie
                     }
                 }
                 watch.Stop();
-                string s = "导入成功！";
+                string s = "导入成功！ 使用时间：" + watch.ElapsedMilliseconds / 1000 + "秒";
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导入成功");
                 GC.Collect();
@@ -786,9 +786,9 @@ namespace DataPie
         private void button9_Click(object sender, EventArgs e)
         {
             string tbname = comboBox2.Text.ToString();
-            string colname = comboBox5.Text.ToString();
-            string csql = " select distinct " + colname  + " from " +tbname;
-            string sql = " select * from  " + tbname + " where  " +  colname  + " = ";
+            string colname = comboBox5.Text.ToString();   
+            string csql = " select distinct " + "[" + colname + "]" + " from " + "[" + tbname + "]";
+            string sql = " select * from  " + "[" + tbname + "]" + " where  " + "[" + colname + "]" + " = ";
 
             IList<string> clums = new List<string>();
             DataTable dt = UiServices.GetDataTableFromSQL(csql);
@@ -820,11 +820,17 @@ namespace DataPie
         }
    
 
-        private void button10_Click(object sender, EventArgs e)
+     
+         private void getcolumn()
         {
             IList<string> List = db.DBProvider.GetColumnInfo(comboBox2.Text.ToString());
             comboBox5.DataSource = List;
 
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            getcolumn();
         }
 
 

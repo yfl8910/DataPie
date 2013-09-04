@@ -21,6 +21,14 @@ namespace DataPie
 
         public login()
         {
+            DateTime dt = new DateTime(2015, 1, 1);
+            if (DateTime.Now > dt)
+            {
+                MessageBox.Show(" 该版本已经太旧了 \r\n 请联系作者更换新版本 \r\n 邮箱：yfl8910@qq.com ");
+
+                Application.Exit();
+                System.Environment.Exit(0);
+            }
             InitializeComponent();
         }
         //测试连接
@@ -284,7 +292,9 @@ namespace DataPie
                 sb.Append(";Initial Catalog=" + db.DataBase + " ; ");
                 if (db.ValidataType == "Windows身份认证")
                 {
-                    sb.Append("Integrated Security=SSPI;");
+                    //sb.Append("Integrated Security=SSPI;");
+                    sb.Append("Integrated Security=SSPI;Connect Timeout=10000");
+
                 }
                 else
                 {
