@@ -150,7 +150,7 @@ namespace DataPie
                     return;
                 }
                 watch.Stop();
-                string s = "导入成功！ 使用时间：" + watch.ElapsedMilliseconds / 1000+"秒";
+                string s = "导入成功！ 使用时间：" + watch.ElapsedMilliseconds / 1000 + "秒";
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导入成功！");
                 GC.Collect();
@@ -160,8 +160,8 @@ namespace DataPie
 
         private void ShowErr(object o, System.EventArgs e)
         {
-           toolStripStatusLabel1.Text = "发生错误！";
-           toolStripStatusLabel1.ForeColor = Color.Red;
+            toolStripStatusLabel1.Text = "发生错误！";
+            toolStripStatusLabel1.ForeColor = Color.Red;
             Exception ee = o as Exception;
             throw ee;
         }
@@ -223,7 +223,9 @@ namespace DataPie
                 for (int i = 0; i < filelist.Count(); i++)
                 {
                     try
-                    {   
+                    {
+                        string m = "正在导入第 " + (i + 1) + " 个文件：" + filelist[i].ToString();
+                        this.BeginInvoke(new System.EventHandler(ShowMessage), m);
                         DataTable dt = UiServices.GetDataTableFromfile(filelist[i]);
                         db.DBProvider.SqlBulkCopyImport(List, tname, dt);
                     }
@@ -274,6 +276,9 @@ namespace DataPie
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
+                toolStripStatusLabel1.Text = "删除数据中…";
+                toolStripStatusLabel1.ForeColor = Color.Red;
+
                 string tname = comboBox1.Text.ToString();
                 int num = db.DBProvider.ExecuteSql("delete  from  " + tname);
                 watch.Stop();
@@ -324,9 +329,9 @@ namespace DataPie
                 string filename = UiServices.ShowFileDialog(SheetNames[0]);
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                if (filename != null) 
+                if (filename != null)
                 { Task t = TaskExport(SheetNames, filename); }
-                
+
 
             }
         }
@@ -350,11 +355,11 @@ namespace DataPie
 
                   }
                   catch (Exception ee)
-                  {  
+                  {
                       this.BeginInvoke(new System.EventHandler(ShowErr), ee);
                       return;
                   }
-                 
+
               });
 
 
@@ -404,7 +409,7 @@ namespace DataPie
             login log = new login();
             log.Show();
         }
-        
+
         //请求计算事件
         private void btnProcExe_Click(object sender, EventArgs e)
         {
@@ -424,7 +429,7 @@ namespace DataPie
                 Task t = TaskProcExeute(list);
             }
         }
-        
+
         //异步方式存储过程调用
         public async Task TaskProcExeute(IList<string> procs)
         {
@@ -599,9 +604,9 @@ namespace DataPie
             string filename = UiServices.ShowFileDialog(TableName);
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            if (filename != null) 
+            if (filename != null)
             { Task t = TaskExport(TableName, filename, pagesize); }
-         
+
         }
 
         //异步导出分页OpenXMLL
@@ -628,13 +633,13 @@ namespace DataPie
             string filename = UiServices.ShowFileDialog(TableName);
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            if (filename != null) 
+            if (filename != null)
             { Task t = TaskExport(TableName, filename); }
-           
+
         }
 
 
-       //异步单openXML方式导出
+        //异步单openXML方式导出
         public async Task TaskExport(string TableName, string filename)
         {
 
@@ -666,13 +671,13 @@ namespace DataPie
             saveFileDialog1.Filter = "csv文件|*.csv";
             saveFileDialog1.FileName = TableName;
             saveFileDialog1.DefaultExt = ".csv";
-            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK && TableName!="")
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK && TableName != "")
             {
                 string filename = saveFileDialog1.FileName.ToString();
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                Task t = TaskExportCsv(TableName, filename);    
-            }         
+                Task t = TaskExportCsv(TableName, filename);
+            }
         }
 
         //异步单个csv导出
@@ -680,7 +685,7 @@ namespace DataPie
         {
             await Task.Run(() =>
             {
-                int time = UiServices.WriteDataTableToCsv(TableName,filename);
+                int time = UiServices.WriteDataTableToCsv(TableName, filename);
                 string s = string.Format("单个csv方式导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导数已完成！");
@@ -706,8 +711,8 @@ namespace DataPie
                 string filename = saveFileDialog1.FileName.ToString();
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                Task t = TaskExportCsv(TableName, filename,pagesize);
-            }  
+                Task t = TaskExportCsv(TableName, filename, pagesize);
+            }
         }
 
         //异步分页导出csv
@@ -786,7 +791,7 @@ namespace DataPie
         private void button9_Click(object sender, EventArgs e)
         {
             string tbname = comboBox2.Text.ToString();
-            string colname = comboBox5.Text.ToString();   
+            string colname = comboBox5.Text.ToString();
             string csql = " select distinct " + "[" + colname + "]" + " from " + "[" + tbname + "]";
             string sql = " select * from  " + "[" + tbname + "]" + " where  " + "[" + colname + "]" + " = ";
 
@@ -818,10 +823,10 @@ namespace DataPie
             MessageBox.Show("导出成功");
             GC.Collect();
         }
-   
 
-     
-         private void getcolumn()
+
+
+        private void getcolumn()
         {
             IList<string> List = db.DBProvider.GetColumnInfo(comboBox2.Text.ToString());
             comboBox5.DataSource = List;
@@ -831,6 +836,53 @@ namespace DataPie
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             getcolumn();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string tbname = comboBox2.Text.ToString();
+            string colname = comboBox5.Text.ToString();
+            string csql = " select distinct " + "[" + colname + "]" + " from " + "[" + tbname + "]";
+            string sql = " select * from  " + "[" + tbname + "]" + " where  " + "[" + colname + "]" + " = ";
+
+            IList<string> clums = new List<string>();
+            DataTable dt = UiServices.GetDataTableFromSQL(csql);
+            int num = dt.Rows.Count;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow _DataRowItem in dt.Rows)
+                {
+                    clums.Add(_DataRowItem[colname].ToString());
+                }
+            }
+
+            string filename = "";
+            System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog1.Filter = "CSV|*.csv";
+            saveFileDialog1.FileName = tbname;
+            saveFileDialog1.DefaultExt = ".csv";
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                filename = saveFileDialog1.FileName.ToString();
+            }
+            else { return; }
+            //string filename = UiServices.ShowFileDialog(tbname);
+            Stopwatch watch = Stopwatch.StartNew();
+            watch.Start();
+            foreach (var a in clums)
+            {
+
+                string savepath = filename.Remove(filename.LastIndexOf('.')) + '_' + a + ".csv";
+
+                DataTable dt1 = UiServices.GetDataTableFromSQL(sql + "'" + a + "'");
+                UiServices.SaveCsv(dt1, savepath);
+
+            }
+            watch.Stop();
+            toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
+            toolStripStatusLabel1.ForeColor = Color.Red;
+            MessageBox.Show("导出成功");
+            GC.Collect();
         }
 
 
