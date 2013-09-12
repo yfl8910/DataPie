@@ -879,6 +879,7 @@ namespace DataPie.DBUtility
                 {
                     connection.Open();
                     SqlDataAdapter command = new SqlDataAdapter(SQL, connection);
+                    command.SelectCommand.CommandTimeout = 10000;
                     command.Fill(dt);
                 }
                 catch (System.Data.SqlClient.SqlException ex)
@@ -922,6 +923,7 @@ namespace DataPie.DBUtility
                 {
                     connection.Open();
                     SqlDataAdapter command = new SqlDataAdapter(SQL, connection);
+                    command.SelectCommand.CommandTimeout = 10000;
                     command.Fill(StartIndex, PageSize, dt);
                 }
                 catch (System.Data.SqlClient.SqlException ex)
@@ -988,7 +990,7 @@ namespace DataPie.DBUtility
                 int result;
                 connection.Open();
                 SqlCommand command = BuildIntCommand(connection, storedProcName, null);
-                command.CommandTimeout = 1000;
+                command.CommandTimeout = 10000;
                 result = command.ExecuteNonQuery();
                 //result = (int)command.Parameters["ReturnValue"].Value;
                 //Connection.Close();
