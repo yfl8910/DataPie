@@ -990,7 +990,7 @@ namespace DataPie.DBUtility
                 int result;
                 connection.Open();
                 SqlCommand command = BuildIntCommand(connection, storedProcName, null);
-                command.CommandTimeout = 10000;
+                command.CommandTimeout = 100000;
                 result = command.ExecuteNonQuery();
                 //result = (int)command.Parameters["ReturnValue"].Value;
                 //Connection.Close();

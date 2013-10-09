@@ -280,7 +280,7 @@ namespace DataPie
                 toolStripStatusLabel1.ForeColor = Color.Red;
 
                 string tname = comboBox1.Text.ToString();
-                int num = db.DBProvider.ExecuteSql("delete  from  " + tname);
+                int num = db.DBProvider.ExecuteSql("TRUNCATE TABLE   " + tname);
                 watch.Stop();
                 if (num > 0)
                 {
