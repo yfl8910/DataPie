@@ -77,6 +77,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.button10 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
@@ -84,13 +85,11 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cSVtoEXCEL工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label6 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -645,6 +644,16 @@
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "数据分拆";
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(140, 177);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(149, 45);
+            this.button10.TabIndex = 6;
+            this.button10.Text = "分拆为csv文件导出";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -698,7 +707,6 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.登陆ToolStripMenuItem,
-            this.cSVtoEXCEL工具ToolStripMenuItem,
             this.退出ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -712,13 +720,6 @@
             this.登陆ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.登陆ToolStripMenuItem.Text = "登陆切换";
             this.登陆ToolStripMenuItem.Click += new System.EventHandler(this.登陆ToolStripMenuItem_Click);
-            // 
-            // cSVtoEXCEL工具ToolStripMenuItem
-            // 
-            this.cSVtoEXCEL工具ToolStripMenuItem.Name = "cSVtoEXCEL工具ToolStripMenuItem";
-            this.cSVtoEXCEL工具ToolStripMenuItem.Size = new System.Drawing.Size(115, 21);
-            this.cSVtoEXCEL工具ToolStripMenuItem.Text = "CSVtoEXCEL工具";
-            this.cSVtoEXCEL工具ToolStripMenuItem.Click += new System.EventHandler(this.cSVtoEXCEL工具ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
@@ -756,17 +757,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 12);
             this.label6.TabIndex = 50;
-            this.label6.Text = "杨福来 @ 2013";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(140, 177);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(149, 45);
-            this.button10.TabIndex = 6;
-            this.button10.Text = "分拆为csv文件导出";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.label6.Text = "杨福来 @ 2014";
             // 
             // FormMain
             // 
@@ -865,7 +856,6 @@
          private System.Windows.Forms.TabPage tabPage7;
          private System.Windows.Forms.GroupBox groupBox6;
          private System.Windows.Forms.Button button6;
-         private System.Windows.Forms.ToolStripMenuItem cSVtoEXCEL工具ToolStripMenuItem;
          private System.Windows.Forms.GroupBox groupBox8;
          private System.Windows.Forms.GroupBox groupBox7;
          private System.Windows.Forms.Button button8;

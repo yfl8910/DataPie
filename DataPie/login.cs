@@ -16,19 +16,19 @@ namespace DataPie
     public partial class login : Form
     {
         public static FormMain main = null;
-        private DBConfig _DBConfig= new DBConfig();
+        private DBConfig _DBConfig = new DBConfig();
         string _conString;
 
         public login()
         {
-            DateTime dt = new DateTime(2015, 1, 1);
-            if (DateTime.Now > dt)
-            {
-                MessageBox.Show(" 该版本已经太旧了 \r\n 请联系作者更换新版本 \r\n 邮箱：yfl8910@qq.com ");
+            //DateTime dt = new DateTime(2015, 1, 1);
+            //if (DateTime.Now > dt)
+            //{
+            //    MessageBox.Show(" 该版本已经太旧了 \r\n 请联系作者更换新版本 \r\n 邮箱：yfl8910@qq.com ");
 
-                Application.Exit();
-                System.Environment.Exit(0);
-            }
+            //    Application.Exit();
+            //    System.Environment.Exit(0);
+            //}
             InitializeComponent();
         }
         //测试连接
@@ -140,35 +140,50 @@ namespace DataPie
         {
 
             OpenFileDialog opeanfile = new OpenFileDialog();
-            opeanfile.Filter = ("access数据库文件(*.accdb)|*.accdb");
+            opeanfile.Filter = ("access或者SQLite|*.accdb;*.db");
 
             opeanfile.RestoreDirectory = true;
             opeanfile.FilterIndex = 1;
             if (opeanfile.ShowDialog() == DialogResult.OK)
-            {
-
+            {            
                 this.txtconn.Text = opeanfile.FileName;
                 txtconn.ReadOnly = true;
             }
         }
 
-        private void btnTestConn_Click(object sender, EventArgs e)
+        private void btnACC_Click(object sender, EventArgs e)
         {
-            if (txtconn.Text.ToString() == "" || System.IO.Path.GetExtension(txtconn.Text.ToString()).ToLower() != ".accdb")
+
+            string fileName = txtconn.Text.ToString();
+            if (txtconn.Text.ToString() == "" || !(System.IO.Path.GetExtension(txtconn.Text.ToString()).ToLower() == ".accdb" || System.IO.Path.GetExtension(txtconn.Text.ToString()).ToLower() == ".db"))
             {
-                MessageBox.Show("请选择ACCESS2007数据库文件！");
+                MessageBox.Show("请选择ACCESS2007或者SQLite数据库！");
 
                 return;
             }
+            string ext = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - fileName.LastIndexOf(".") - 1);
+            if (ext == "accdb")
+            {
+                IList<string> _DataBaseList = new List<string>();
+                _DBConfig.DataBase = this.txtconn.Text.ToString();
+                _DBConfig.ProviderName = "ACC";
+                _conString = GetConstring(_DBConfig);
+                _DBConfig.DBProvider = new DBUtility.DbHelperOleDb(_conString);
+                MainfromShow();
+                this.Hide();
+            }
+            else
+            {
+                IList<string> _DataBaseList = new List<string>();
+                _DBConfig.DataBase = this.txtconn.Text.ToString();
+                _DBConfig.ProviderName = "SQLite";
+                _conString = GetConstring(_DBConfig);
+                _DBConfig.DBProvider = new DBUtility.DbHelperSQLite(_conString);
+                MainfromShow();
+                this.Hide();
 
-            //_DBConfig = new DBConfig();
-            IList<string> _DataBaseList = new List<string>();
-            _DBConfig.DataBase = this.txtconn.Text.ToString();
-            _DBConfig.ProviderName = "ACC";
-            _conString = GetConstring(_DBConfig);
-            _DBConfig.DBProvider = new DBUtility.DbHelperOleDb(_conString);
-            MainfromShow();
-            this.Hide();
+            }
+         
 
         }
 
@@ -201,7 +216,7 @@ namespace DataPie
 
         }
 
-    
+
         private void button1_Click(object sender, EventArgs e)
         {
             System.ServiceProcess.ServiceController sc = new System.ServiceProcess.ServiceController();
@@ -218,12 +233,12 @@ namespace DataPie
                 MessageBox.Show("SQL数据库服务启动成功！", "提示信息");
             }
 
-            
+
 
         }
 
-    
-     
+
+
         /// <summary>
         /// 得到本地服务器
         /// </summary>
@@ -292,9 +307,7 @@ namespace DataPie
                 sb.Append(";Initial Catalog=" + db.DataBase + " ; ");
                 if (db.ValidataType == "Windows身份认证")
                 {
-                    //sb.Append("Integrated Security=SSPI;");
                     sb.Append("Integrated Security=SSPI;Connect Timeout=10000");
-
                 }
                 else
                 {
@@ -304,7 +317,7 @@ namespace DataPie
                 }
                 return sb.ToString();
             }
-            else
+            else if (db.ProviderName == "ACC")
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Provider=Microsoft.Ace.OleDb.12.0");
@@ -312,6 +325,13 @@ namespace DataPie
                 sb.Append(";Persist Security Info=False;");
                 return sb.ToString();
             }
+            else if (db.ProviderName == "SQLite")
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Data Source= " + db.DataBase + ";");
+                return sb.ToString();
+            }
+            else return "";
 
         }
 
@@ -329,29 +349,18 @@ namespace DataPie
                 MessageBox.Show("用户名、名称、登陆的数据库不能为空！");
                 return;
             }
-            else 
+            else
             {
                 string connectionString = "User Id=" + textBox1.Text.ToString().Trim() + ";Password=" + textBox2.Text.ToString().Trim() +
               ";Data Source=" + comboBox2.Text.ToString().Trim();
                 _DBConfig.DBProvider = new DBUtility.DbHelperOra(connectionString);
-                //IList<string> list = _DBConfig.DB.GetTableInfo();
-                //if (list.Count>0)
-                //{ MessageBox.Show("登陆成功！"); }
-                //comboBox1.DataSource = db.GetViewInfo();
-                //MessageBox.Show(DBUtility.DbHelperOra.GetUser_ID());
-                //dataGridView1.DataSource = DBUtility.DbHelperOra.GetSchema("views");
                 MainfromShow();
                 this.Hide();
-            
+
             }
         }
 
-        private void cSVtoEXCEL工具ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CSVtoEXCEL csv = new CSVtoEXCEL();
-            csv.Show();
-        }
-
+      
         /// <summary>
         /// 检索本地服务器
         /// </summary>

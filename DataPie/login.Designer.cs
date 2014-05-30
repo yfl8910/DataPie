@@ -41,6 +41,7 @@
             this.cboServerName = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -48,7 +49,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnBrwse = new System.Windows.Forms.Button();
-            this.btnTestConn = new System.Windows.Forms.Button();
+            this.btnACC = new System.Windows.Forms.Button();
             this.txtconn = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -61,10 +62,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.cSVtoEXCEL工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -210,6 +209,16 @@
             this.tabPage1.Text = "SQL server";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(395, 180);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(93, 28);
+            this.button3.TabIndex = 104;
+            this.button3.Text = "搜素服务器";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(395, 246);
@@ -267,21 +276,20 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(497, 277);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "ACCESS";
+            this.tabPage2.Text = "ACCESS或SQLite";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnBrwse);
-            this.groupBox1.Controls.Add(this.btnTestConn);
+            this.groupBox1.Controls.Add(this.btnACC);
             this.groupBox1.Controls.Add(this.txtconn);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Location = new System.Drawing.Point(36, 23);
+            this.groupBox1.Location = new System.Drawing.Point(35, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(405, 190);
             this.groupBox1.TabIndex = 102;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ACCESS 数据库登录";
             // 
             // btnBrwse
             // 
@@ -293,15 +301,15 @@
             this.btnBrwse.UseVisualStyleBackColor = true;
             this.btnBrwse.Click += new System.EventHandler(this.btnBrwse_Click);
             // 
-            // btnTestConn
+            // btnACC
             // 
-            this.btnTestConn.Location = new System.Drawing.Point(150, 114);
-            this.btnTestConn.Name = "btnTestConn";
-            this.btnTestConn.Size = new System.Drawing.Size(81, 42);
-            this.btnTestConn.TabIndex = 100;
-            this.btnTestConn.Text = "登录ACCESS";
-            this.btnTestConn.UseVisualStyleBackColor = true;
-            this.btnTestConn.Click += new System.EventHandler(this.btnTestConn_Click);
+            this.btnACC.Location = new System.Drawing.Point(155, 114);
+            this.btnACC.Name = "btnACC";
+            this.btnACC.Size = new System.Drawing.Size(92, 42);
+            this.btnACC.TabIndex = 100;
+            this.btnACC.Text = "登录";
+            this.btnACC.UseVisualStyleBackColor = true;
+            this.btnACC.Click += new System.EventHandler(this.btnACC_Click);
             // 
             // txtconn
             // 
@@ -318,7 +326,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(101, 12);
             this.label8.TabIndex = 0;
-            this.label8.Text = "ACCESS文件路径：\r\n";
+            this.label8.Text = "数据库文件路径：\r\n";
             // 
             // tabPage3
             // 
@@ -415,7 +423,6 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cSVtoEXCEL工具ToolStripMenuItem,
             this.关于ToolStripMenuItem,
             this.退出ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -423,13 +430,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(570, 25);
             this.menuStrip1.TabIndex = 100;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // cSVtoEXCEL工具ToolStripMenuItem
-            // 
-            this.cSVtoEXCEL工具ToolStripMenuItem.Name = "cSVtoEXCEL工具ToolStripMenuItem";
-            this.cSVtoEXCEL工具ToolStripMenuItem.Size = new System.Drawing.Size(115, 21);
-            this.cSVtoEXCEL工具ToolStripMenuItem.Text = "CSVtoEXCEL工具";
-            this.cSVtoEXCEL工具ToolStripMenuItem.Click += new System.EventHandler(this.cSVtoEXCEL工具ToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem
             // 
@@ -444,16 +444,6 @@
             this.退出ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(395, 180);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 28);
-            this.button3.TabIndex = 104;
-            this.button3.Text = "搜素服务器";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // login
             // 
@@ -504,7 +494,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtconn;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button btnTestConn;
+        private System.Windows.Forms.Button btnACC;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
@@ -520,7 +510,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button btnOracLogin;
-        private System.Windows.Forms.ToolStripMenuItem cSVtoEXCEL工具ToolStripMenuItem;
         private System.Windows.Forms.Button button3;
     }
 }

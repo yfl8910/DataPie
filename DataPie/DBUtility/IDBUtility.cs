@@ -14,6 +14,7 @@ namespace DataPie.DBUtility
         /// </summary>
         /// <param name="SQL"></param>
         int ExecuteSql(string SQL);
+        int TruncateTable(string TableName);
         #endregion
 
         #region 返回DataTable对象

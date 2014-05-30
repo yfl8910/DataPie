@@ -40,6 +40,9 @@
     <Reference Include="Accessibility">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Kent.Boogaart.HelperTrinity, Version=1.4.0.0, Culture=neutral, PublicKeyToken=cc96fa93a217f7a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>OsPackages\KBCsv\Kent.Boogaart.HelperTrinity.dll</HintPath>
@@ -49,10 +52,14 @@
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=2.112.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Oracle.DataAccess.dll</HintPath>
+      <HintPath>..\packages\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.92.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.92.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,17 +78,12 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="CSVtoEXCEL.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CSVtoEXCEL.Designer.cs">
-      <DependentUpon>CSVtoEXCEL.cs</DependentUpon>
-    </Compile>
     <Compile Include="DBConfig.cs" />
     <Compile Include="DBUtility\CommandInfo.cs" />
     <Compile Include="DBUtility\DbHelperOleDb.cs" />
     <Compile Include="DBUtility\DbHelperOra.cs" />
     <Compile Include="DBUtility\DbHelperSQL.cs" />
+    <Compile Include="DBUtility\DbHelperSQLite.cs" />
     <Compile Include="DBUtility\IDBUtility.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -95,165 +97,6 @@
     <Compile Include="login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidation.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationCustom.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationDateTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationDecimal.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationInt.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationList.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationWithFormula.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationWithFormula2.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Contracts\IExcelDataValidationWithOperator.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidation.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationCustom.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationDateTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationDecimal.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationFactory.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationInt.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationList.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationOperator.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationType.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationWarningStyle.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationWithFormula.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelDataValidationWithFormula2.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\ExcelTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormula.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormulaDateTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormulaDecimal.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormulaInt.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormulaList.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormulaTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\Contracts\IExcelDataValidationFormulaWithValue.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormula.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaCustom.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaDateTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaDecimal.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaInt.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaList.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaTime.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\Formulas\ExcelDataValidationFormulaValue.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\IRangeDataValidation.cs" />
-    <Compile Include="OsPackages\EPPlus\DataValidation\RangeDataValidation.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelBarChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartAxis.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartDataLabel.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartLegend.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartPlotArea.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartSerie.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartSerieDataLabel.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartSeries.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartTitle.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelChartTrendline.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelDoughnutChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelLineChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelLineChartSerie.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelOfPieChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelPieChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelPieChartSerie.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelScatterChart.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Chart\ExcelScatterChartSerie.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelDrawingBase.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelDrawingBorder.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelDrawingFill.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelDrawings.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelPicture.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelShape.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\ExcelView3D.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingBase.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingBaseCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingComment.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingCommentCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingPicture.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingPictureCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Drawing\Vml\ExcelVmlDrawingPosition.cs" />
-    <Compile Include="OsPackages\EPPlus\EncryptedPackageHandler.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelAddress.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelBackgroundImage.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelCell.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelCellAddress.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelCellBase.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelColumn.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelComment.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelCommentCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelEncryption.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelExtensions.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelHeaderFooter.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelHyperLink.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelNamedRange.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelNamedRangeCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelPackage.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelPrinterSettings.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelProtection.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelRange.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelRangeBase.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelRow.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelSheetProtection.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelStyleCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelStyles.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelTextFormat.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelWorkbook.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelWorkbookView.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelWorksheet.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelWorksheets.cs" />
-    <Compile Include="OsPackages\EPPlus\ExcelWorksheetView.cs" />
-    <Compile Include="OsPackages\EPPlus\IRangeID.cs" />
-    <Compile Include="OsPackages\EPPlus\OfficeProperties.cs" />
-    <Compile Include="OsPackages\EPPlus\RangeCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelBorder.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelBorderItem.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelColor.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelFill.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelFont.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelGradientFill.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelNumberFormat.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelParagraph.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelParagraphCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelRichText.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelRichTextCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelStyle.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\ExcelTextFont.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\IExcelCell.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\IStyle.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\StyleBase.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\StyleChangeEventArgs.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelBorderItemXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelBorderXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelColorXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelFillXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelFontXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelGradientFillXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelNamedStyleXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelNumberFormatXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\ExcelXfsXml.cs" />
-    <Compile Include="OsPackages\EPPlus\Style\XmlAccess\StyleXmlHelper.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\ExcelTable.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\ExcelTableCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\ExcelTableColumn.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\ExcelTableColumnCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotCacheDefinition.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTable.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTableCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTableDataField.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTableField.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTableFieldCollection.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTableFieldGroup.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTableFieldItem.cs" />
-    <Compile Include="OsPackages\EPPlus\Table\PivotTable\ExcelPivotTablePageFieldSettings.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\AddressUtility.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\Argument.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\ArgumentExtensions.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\IArgument.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\IValidationResult.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\Require.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\SqRefUtility.cs" />
-    <Compile Include="OsPackages\EPPlus\Utils\ValidationResult.cs" />
-    <Compile Include="OsPackages\EPPlus\XmlHelper.cs" />
-    <Compile Include="OsPackages\EPPlus\XmlHelperFactory.cs" />
     <Compile Include="OsPackages\KBCsv\CsvParser.cs" />
     <Compile Include="OsPackages\KBCsv\CsvReader.cs" />
     <Compile Include="OsPackages\KBCsv\CsvWriter.cs" />
@@ -272,9 +115,6 @@
     <Compile Include="UiServices.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CSVtoEXCEL.resx">
-      <DependentUpon>CSVtoEXCEL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -295,7 +135,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -308,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OsPackages\KBCsv\Kent.Boogaart.HelperTrinity.dll" />
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,6 +4,9 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Collections.Generic;
+using System.Text;
+
 namespace DataPie.DBUtility
 {
     /// <summary>
@@ -11,17 +14,21 @@ namespace DataPie.DBUtility
     /// 数据访问基础类(基于SQLite)
     /// 可以用户可以修改满足自己项目的需要。
     /// </summary>
-    public abstract class DbHelperSQLite
+    public class DbHelperSQLite : IDBUtility
     {
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.		
-        public static string connectionString ="";
+        public static string connectionString = "";
         public DbHelperSQLite()
         {
+        }
+        public DbHelperSQLite(string strConnectionString)
+        {
+            connectionString = strConnectionString;
         }
 
 
         #region 公用方法
-       
+
         public static int GetMaxID(string FieldName, string TableName)
         {
             string strsql = "select max(" + FieldName + ")+1 from " + TableName;
@@ -77,7 +84,7 @@ namespace DataPie.DBUtility
                 return true;
             }
         }
-        
+
         #endregion
 
         #region  执行简单SQL语句
@@ -87,7 +94,7 @@ namespace DataPie.DBUtility
         /// </summary>
         /// <param name="SQLString">SQL语句</param>
         /// <returns>影响的记录数</returns>
-        public static int ExecuteSql(string SQLString)
+        public int ExecuteSql(string SQLString)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -452,7 +459,257 @@ namespace DataPie.DBUtility
 
         #endregion
 
-    
+        public static DataTable GetSchema(string collectionName, string[] restictionValues)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                DataTable dt = new DataTable();
+                try
+                {
+                    dt.Clear();
+                    connection.Open();
+                    dt = connection.GetSchema(collectionName, restictionValues);
+
+                }
+                catch
+                {
+                    dt = null;
+                }
+
+                return dt;
+
+            }
+
+        }
+        public static DataTable GetSchema(string collectionName)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                DataTable dt = new DataTable();
+                try
+                {
+                    dt.Clear();
+                    connection.Open();
+                    dt = connection.GetSchema(collectionName);
+
+                }
+                catch
+                {
+                    dt = null;
+                }
+                return dt;
+            }
+
+
+
+        }
+
+
+
+        public DataTable ReturnDataTable(string SQL, int StartIndex, int PageSize)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                DataTable dt = new DataTable();
+                try
+                {
+                    connection.Open();
+                    SQLiteDataAdapter command = new SQLiteDataAdapter(SQL, connection);
+
+                    command.Fill(StartIndex, PageSize, dt);
+                }
+                catch (System.Data.SQLite.SQLiteException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+
+        public DataTable ReturnDataTable(string SQL)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                DataTable dt = new DataTable();
+                try
+                {
+                    connection.Open();
+                    SQLiteDataAdapter command = new SQLiteDataAdapter(SQL, connection);
+                    command.Fill(dt);
+                }
+                catch (System.Data.SQLite.SQLiteException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                return dt;
+            }
+        }
+
+        public int RunProcedure(string storedProcName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<string> GetDataBaseInfo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<string> GetTableInfo()
+        {
+            IList<string> tableList = new List<string>();
+            string[] rs = new string[] { null, null, null, "table" };
+            DataTable dt = GetSchema("tables", rs);
+            int num = dt.Rows.Count;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow _DataRowItem in dt.Rows)
+                {
+                    tableList.Add(_DataRowItem["table_name"].ToString());
+                }
+            }
+            return tableList;
+        }
+
+        public IList<string> GetColumnInfo(string TableName)
+        {
+            string[] restrictions = new string[] { null, null, TableName };
+            DataTable tableinfo = GetSchema("Columns", restrictions);
+            IList<string> List = new List<string>();
+            int count = tableinfo.Rows.Count;
+            if (count > 0)
+            {
+
+                foreach (DataRow _DataRowItem in tableinfo.Rows)
+                {
+                    List.Add(_DataRowItem["Column_Name"].ToString());
+                }
+            }
+
+            return List;
+
+        }
+
+        public IList<string> GetProcInfo()
+        {
+            IList<string> List = new List<string>();
+            List.Add("");
+            return List;
+        }
+
+        public IList<string> GetViewInfo()
+        {
+            IList<string> List = new List<string>();
+            string[] rs = new string[] { null, null, null, "BASE TABLE" };
+            DataTable dt = GetSchema("Views");
+            int num = dt.Rows.Count;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow _DataRowItem in dt.Rows)
+                {
+                    List.Add(_DataRowItem["table_name"].ToString());
+                }
+            }
+            return List;
+        }
+
+        public int ReturnTbCount(string tb_name)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+
+                try
+                {
+                    string SQL = "select  count(*)   from " + tb_name;
+                    connection.Open();
+                    SQLiteCommand cmd = new SQLiteCommand(SQL, connection);
+                    int count = int.Parse(cmd.ExecuteScalar().ToString());
+                    return count;
+                }
+                catch (System.Data.SQLite.SQLiteException ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+            }
+        }
+
+        public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                conn.Open();
+                SQLiteCommand cmd = new SQLiteCommand();
+                cmd.Connection = conn;
+                SQLiteTransaction tx = conn.BeginTransaction();
+                cmd.Transaction = tx;
+                try
+                {
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        cmd.CommandText = GenerateInserSql(maplist, TableName, r);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    tx.Commit();
+                    return true;
+                }
+                catch (System.Data.SQLite.SQLiteException E)
+                {
+                    tx.Rollback();
+                    throw new Exception(E.Message);
+                }
+            }
+
+
+        }
+
+        public int TruncateTable(string TableName)
+        {
+
+            return ExecuteSql("delete from " + TableName);
+
+        }
+
+
+
+
+
+        /// <summary>
+        /// 生成插入数据的sql语句。
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        private string GenerateInserSql(IList<string> maplist, string TableName, DataRow row)
+        {
+
+            var names = new StringBuilder();
+            var values = new StringBuilder();
+            bool first = true;
+
+
+            foreach (string c in maplist)
+            {
+                if (!first)
+                {
+                    names.Append(",");
+                    values.Append(",");
+                }
+
+                names.Append(c);
+                values.Append("\"" + row[c] + "\"");
+                first = false;
+
+            }
+
+            string sql = string.Format("INSERT INTO {0}({1}) VALUES ({2})", TableName, names, values);
+            return sql;
+        }
+
+
+
+
 
     }
 }

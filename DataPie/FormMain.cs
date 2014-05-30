@@ -101,7 +101,7 @@ namespace DataPie
         private void btnBrwse_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "EXCEL2007文件|*.xlsx|EXCEL2003文件|*.xls|ACCESS2007文件|*.accdb";
+            openFileDialog.Filter = "EXCEL或ACCESS文件|*.xlsx;*.xls;*.accdb";
 
             openFileDialog.RestoreDirectory = true;
             openFileDialog.FilterIndex = 1;
@@ -280,7 +280,7 @@ namespace DataPie
                 toolStripStatusLabel1.ForeColor = Color.Red;
 
                 string tname = comboBox1.Text.ToString();
-                int num = db.DBProvider.ExecuteSql("TRUNCATE TABLE   " + tname);
+                int num = db.DBProvider.TruncateTable(tname);
                 watch.Stop();
                 if (num > 0)
                 {
@@ -655,11 +655,6 @@ namespace DataPie
         }
 
 
-        private void cSVtoEXCEL工具ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CSVtoEXCEL csv = new CSVtoEXCEL();
-            csv.Show();
-        }
 
         /// <summary>
         /// 单个csv

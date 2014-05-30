@@ -1074,7 +1074,12 @@ namespace DataPie.DBUtility
 
         }
 
- 
+        public int TruncateTable(string TableName)
+        {
+
+            return ExecuteSql("TRUNCATE TABLE   " + TableName);
+
+        }
 
 	}
 }
