@@ -51,6 +51,7 @@ namespace DataPie.DBUtility
         /// 批量导入数据库
         /// </summary>
         bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt);
+        int BulkCopyFromOpenrowset(IList<string> maplist, string TableName, string filename);
         #endregion
     }
 }

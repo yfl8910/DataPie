@@ -1289,6 +1289,7 @@ namespace DataPie.DBUtility
 
         #endregion
 
+        #region 批量导入数据库
         public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1319,7 +1320,11 @@ namespace DataPie.DBUtility
 
 
         }
-
+        public int BulkCopyFromOpenrowset(IList<string> maplist, string TableName, string filename)
+        {
+            return -1;
+        }
+        #endregion
         public int TruncateTable(string TableName)
         {
 

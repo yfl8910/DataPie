@@ -633,7 +633,7 @@ namespace DataPie.DBUtility
 
             }
         }
-
+        #region 批量导入数据库
         public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connectionString))
@@ -664,23 +664,8 @@ namespace DataPie.DBUtility
 
         }
 
-        public int TruncateTable(string TableName)
-        {
 
-            return ExecuteSql("delete from " + TableName);
-
-        }
-
-
-
-
-
-        /// <summary>
-        /// 生成插入数据的sql语句。
-        /// </summary>
-        /// <param name="database"></param>
-        /// <param name="table"></param>
-        /// <returns></returns>
+   
         private string GenerateInserSql(IList<string> maplist, string TableName, DataRow row)
         {
 
@@ -705,6 +690,19 @@ namespace DataPie.DBUtility
 
             string sql = string.Format("INSERT INTO {0}({1}) VALUES ({2})", TableName, names, values);
             return sql;
+        }
+
+        public int BulkCopyFromOpenrowset(IList<string> maplist, string TableName, string filename)
+        {
+            return -1;
+        }
+
+        #endregion
+        public int TruncateTable(string TableName)
+        {
+
+            return ExecuteSql("delete from " + TableName);
+
         }
 
 

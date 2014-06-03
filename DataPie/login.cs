@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-
+using System.Net;
 
 
 namespace DataPie
@@ -31,10 +31,9 @@ namespace DataPie
             //}
             InitializeComponent();
         }
-        //测试连接
-        private void btnOk_Click(object sender, EventArgs e)
+
+        private void checkDb()
         {
-            IList<string> _DataBaseList = new List<string>();
             System.ServiceProcess.ServiceController sc = new System.ServiceProcess.ServiceController();
             sc.ServiceName = "MSSQLSERVER";
             if (sc == null)
@@ -47,15 +46,16 @@ namespace DataPie
                 MessageBox.Show("SQL数据库服务未启动，请点击开启SQL服务！", "提示信息");
                 return;
             }
-            //_DBConfig = new DBConfig();
-            if (cboServerName.Text == "Local(本机)")
-            {
-                _DBConfig.ServerName = "(local)";
-            }
-            else
-            {
-                _DBConfig.ServerName = cboServerName.Text.ToString();
-            }
+        
+        }
+        //测试连接
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+
+            checkDb();
+            IList<string> _DataBaseList = new List<string>();
+             _DBConfig.ServerName = cboServerName.Text.ToString();
+            
             if (cboValidataType.Text == "Windows身份认证")
             {
                 _DBConfig.ValidataType = "Windows身份认证";
@@ -78,12 +78,7 @@ namespace DataPie
                 cboDataBase.Enabled = true;
                 cboDataBase.SelectedIndex = 0;
             }
-            else
-            {
-                cboDataBase.Enabled = false;
-                cboDataBase.Text = "";
-                cboDataBase.DataSource = null;
-            }
+          
         }
 
         private void login_Load(object sender, EventArgs e)
@@ -93,6 +88,7 @@ namespace DataPie
 
         private void DataPieOnLoad()
         {
+            GetLocalServerIP();
             cboServerName.SelectedIndex = 0;
             cboValidataType.SelectedIndex = 0;
             txtPassword.Enabled = false;
@@ -133,7 +129,6 @@ namespace DataPie
             _DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
             MainfromShow();
             this.Hide();
-            //Dispose(); 
         }
 
         private void btnBrwse_Click(object sender, EventArgs e)
@@ -162,28 +157,28 @@ namespace DataPie
                 return;
             }
             string ext = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - fileName.LastIndexOf(".") - 1);
+
+            _DBConfig.DataBase = this.txtconn.Text.ToString();
+
             if (ext == "accdb")
             {
-                IList<string> _DataBaseList = new List<string>();
-                _DBConfig.DataBase = this.txtconn.Text.ToString();
+                //IList<string> _DataBaseList = new List<string>();
                 _DBConfig.ProviderName = "ACC";
                 _conString = GetConstring(_DBConfig);
                 _DBConfig.DBProvider = new DBUtility.DbHelperOleDb(_conString);
-                MainfromShow();
-                this.Hide();
+             
             }
             else
             {
-                IList<string> _DataBaseList = new List<string>();
-                _DBConfig.DataBase = this.txtconn.Text.ToString();
+                //IList<string> _DataBaseList = new List<string>();
                 _DBConfig.ProviderName = "SQLite";
                 _conString = GetConstring(_DBConfig);
                 _DBConfig.DBProvider = new DBUtility.DbHelperSQLite(_conString);
-                MainfromShow();
-                this.Hide();
+             
 
             }
-         
+            MainfromShow();
+            this.Hide();
 
         }
 
@@ -226,7 +221,6 @@ namespace DataPie
                 MessageBox.Show("您的机器上没有安装SQL SERVER！", "提示信息");
                 return;
             }
-            //sc.MachineName = "localhost"; 
             else if (sc.Status != System.ServiceProcess.ServiceControllerStatus.Running)
             {
                 sc.Start();
@@ -237,37 +231,6 @@ namespace DataPie
 
         }
 
-
-
-        /// <summary>
-        /// 得到本地服务器
-        /// </summary>
-        /// <returns></returns>
-        public static string[] GetLocalSqlServerNamesWithSqlClientFactory()
-        {
-
-            DataTable dataSources = SqlClientFactory.Instance.CreateDataSourceEnumerator().GetDataSources();
-            DataColumn column2 = dataSources.Columns["ServerName"];
-            DataColumn colume = dataSources.Columns["InstanceName"];
-            DataRowCollection rows = dataSources.Rows;
-            string[] array = new string[rows.Count];
-            for (int i = 0; i < array.Length; i++)
-            {
-                string str2 = rows[i][column2] as string;
-                string str = rows[i][colume] as string;
-                if (((str == null) || (str.Length == 0)) || ("MSSQLSERVER" == str))
-                {
-                    array[i] = str2;
-                }
-                else
-                {
-                    array[i] = str2 + @"\" + str;
-                }
-            }
-            Array.Sort<string>(array);
-
-            return array;
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -336,52 +299,39 @@ namespace DataPie
         }
 
 
+        //不再支持ORACEL数据库
+        //private void btnOracLogin_Click(object sender, EventArgs e)
+        //{
+        //    if (textBox1.Text == "" || textBox2.Text == "" || comboBox2.Text == "")
+        //    {
+        //        MessageBox.Show("用户名、名称、登陆的数据库不能为空！");
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        string connectionString = "User Id=" + textBox1.Text.ToString().Trim() + ";Password=" + textBox2.Text.ToString().Trim() +
+        //      ";Data Source=" + comboBox2.Text.ToString().Trim();
+        //        _DBConfig.DBProvider = new DBUtility.DbHelperOra(connectionString);
+        //        MainfromShow();
+        //        this.Hide();
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnOracLogin_Click(object sender, EventArgs e)
-        {
-            if (textBox1.Text == "" || textBox2.Text == "" || comboBox2.Text == "")
-            {
-                MessageBox.Show("用户名、名称、登陆的数据库不能为空！");
-                return;
-            }
-            else
-            {
-                string connectionString = "User Id=" + textBox1.Text.ToString().Trim() + ";Password=" + textBox2.Text.ToString().Trim() +
-              ";Data Source=" + comboBox2.Text.ToString().Trim();
-                _DBConfig.DBProvider = new DBUtility.DbHelperOra(connectionString);
-                MainfromShow();
-                this.Hide();
-
-            }
-        }
+        //    }
+        //}
 
       
-        /// <summary>
-        /// 检索本地服务器
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+     
+        public void GetLocalServerIP()
         {
             cboServerName.Items.Clear();
-            //调用得到本地服务器方法
-            string[] arr = GetLocalSqlServerNamesWithSqlClientFactory();
-            if (arr != null)
+            cboServerName.Items.Add("127.0.0.1");
+            string strHostName = Dns.GetHostName();   //得到本机的主机名
+            IPHostEntry ipEntry = Dns.GetHostEntry(strHostName); //取得本机IP
+
+            for (int i = 0; i < ipEntry.AddressList.Count(); i++)
             {
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    cboServerName.Items.Add(arr[i]);
-                }
-                MessageBox.Show("服务器列表已更新！", "提示信息");
+                cboServerName.Items.Add(ipEntry.AddressList[i].ToString());
             }
         }
-
-
 
 
 

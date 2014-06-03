@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("DataPie")]
-[assembly: AssemblyDescription("功能：SQL server 2008、ORACLE与ACCESS 2007数据库的导入、导出、存储过程计算\r\n\r\n" +
+[assembly: AssemblyDescription("功能：支持SQL server、SQLite、ACCESS数据库的导入、导出、存储过程调用，支持数据拆分及自定义查询！\r\n\r\n" +
 
 "联系方式：yfl8910@qq.com")]
   

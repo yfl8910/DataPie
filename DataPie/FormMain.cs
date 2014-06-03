@@ -140,8 +140,17 @@ namespace DataPie
                 watch.Start();
                 try
                 {
-                    DataTable dt = UiServices.GetExcelDataTable(filename, tname);
-                    db.DBProvider.SqlBulkCopyImport(List, tname, dt);
+                    string ext = Path.GetExtension(filename);
+                    if (UiServices.db.ProviderName == "ACC"  && (ext == ".xlsx" || ext == ".xls"))
+                    {
+                        db.DBProvider.BulkCopyFromOpenrowset(List, tname, filename);
+                    }
+
+                    else
+                    {
+                        DataTable dt = UiServices.GetExcelDataTable(filename, tname);
+                        db.DBProvider.SqlBulkCopyImport(List, tname, dt);
+                    }
 
                 }
                 catch (Exception ee)
