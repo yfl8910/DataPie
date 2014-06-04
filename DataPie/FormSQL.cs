@@ -109,7 +109,7 @@ namespace DataPie
         {
             try
             {
-                string filename = UiServices.ShowFileDialog("Sheet1");
+                string filename = UiServices.ShowFileDialog("Sheet1", ".xlsx");
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 Task t = TaskExport("Sheet1", sqlText.Text.ToString(), filename);

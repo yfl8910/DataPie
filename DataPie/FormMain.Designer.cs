@@ -90,6 +90,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnToAccdb = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -309,6 +310,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnToAccdb);
             this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.btnDtout);
@@ -326,7 +328,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(140, 48);
             this.button7.TabIndex = 42;
-            this.button7.Text = "多个csv导出";
+            this.button7.Text = "导出到CSV";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
@@ -388,7 +390,7 @@
             this.btnDtout.Name = "btnDtout";
             this.btnDtout.Size = new System.Drawing.Size(135, 48);
             this.btnDtout.TabIndex = 39;
-            this.btnDtout.Text = "单个EXCEL导出";
+            this.btnDtout.Text = "导出到EXCEL";
             this.btnDtout.UseVisualStyleBackColor = true;
             this.btnDtout.Click += new System.EventHandler(this.btnDtout_Click);
             // 
@@ -499,7 +501,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(220, 104);
+            this.button6.Location = new System.Drawing.Point(215, 104);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(138, 37);
             this.button6.TabIndex = 58;
@@ -759,6 +761,16 @@
             this.label6.TabIndex = 50;
             this.label6.Text = "杨福来 @ 2014";
             // 
+            // btnToAccdb
+            // 
+            this.btnToAccdb.Location = new System.Drawing.Point(162, 395);
+            this.btnToAccdb.Name = "btnToAccdb";
+            this.btnToAccdb.Size = new System.Drawing.Size(131, 48);
+            this.btnToAccdb.TabIndex = 43;
+            this.btnToAccdb.Text = "导出到ACCESS";
+            this.btnToAccdb.UseVisualStyleBackColor = true;
+            this.btnToAccdb.Click += new System.EventHandler(this.btnToAccdb_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -871,5 +883,6 @@
          private System.Windows.Forms.GroupBox groupBox9;
          private System.Windows.Forms.Label label6;
          private System.Windows.Forms.Button button10;
+         private System.Windows.Forms.Button btnToAccdb;
      }
  }

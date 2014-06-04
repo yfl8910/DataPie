@@ -43,6 +43,10 @@
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.ADOX">
+      <HintPath>..\packages\Interop.ADOX.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Kent.Boogaart.HelperTrinity, Version=1.4.0.0, Culture=neutral, PublicKeyToken=cc96fa93a217f7a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>OsPackages\KBCsv\Kent.Boogaart.HelperTrinity.dll</HintPath>
@@ -74,6 +78,8 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Common.cs" />
+    <Compile Include="Core\DBToFile.cs" />
     <Compile Include="DBConfig.cs" />
     <Compile Include="DBUtility\CommandInfo.cs" />
     <Compile Include="DBUtility\DbHelperOleDb.cs" />

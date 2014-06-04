@@ -149,7 +149,7 @@ namespace DataPie
                     else
                     {
                         DataTable dt = UiServices.GetExcelDataTable(filename, tname);
-                        db.DBProvider.SqlBulkCopyImport(List, tname, dt);
+                        db.DBProvider.DatatableImport(List, tname, dt);
                     }
 
                 }
@@ -236,7 +236,7 @@ namespace DataPie
                         string m = "正在导入第 " + (i + 1) + " 个文件：" + filelist[i].ToString();
                         this.BeginInvoke(new System.EventHandler(ShowMessage), m);
                         DataTable dt = UiServices.GetDataTableFromfile(filelist[i]);
-                        db.DBProvider.SqlBulkCopyImport(List, tname, dt);
+                        db.DBProvider.DatatableImport(List, tname, dt);
                     }
                     catch (Exception ee)
                     {
@@ -265,7 +265,7 @@ namespace DataPie
             {
 
                 string TableName = comboBox1.Text.ToString();
-                string filename = UiServices.ShowFileDialog(TableName);
+                string filename = UiServices.ShowFileDialog(TableName,".xlsx");
                 int time = UiServices.ExportTemplate(TableName, filename);
                 toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", time);
                 toolStripStatusLabel1.ForeColor = Color.Red;
@@ -335,7 +335,7 @@ namespace DataPie
                 {
                     SheetNames.Add(item.ToString());
                 }
-                string filename = UiServices.ShowFileDialog(SheetNames[0]);
+                string filename = UiServices.ShowFileDialog(SheetNames[0],".xlsx");
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 if (filename != null)
@@ -610,7 +610,7 @@ namespace DataPie
         {
             int pagesize = int.Parse(comboBox3.Text.ToString());
             string TableName = comboBox4.Text.ToString();
-            string filename = UiServices.ShowFileDialog(TableName);
+            string filename = UiServices.ShowFileDialog(TableName, ".xlsx");
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
             if (filename != null)
@@ -639,7 +639,7 @@ namespace DataPie
         private void button6_Click(object sender, EventArgs e)
         {
             string TableName = comboBox4.Text.ToString();
-            string filename = UiServices.ShowFileDialog(TableName);
+            string filename = UiServices.ShowFileDialog(TableName, ".xlsx");
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
             if (filename != null)
@@ -809,7 +809,7 @@ namespace DataPie
                     clums.Add(_DataRowItem[colname].ToString());
                 }
             }
-            string filename = UiServices.ShowFileDialog(tbname);
+            string filename = UiServices.ShowFileDialog(tbname, ".xlsx");
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();
             foreach (var a in clums)
@@ -887,6 +887,67 @@ namespace DataPie
             toolStripStatusLabel1.ForeColor = Color.Red;
             MessageBox.Show("导出成功");
             GC.Collect();
+        }
+
+        private void btnToAccdb_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count < 1)
+            {
+                MessageBox.Show("请选择需要导入的表名！");
+            }
+            else
+            {
+                IList<string> SheetNames = new List<string>();
+                foreach (var item in listBox1.Items)
+                {
+                    SheetNames.Add(item.ToString());
+                }
+                string filename = UiServices.ShowFileDialog(SheetNames[0], ".accdb");
+         
+                toolStripStatusLabel1.Text = "导数中…";
+                toolStripStatusLabel1.ForeColor = Color.Red;
+                if (filename != null)
+                {
+                    Core.Common.CreatDataBase(filename);
+                    Task t = TaskExportToACC(SheetNames, filename); 
+                }
+
+
+            }
+        }
+
+        public async Task TaskExportToACC(IList<string> SheetNames, string filename)
+        {
+
+            await Task.Run(() =>
+            {
+
+                try
+                {
+
+                    DataTable dt=new DataTable();
+                    int time = 0;
+                    foreach (var table in SheetNames) {
+                        dt = UiServices.GetDataTableFromName(table);
+                        time += Core.DBToFile.DataTableExportToAccess(dt, filename, table);
+                    }
+                    string s = string.Format("导出的时间为:{0}秒", time);
+                    this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                    MessageBox.Show("导数已完成！");
+                    GC.Collect();
+
+                }
+                catch (Exception ee)
+                {
+                    this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                    return;
+                }
+
+            });
+
+
+
+
         }
 
 

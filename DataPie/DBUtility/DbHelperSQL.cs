@@ -1290,7 +1290,7 @@ namespace DataPie.DBUtility
         #endregion
 
         #region 批量导入数据库
-        public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
+        public bool DatatableImport(IList<string> maplist, string TableName, DataTable dt)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -1328,7 +1328,7 @@ namespace DataPie.DBUtility
         public int TruncateTable(string TableName)
         {
 
-            return ExecuteSql("TRUNCATE TABLE   " + TableName);
+            return ExecuteSql("TRUNCATE TABLE   [" + TableName+"]");
 
         }
 

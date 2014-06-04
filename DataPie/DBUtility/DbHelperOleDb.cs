@@ -744,7 +744,7 @@ namespace DataPie.DBUtility
 
         #endregion
         #region 批量导入数据库
-        public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
+        public bool SqlBulkCopyImport(  IList<string> maplist, string TableName, DataTable dt)
         {
             try
             {
@@ -770,7 +770,7 @@ namespace DataPie.DBUtility
 
         }
 
-          public int BulkCopyFromOpenrowset(IList<string> maplist, string TableName, string filename)
+          public int BulkCopyFromOpenrowset( IList<string> maplist, string TableName, string filename)
         {
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -789,7 +789,7 @@ namespace DataPie.DBUtility
 
                 }
           
-              string sql = string.Format("insert into  {0}({1}) select {2} from [Excel 12.0;HDR=Yes;IMEX=1;database={3}].[{4}$]", TableName, names, names, filename, TableName);  
+              string sql = string.Format("insert into  [{0}] ({1}) select {2} from [Excel 12.0;HDR=Yes;IMEX=1;database={3}].[{4}$]", TableName, names, names, filename, TableName);  
                 using (OleDbCommand cmd = new OleDbCommand(sql, connection))
                 {
                     try
@@ -807,70 +807,105 @@ namespace DataPie.DBUtility
             }
 
         }
+          public bool DatatableImport(string constring, IList<string> maplist, string TableName, DataTable dt, bool needCreate)
+          {
+              using (OleDbConnection conn = new OleDbConnection(constring))
+              {
+                  conn.Open();
+                  OleDbCommand cmd = new OleDbCommand();
+                  cmd.Connection = conn;
+                  OleDbTransaction tx = conn.BeginTransaction();
+                  cmd.Transaction = tx;
+                  if (needCreate)
+                  {
+                      string creatDLL = Core.Common.CreateTable(dt, TableName);
+                      cmd.CommandText = creatDLL;
+                      cmd.ExecuteNonQuery();
+
+                  }
+                  try
+                  {
+                      foreach (DataRow r in dt.Rows)
+                      {
+                          cmd.CommandText = GenerateInserSql(maplist, TableName, r);
+                          cmd.ExecuteNonQuery();
+                      }
+
+                      tx.Commit();
+                      return true;
+                  }
+                  catch (System.Data.OleDb.OleDbException E)
+                  {
+                      tx.Rollback();
+                      throw new Exception(E.Message);
+                  }
+              }
+             
+              
+          }
+          public bool DatatableImport(IList<string> maplist, string TableName, DataTable dt)
+          {
+              using (OleDbConnection conn = new OleDbConnection(connectionString))
+              {
+                  conn.Open();
+                  OleDbCommand cmd = new OleDbCommand();
+                  cmd.Connection = conn;
+                  OleDbTransaction tx = conn.BeginTransaction();
+                  cmd.Transaction = tx;
+                
+                  try
+                  {   
+                      foreach (DataRow r in dt.Rows)
+                      {
+                          cmd.CommandText = GenerateInserSql(maplist, TableName, r);
+                          cmd.ExecuteNonQuery();
+                      }
+
+                      tx.Commit();
+                      return true;
+                  }
+                  catch (System.Data.OleDb.OleDbException E)
+                  {
+                      tx.Rollback();
+                      throw new Exception(E.Message);
+                  }
+              }
 
 
-        //public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
-        //{
-        //    using (OleDbConnection conn = new OleDbConnection(connectionString))
-        //    {
-        //        conn.Open();
-        //        OleDbCommand cmd = new OleDbCommand();
-        //        cmd.Connection = conn;
-        //        OleDbTransaction tx = conn.BeginTransaction();
-        //        cmd.Transaction = tx;
-        //        try
-        //        {
-        //            foreach (DataRow r in dt.Rows)
-        //            {
-        //                cmd.CommandText = GenerateInserSql(maplist, TableName, r);
-        //                cmd.ExecuteNonQuery();
-        //            }
-
-        //            tx.Commit();
-        //            return true;
-        //        }
-        //        catch (System.Data.OleDb.OleDbException E)
-        //        {
-        //            tx.Rollback();
-        //            throw new Exception(E.Message);
-        //        }
-        //    }
+          }
 
 
-        //}
+          private string GenerateInserSql(IList<string> maplist, string TableName, DataRow row)
+          {
+
+              var names = new StringBuilder();
+              var values = new StringBuilder();
+              bool first = true;
 
 
-        //private string GenerateInserSql(IList<string> maplist, string TableName, DataRow row)
-        //{
+              foreach (string c in maplist)
+              {
+                  if (!first)
+                  {
+                      names.Append(",");
+                      values.Append(",");
+                  }
 
-        //    var names = new StringBuilder();
-        //    var values = new StringBuilder();
-        //    bool first = true;
+                  names.Append("["+c+"]");
+                  values.Append("\"" + row[c] + "\"");
+                  first = false;
 
+              }
 
-        //    foreach (string c in maplist)
-        //    {
-        //        if (!first)
-        //        {
-        //            names.Append(",");
-        //            values.Append(",");
-        //        }
-
-        //        names.Append(c);
-        //        values.Append("\"" + row[c] + "\"");
-        //        first = false;
-
-        //    }
-
-        //    string sql = string.Format("INSERT INTO {0}({1}) VALUES ({2})", TableName, names, values);
-        //    return sql;
-          //}
+              string sql = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})", TableName, names, values);
+              return sql;
+          }
        
         #endregion
           public int TruncateTable(string TableName)
         {
 
-            return ExecuteSql("delete from " + TableName);
+            return ExecuteSql("delete from [" + TableName + "]");
 
         }
 

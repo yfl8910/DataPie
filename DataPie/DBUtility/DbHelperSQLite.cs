@@ -634,7 +634,7 @@ namespace DataPie.DBUtility
             }
         }
         #region 批量导入数据库
-        public bool SqlBulkCopyImport(IList<string> maplist, string TableName, DataTable dt)
+        public bool DatatableImport(IList<string> maplist, string TableName, DataTable dt)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
@@ -701,7 +701,7 @@ namespace DataPie.DBUtility
         public int TruncateTable(string TableName)
         {
 
-            return ExecuteSql("delete from " + TableName);
+            return ExecuteSql("delete from [" + TableName+"]");
 
         }
 

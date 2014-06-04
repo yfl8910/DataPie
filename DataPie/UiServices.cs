@@ -115,7 +115,7 @@ namespace DataPie
 
         #region 数据库中获取DataTable内存表
 
-      
+
         /// <summary>
         /// 获取数据表，根据数据库名获取
         /// </summary>
@@ -137,7 +137,7 @@ namespace DataPie
             return dt;
         }
 
-   
+
 
         /// <summary>
         /// 获取数据表,分页版
@@ -216,7 +216,7 @@ namespace DataPie
 
         }
 
-   
+
         /// <summary>
         /// 单个数据库表格导出到一个excel工作簿
         /// </summary>
@@ -372,9 +372,9 @@ namespace DataPie
         /// <summary>
         /// 多个dt导出到一个sheet
         /// </summary>
-        public static int ExportExcel(DataTable[] ds, string SheetName,  string filename)
+        public static int ExportExcel(DataTable[] ds, string SheetName, string filename)
         {
-           
+
 
             if (filename != null)
             {
@@ -465,12 +465,34 @@ namespace DataPie
 
         #region 弹出FileDialog对话框
 
-        public static string ShowFileDialog(string FileName)
+        public static string ShowFileDialog(string FileName, string ext)
         {
             System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog1.Filter = "excel2007|*.xlsx";
+
+            switch (ext)
+            {
+                case ".xlsx":
+                    saveFileDialog1.Filter = "EXCEL 2007|*.xlsx";
+                    saveFileDialog1.FileName = FileName;
+                    saveFileDialog1.DefaultExt = ".xlsx";
+                    break;
+                case ".accdb":
+                    saveFileDialog1.Filter = "ACCESS数据库|*.accdb";
+                    saveFileDialog1.FileName = FileName;
+                    saveFileDialog1.DefaultExt = ".accdb";
+                    break;
+                case ".csv":
+                    saveFileDialog1.Filter = "CSV文件|*.csv";
+                    saveFileDialog1.FileName = FileName;
+                    saveFileDialog1.DefaultExt = ".csv";
+                    break;
+                default:
+                    break;
+
+            }
+
             saveFileDialog1.FileName = FileName;
-            saveFileDialog1.DefaultExt = ".xlsx";
+
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 return saveFileDialog1.FileName.ToString();
@@ -485,9 +507,9 @@ namespace DataPie
 
         #region 从csv文件夹获取DataTable集合
 
-        public static DataTable[] GetDataTableFromCSV(string DirectoryPath,bool rec)
+        public static DataTable[] GetDataTableFromCSV(string DirectoryPath, bool rec)
         {
-            List<FileInfo> fileList = FileManager.FileList(DirectoryPath,rec);
+            List<FileInfo> fileList = FileManager.FileList(DirectoryPath, rec);
             List<FileInfo> files = new List<FileInfo>();
             int n = 0;
             foreach (FileInfo f in fileList)
@@ -573,7 +595,7 @@ namespace DataPie
                 try
                 {
                     DataTable dt = UiServices.GetDataTableFromName(TabelName);
-                    int i = SaveCsv(dt, filename);       
+                    int i = SaveCsv(dt, filename);
                     return i;
                 }
                 catch (Exception ex)
@@ -588,13 +610,13 @@ namespace DataPie
         public static int WriteDataTableToCsv(string TabelName, string FileName)
         {
             if (FileName != null)
-            { 
+            {
                 try
                 {
                     Stopwatch watch = Stopwatch.StartNew();
                     watch.Start();
                     DataTable dt = UiServices.GetDataTableFromName(TabelName);
-                     SaveCsv(dt, FileName);
+                    SaveCsv(dt, FileName);
                     watch.Stop();
                     return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
                 }
@@ -622,7 +644,7 @@ namespace DataPie
                 string sql = "select * from  [" + TabelName + "]";
                 int Count = (RecordCount - 1) / PageSize + 1;
                 FileInfo newFile = new FileInfo(FileName);
-               
+
                 for (int i = 1; i <= Count; i++)
                 {
                     string s = FileName.Substring(0, FileName.LastIndexOf("."));
@@ -636,7 +658,7 @@ namespace DataPie
                     }
 
                     DataTable dt = db.DBProvider.ReturnDataTable(sql, PageSize * (i - 1), PageSize);
-                   SaveCsv(dt, newfileName.ToString());
+                    SaveCsv(dt, newfileName.ToString());
 
                 }
                 watch.Stop();
@@ -692,7 +714,7 @@ namespace DataPie
             return -1;
         }
 
-     
+
 
         public static int WriteCsvFromsql(string sql, string filename)
         {
