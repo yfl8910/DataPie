@@ -22,7 +22,8 @@ namespace DataPie.Core
             System.Runtime.InteropServices.Marshal.FinalReleaseComObject(cat);
         }
 
-        public static string  CreateTable(System.Data.DataTable dt, string tabName)
+
+        public static string CreateTable(System.Data.DataTable dt, string tabName)
         {
             StringBuilder sb = new StringBuilder();
             int cols = dt.Columns.Count;
@@ -31,16 +32,16 @@ namespace DataPie.Core
             {
                 if (i == 0)
                 {
-                    sb.Append(dt.Columns[i].ColumnName.ToString() + "  " + MapType(dt.Columns[i].DataType.ToString()));
+                    sb.Append("[" + dt.Columns[i].ColumnName.ToString() + "]" + "  " + MapType(dt.Columns[i].DataType.ToString()));
                 }
                 else
                 {
-                    sb.Append(", " + dt.Columns[i].ColumnName.ToString() + "  " + MapType(dt.Columns[i].DataType.ToString()));
+                    sb.Append(", " + "[" + dt.Columns[i].ColumnName.ToString() + "]" + "  " + MapType(dt.Columns[i].DataType.ToString()));
                 }
             }
             sb.Append(" )");
             return sb.ToString();
-            
+
         }
 
       // 把.net数据类型转换为Db数据类型
@@ -51,7 +52,7 @@ namespace DataPie.Core
           {
               reType = "varchar";
           }
-          else if (DataType.ToString() == "System.Decimal")
+          else if (DataType.ToString() == "System.Decimal" || DataType.ToString() == "System.Double")
           {
               reType = "number";
           }

@@ -666,13 +666,14 @@ namespace DataPie.DBUtility
 
 
    
+
         private string GenerateInserSql(IList<string> maplist, string TableName, DataRow row)
         {
 
             var names = new StringBuilder();
             var values = new StringBuilder();
             bool first = true;
-
+            char quote = '"';
 
             foreach (string c in maplist)
             {
@@ -681,14 +682,13 @@ namespace DataPie.DBUtility
                     names.Append(",");
                     values.Append(",");
                 }
-
-                names.Append(c);
-                values.Append("\"" + row[c] + "\"");
+                names.Append("[" + c + "]");
+                values.Append("\"" + row[c].ToString().Replace(quote.ToString(), string.Concat(quote, quote)) + "\"");
                 first = false;
 
             }
 
-            string sql = string.Format("INSERT INTO {0}({1}) VALUES ({2})", TableName, names, values);
+            string sql = string.Format("INSERT INTO [{0}] ({1}) VALUES ({2})", TableName, names, values);
             return sql;
         }
 

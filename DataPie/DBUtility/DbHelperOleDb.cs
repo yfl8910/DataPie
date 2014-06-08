@@ -784,7 +784,7 @@ namespace DataPie.DBUtility
                     {
                         names.Append(",");
                     }
-                    names.Append(c);
+                    names.Append("[" + c + "]");
                     first = false;
 
                 }
@@ -875,13 +875,14 @@ namespace DataPie.DBUtility
           }
 
 
+       
           private string GenerateInserSql(IList<string> maplist, string TableName, DataRow row)
           {
 
               var names = new StringBuilder();
               var values = new StringBuilder();
               bool first = true;
-
+              char quote = '"';
 
               foreach (string c in maplist)
               {
@@ -890,9 +891,8 @@ namespace DataPie.DBUtility
                       names.Append(",");
                       values.Append(",");
                   }
-
-                  names.Append("["+c+"]");
-                  values.Append("\"" + row[c] + "\"");
+                  names.Append("[" + c + "]");
+                  values.Append("\"" + row[c].ToString().Replace(quote.ToString(), string.Concat(quote, quote)) + "\"");
                   first = false;
 
               }
