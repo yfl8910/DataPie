@@ -79,8 +79,8 @@
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Common.cs" />
-    <Compile Include="Core\DBToFile.cs" />
-    <Compile Include="DBConfig.cs" />
+    <Compile Include="Core\DBToAccess.cs" />
+    <Compile Include="Core\DBConfig.cs" />
     <Compile Include="DBUtility\CommandInfo.cs" />
     <Compile Include="DBUtility\DbHelperOleDb.cs" />
     <Compile Include="DBUtility\DbHelperSQL.cs" />
@@ -102,7 +102,7 @@
     <Compile Include="OsPackages\KBCsv\CsvReader.cs" />
     <Compile Include="OsPackages\KBCsv\CsvWriter.cs" />
     <Compile Include="OsPackages\KBCsv\DataRecord.cs" />
-    <Compile Include="OsPackages\FileManager.cs" />
+    <Compile Include="Core\FileManager.cs" />
     <Compile Include="OsPackages\KBCsv\HeaderRecord.cs" />
     <Compile Include="OsPackages\KBCsv\RecordBase.cs" />
     <Compile Include="Program.cs" />
@@ -113,7 +113,7 @@
     <Compile Include="FormSQL.Designer.cs">
       <DependentUpon>FormSQL.cs</DependentUpon>
     </Compile>
-    <Compile Include="UiServices.cs" />
+    <Compile Include="Core\UiServices.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,10 +152,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OsPackages\KBCsv\Kent.Boogaart.HelperTrinity.dll" />
-    <Content Include="x64\SQLite.Interop.dll">
+    <Content Include="OsPackages\x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="x86\SQLite.Interop.dll">
+    <Content Include="OsPackages\x86\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

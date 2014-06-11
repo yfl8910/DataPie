@@ -32,52 +32,60 @@ namespace DataPie
             InitializeComponent();
         }
 
-        private void checkDb()
+        private int checkDb()
         {
             System.ServiceProcess.ServiceController sc = new System.ServiceProcess.ServiceController();
             sc.ServiceName = "MSSQLSERVER";
             if (sc == null)
             {
                 MessageBox.Show("您的机器上没有安装SQL SERVER！", "提示信息");
-                return;
+                return -1;
             }
             else if (sc.Status != System.ServiceProcess.ServiceControllerStatus.Running)
             {
                 MessageBox.Show("SQL数据库服务未启动，请点击开启SQL服务！", "提示信息");
-                return;
+                return -2;
             }
+
+            return 0;
         
         }
         //测试连接
         private void btnOk_Click(object sender, EventArgs e)
         {
+          if (checkDb() < 0)
+          {
+              return; 
+          }
+          else {
+              IList<string> _DataBaseList = new List<string>();
+              _DBConfig.ServerName = cboServerName.Text.ToString();
 
-            checkDb();
-            IList<string> _DataBaseList = new List<string>();
-             _DBConfig.ServerName = cboServerName.Text.ToString();
-            
-            if (cboValidataType.Text == "Windows身份认证")
-            {
-                _DBConfig.ValidataType = "Windows身份认证";
-            }
-            else
-            {
-                txtPassword.Enabled = true;
-                txtUser.Enabled = true;
-                _DBConfig.ValidataType = "SQL Server身份认证";
-                _DBConfig.UserName = txtUser.Text.ToString();
-                _DBConfig.UserPwd = txtPassword.Text.ToString();
+              if (cboValidataType.Text == "Windows身份认证")
+              {
+                  _DBConfig.ValidataType = "Windows身份认证";
+              }
+              else
+              {
+                  txtPassword.Enabled = true;
+                  txtUser.Enabled = true;
+                  _DBConfig.ValidataType = "SQL Server身份认证";
+                  _DBConfig.UserName = txtUser.Text.ToString();
+                  _DBConfig.UserPwd = txtPassword.Text.ToString();
 
-            }
-            _conString = GetSQLmasterConstring(_DBConfig);
-            _DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
-            _DataBaseList = _DBConfig.DBProvider.GetDataBaseInfo();
-            if (_DataBaseList.Count > 0)
-            {
-                cboDataBase.DataSource = _DataBaseList;
-                cboDataBase.Enabled = true;
-                cboDataBase.SelectedIndex = 0;
-            }
+              }
+              _conString = GetSQLmasterConstring(_DBConfig);
+              _DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
+              _DataBaseList = _DBConfig.DBProvider.GetDataBaseInfo();
+              if (_DataBaseList.Count > 0)
+              {
+                  cboDataBase.DataSource = _DataBaseList;
+                  cboDataBase.Enabled = true;
+                  cboDataBase.SelectedIndex = 0;
+              }
+          
+          }
+          
           
         }
 
@@ -162,7 +170,6 @@ namespace DataPie
 
             if (ext == "accdb")
             {
-                //IList<string> _DataBaseList = new List<string>();
                 _DBConfig.ProviderName = "ACC";
                 _conString = GetConstring(_DBConfig);
                 _DBConfig.DBProvider = new DBUtility.DbHelperOleDb(_conString);
@@ -170,7 +177,6 @@ namespace DataPie
             }
             else
             {
-                //IList<string> _DataBaseList = new List<string>();
                 _DBConfig.ProviderName = "SQLite";
                 _conString = GetConstring(_DBConfig);
                 _DBConfig.DBProvider = new DBUtility.DbHelperSQLite(_conString);

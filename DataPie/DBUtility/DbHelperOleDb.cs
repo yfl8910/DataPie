@@ -602,7 +602,8 @@ namespace DataPie.DBUtility
             IList<string> List = new List<string>();
             if (tableinfo.Rows.Count > 0)
             {
-                foreach (DataRow _DataRowItem in tableinfo.Rows)
+                var t = tableinfo.Select(null, "ordinal_position");
+                foreach (DataRow _DataRowItem in t)
                 {
                     List.Add(_DataRowItem["Column_Name"].ToString());
                 }

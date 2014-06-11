@@ -1194,8 +1194,8 @@ namespace DataPie.DBUtility
             int count = tableinfo.Rows.Count;
             if (count > 0)
             {
-                
-                foreach (DataRow _DataRowItem in tableinfo.Rows)
+                var t = tableinfo.Select(null, "ordinal_position");
+                foreach (DataRow _DataRowItem in t)
                 {
                     List.Add(_DataRowItem["Column_Name"].ToString());
                 }
@@ -1203,38 +1203,6 @@ namespace DataPie.DBUtility
 
             return List;
 
-
-       //     string s = string.Format("SELECT  c.name  FROM sys.syscolumns AS c INNER JOIN " +
-       //"sys.sysobjects AS o ON c.id = o.id AND o.xtype = 'U' AND o.name <>'dtproperties' " +
-       //"WHERE (o.name = '{0}') and COLUMNPROPERTY(c.id, c.name, 'IsIdentity') = 1 ", TableName);
-
-       //     DataTable dt = ReturnDataTable(s);
-       //     string id = dt.Rows[0]["name"].ToString();
-
-       //     string[] restrictions = new string[] { null, null, TableName };
-       //     DataTable tableinfo = GetSchema("Columns", restrictions);
-       //     IList<string> List = new List<string>();
-       //     int count = tableinfo.Rows.Count;
-       //     if (count > 0 && id != "")
-       //     {
-       //         foreach (DataRow _DataRowItem in tableinfo.Rows)
-       //         {
-       //             if (_DataRowItem["Column_Name"].ToString() != id)
-       //                 List.Add(_DataRowItem["Column_Name"].ToString());
-       //         }
-
-       //     }
-       //     else if (count > 0)
-       //     {
-       //         foreach (DataRow _DataRowItem in tableinfo.Rows)
-       //         {
-       //             List.Add(_DataRowItem["Column_Name"].ToString());
-       //         }
-
-       //     }
-
-
-       //     return List;
 
         }
         public IList<string> GetProcInfo()

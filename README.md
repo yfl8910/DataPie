@@ -25,3 +25,6 @@ DataPieV3.6.2  2013年9月3日
 
 DataPieV3.7  2014年5月30日
 支持SQLite,移除对ORACLE的支持，删除CSV转EXCEL的功能，大幅提升EXCEL导入ACCESS的效率。
+
+DataPieV3.7.1  2014年6月11日
+新增csv文件导入功能

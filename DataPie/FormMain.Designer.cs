@@ -47,6 +47,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnToAccdb = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnDeleteOne = new System.Windows.Forms.Button();
@@ -56,14 +57,10 @@
             this.btnDtout = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -90,7 +87,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnToAccdb = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -103,8 +99,6 @@
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -183,7 +177,7 @@
             this.groupBox1.Size = new System.Drawing.Size(577, 162);
             this.groupBox1.TabIndex = 45;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "EXCEL/ACCES文件选择";
+            this.groupBox1.Text = "EXCEL/ACCES/CSV文件选择";
             // 
             // label3
             // 
@@ -322,6 +316,16 @@
             this.tabPage2.Text = "数据导出(支持多表)";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnToAccdb
+            // 
+            this.btnToAccdb.Location = new System.Drawing.Point(162, 395);
+            this.btnToAccdb.Name = "btnToAccdb";
+            this.btnToAccdb.Size = new System.Drawing.Size(131, 48);
+            this.btnToAccdb.TabIndex = 43;
+            this.btnToAccdb.Text = "导出到ACCESS";
+            this.btnToAccdb.UseVisualStyleBackColor = true;
+            this.btnToAccdb.Click += new System.EventHandler(this.btnToAccdb_Click);
+            // 
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(322, 395);
@@ -406,31 +410,22 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.groupBox8);
-            this.groupBox4.Controls.Add(this.groupBox7);
+            this.groupBox4.Controls.Add(this.button5);
+            this.groupBox4.Controls.Add(this.comboBox4);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.comboBox3);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Location = new System.Drawing.Point(62, 31);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(652, 395);
+            this.groupBox4.Size = new System.Drawing.Size(528, 285);
             this.groupBox4.TabIndex = 55;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "导出设置";
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.button5);
-            this.groupBox8.Controls.Add(this.button3);
-            this.groupBox8.Controls.Add(this.label4);
-            this.groupBox8.Controls.Add(this.comboBox3);
-            this.groupBox8.Location = new System.Drawing.Point(44, 210);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(527, 142);
-            this.groupBox8.TabIndex = 61;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "分多个文件导出";
-            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(370, 102);
+            this.button5.Location = new System.Drawing.Point(258, 181);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(151, 34);
             this.button5.TabIndex = 56;
@@ -440,7 +435,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(215, 102);
+            this.button3.Location = new System.Drawing.Point(76, 181);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(143, 34);
             this.button3.TabIndex = 55;
@@ -452,11 +447,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(24, 39);
+            this.label4.Location = new System.Drawing.Point(73, 94);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 14);
+            this.label4.Size = new System.Drawing.Size(77, 14);
             this.label4.TabIndex = 48;
-            this.label4.Text = "设置行数量参数：";
+            this.label4.Text = "行数设置：";
             // 
             // comboBox3
             // 
@@ -465,55 +460,22 @@
             this.comboBox3.ItemHeight = 14;
             this.comboBox3.Items.AddRange(new object[] {
             "100000",
-            "150000",
             "200000",
-            "250000",
             "300000",
-            "400000"});
-            this.comboBox3.Location = new System.Drawing.Point(149, 39);
+            "400000",
+            "600000",
+            "800000"});
+            this.comboBox3.Location = new System.Drawing.Point(224, 94);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(211, 22);
             this.comboBox3.TabIndex = 49;
             this.comboBox3.Text = "200000";
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.button8);
-            this.groupBox7.Controls.Add(this.button6);
-            this.groupBox7.Controls.Add(this.comboBox4);
-            this.groupBox7.Controls.Add(this.label2);
-            this.groupBox7.Location = new System.Drawing.Point(44, 34);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(527, 149);
-            this.groupBox7.TabIndex = 60;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "单个文件导出";
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(364, 104);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(157, 39);
-            this.button8.TabIndex = 62;
-            this.button8.Text = "导出(CSV方式，快速)";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(215, 104);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(138, 37);
-            this.button6.TabIndex = 58;
-            this.button6.Text = "导出（OpenXML方式）";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
             // comboBox4
             // 
             this.comboBox4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(149, 34);
+            this.comboBox4.Location = new System.Drawing.Point(224, 40);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(211, 22);
             this.comboBox4.TabIndex = 53;
@@ -522,7 +484,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(24, 37);
+            this.label2.Location = new System.Drawing.Point(73, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 14);
             this.label2.TabIndex = 56;
@@ -761,16 +723,6 @@
             this.label6.TabIndex = 50;
             this.label6.Text = "杨福来 @ 2014";
             // 
-            // btnToAccdb
-            // 
-            this.btnToAccdb.Location = new System.Drawing.Point(162, 395);
-            this.btnToAccdb.Name = "btnToAccdb";
-            this.btnToAccdb.Size = new System.Drawing.Size(131, 48);
-            this.btnToAccdb.TabIndex = 43;
-            this.btnToAccdb.Text = "导出到ACCESS";
-            this.btnToAccdb.UseVisualStyleBackColor = true;
-            this.btnToAccdb.Click += new System.EventHandler(this.btnToAccdb_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -800,10 +752,7 @@
             this.groupBox2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
+            this.groupBox4.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
@@ -867,10 +816,6 @@
          private System.Windows.Forms.TabPage tabPage6;
          private System.Windows.Forms.TabPage tabPage7;
          private System.Windows.Forms.GroupBox groupBox6;
-         private System.Windows.Forms.Button button6;
-         private System.Windows.Forms.GroupBox groupBox8;
-         private System.Windows.Forms.GroupBox groupBox7;
-         private System.Windows.Forms.Button button8;
          private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
          private System.Windows.Forms.Button button5;
          private System.Windows.Forms.Button button7;

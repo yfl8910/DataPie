@@ -49,6 +49,10 @@ namespace DataPie
                     conn = String.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source= {0};Persist Security Info=False;", path);
                     select = string.Format("SELECT * FROM [{0}]", tname);
                     break;
+                case ".csv":
+                    conn = String.Format(conn, ace, path.Substring(0, path.LastIndexOf('\\')), "text;Excel 12.0", hdr, imex);
+                    select = string.Format("SELECT * FROM [{0}]", Path.GetFileName(path));
+                    break;
                 default:
                     throw new Exception("File Not Supported!");
             }
@@ -160,8 +164,6 @@ namespace DataPie
         /// </summary>
         public static int ExportExcel(string TabelName, string filename)
         {
-            //string filename = ShowFileDialog(TabelName);
-
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
@@ -169,7 +171,7 @@ namespace DataPie
                 string sql = "select * from  [" + TabelName + "]";
                 DataTable dt = GetDataTableFromSQL(sql);
                 SaveExcel(filename, dt, TabelName); watch.Stop();
-                //MessageBox.Show("导出成功");
+               
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
 
             }
@@ -182,15 +184,14 @@ namespace DataPie
         /// </summary>
         public static int ExportExcel(DataTable dt, string SheetName, string filename)
         {
-            //string filename = ShowFileDialog(SheetName);
-
+          
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
                 SaveExcel(filename, dt, SheetName);
                 watch.Stop();
-                //MessageBox.Show("导出成功");
+                
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -201,15 +202,13 @@ namespace DataPie
         /// </summary>
         public static int ExportExcel(DataTable dt, string filename)
         {
-            //string filename = ShowFileDialog("Sheet1");
-
+            
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
                 SaveExcel(filename, dt, "Sheet1");
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -222,8 +221,7 @@ namespace DataPie
         /// </summary>
         public static int ExportTemplate(string TabelName, string filename)
         {
-            //string filename = ShowFileDialog(TabelName);
-
+            
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
@@ -231,8 +229,7 @@ namespace DataPie
                 string sql = "select * from  [" + TabelName + "]" + " where 1=2";
                 DataTable dt = GetDataTableFromSQL(sql);
                 SaveExcel(filename, dt, TabelName);
-                watch.Stop();
-                //MessageBox.Show("导出成功");
+                watch.Stop(); 
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -244,15 +241,13 @@ namespace DataPie
         /// </summary>
         public static int ExportTemplate(DataTable dt, string TabelName, string filename)
         {
-            //string filename = ShowFileDialog(TabelName);
-
+           
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
                 SaveExcel(filename, dt, TabelName);
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -265,9 +260,7 @@ namespace DataPie
         /// 单个数据库表格导出到一个excel工作簿
         /// </summary>
         public static int ExportExcel(string SheetName, string sql, string filename)
-        {
-            //string filename = ShowFileDialog(SheetName);
-
+        {     
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
@@ -275,7 +268,6 @@ namespace DataPie
                 DataTable dt = GetDataTableFromSQL(sql);
                 SaveExcel(filename, dt, SheetName);
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -288,8 +280,6 @@ namespace DataPie
         /// </summary>
         public static int ExportExcel(string TabelName, int PageSize, string filename)
         {
-            //string filename = ShowFileDialog(TabelName);
-
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
@@ -317,7 +307,6 @@ namespace DataPie
                     }
                 }
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -330,8 +319,6 @@ namespace DataPie
         /// </summary>
         public static int ExportExcel(IList<string> TabelNames, string filename)
         {
-            //string filename = ShowFileDialog(TabelNames[0]);
-
             if (filename != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
@@ -362,7 +349,6 @@ namespace DataPie
                     package.Save();
                 }
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
 
@@ -408,7 +394,6 @@ namespace DataPie
                     package.Save();
                 }
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -435,8 +420,6 @@ namespace DataPie
                 using (ExcelPackage package = new ExcelPackage(newFile))
                 {
                     int num = ds.Count();
-                    //int pagesize = ds[0].Rows.Count;
-
                     for (int i = 0; i < num; i++)
                     {
                         try
@@ -453,7 +436,6 @@ namespace DataPie
                     package.Save();
                 }
                 watch.Stop();
-                //MessageBox.Show("导出成功");
                 return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
             }
             return -1;
@@ -528,7 +510,6 @@ namespace DataPie
                     CsvReader r = new CsvReader(files[i].FullName);
                     r.ReadHeaderRecord();
                     System.Data.DataSet ds = new System.Data.DataSet();
-                    //string tablename = "tb";
                     string tablename = files[i].Name.Substring(0, files[i].Name.LastIndexOf("."));
                     int num = r.Fill(ds, tablename);
                     dt[i] = ds.Tables[0];
@@ -634,8 +615,6 @@ namespace DataPie
         /// </summary>
         public static int WriteDataTableToCsv(string TabelName, int PageSize, string FileName)
         {
-            //string filename = ShowFileDialog(TabelName);
-
             if (FileName != null)
             {
                 Stopwatch watch = Stopwatch.StartNew();
@@ -675,7 +654,6 @@ namespace DataPie
         /// </summary>
         public static int ExportMuticsv(IList<string> TabelNames, string filename)
         {
-            //string filename = ShowFileDialog(TabelNames[0]);
 
             if (filename != null)
             {
