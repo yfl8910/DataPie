@@ -8,8 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using DataPie;
 
-namespace DataPie
+namespace DataPieUI
 {
     public partial class FormSQL : Form
     {
@@ -108,7 +109,7 @@ namespace DataPie
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             try
-            {
+            {  
                 string filename = UiServices.ShowFileDialog("Sheet1", ".xlsx");
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;

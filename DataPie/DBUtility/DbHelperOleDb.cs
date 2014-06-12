@@ -247,7 +247,7 @@ namespace DataPie.DBUtility
         /// </summary>
         /// <param name="strSQL">查询语句</param>
         /// <returns>OleDbDataReader</returns>
-        public static OleDbDataReader ExecuteReader(string strSQL)
+        public IDataReader ExecuteReader(string strSQL)
         {
             OleDbConnection connection = new OleDbConnection(connectionString);
             OleDbCommand cmd = new OleDbCommand(strSQL, connection);

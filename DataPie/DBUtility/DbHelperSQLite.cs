@@ -248,7 +248,7 @@ namespace DataPie.DBUtility
         /// </summary>
         /// <param name="strSQL">查询语句</param>
         /// <returns>SQLiteDataReader</returns>
-        public static SQLiteDataReader ExecuteReader(string strSQL)
+        public  IDataReader ExecuteReader(string strSQL)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             SQLiteCommand cmd = new SQLiteCommand(strSQL, connection);

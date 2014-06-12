@@ -1,4 +1,4 @@
-﻿namespace DataPie
+﻿namespace DataPieUI
  {
      partial class FormMain
      {
@@ -57,11 +57,13 @@
             this.btnDtout = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btnProcExe = new System.Windows.Forms.Button();
@@ -410,6 +412,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button8);
+            this.groupBox4.Controls.Add(this.button6);
             this.groupBox4.Controls.Add(this.button5);
             this.groupBox4.Controls.Add(this.comboBox4);
             this.groupBox4.Controls.Add(this.button3);
@@ -423,35 +427,54 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "导出设置";
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(77, 226);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(142, 34);
+            this.button8.TabIndex = 58;
+            this.button8.Text = "导出EXCEL（方式2）";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(247, 221);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(151, 39);
+            this.button6.TabIndex = 57;
+            this.button6.Text = "导出CSV（最高效）";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(258, 181);
+            this.button5.Location = new System.Drawing.Point(247, 168);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(151, 34);
             this.button5.TabIndex = 56;
-            this.button5.Text = "导出(CSV方式，快速)";
+            this.button5.Text = "导出CSV（待废弃)";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // comboBox4
+            // 
+            this.comboBox4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(224, 40);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(211, 22);
+            this.comboBox4.TabIndex = 53;
+            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(76, 181);
+            this.button3.Location = new System.Drawing.Point(76, 168);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(143, 34);
             this.button3.TabIndex = 55;
-            this.button3.Text = "导出（OpenXML方式）";
+            this.button3.Text = "导出EXCEL(方式1)";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(73, 94);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 14);
-            this.label4.TabIndex = 48;
-            this.label4.Text = "行数设置：";
             // 
             // comboBox3
             // 
@@ -471,14 +494,15 @@
             this.comboBox3.TabIndex = 49;
             this.comboBox3.Text = "200000";
             // 
-            // comboBox4
+            // label4
             // 
-            this.comboBox4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(224, 40);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(211, 22);
-            this.comboBox4.TabIndex = 53;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(73, 94);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 14);
+            this.label4.TabIndex = 48;
+            this.label4.Text = "行数设置：";
             // 
             // label2
             // 
@@ -829,5 +853,7 @@
          private System.Windows.Forms.Label label6;
          private System.Windows.Forms.Button button10;
          private System.Windows.Forms.Button btnToAccdb;
+         private System.Windows.Forms.Button button8;
+         private System.Windows.Forms.Button button6;
      }
  }

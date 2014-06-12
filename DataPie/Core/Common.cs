@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataPie.Core
 {
-    class Common
+    public class Common
     {
         // 通过ADOX创建ACCESS数据库文件
         public static void CreatDataBase(string filename)

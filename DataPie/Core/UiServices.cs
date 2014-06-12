@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ 
+此类中的方法会逐步转移到其它类中，最终该类将会废弃。
+ 
+ */
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +22,7 @@ using Kent.Boogaart.KBCsv;
 
 namespace DataPie
 {
-    class UiServices
+     public class UiServices
     {
 
         public static DBConfig db;

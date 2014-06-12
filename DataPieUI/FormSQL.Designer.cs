@@ -1,4 +1,4 @@
-﻿namespace DataPie
+﻿namespace DataPieUI
 {
     partial class FormSQL
     {

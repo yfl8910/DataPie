@@ -28,3 +28,7 @@ DataPieV3.7  2014年5月30日
 
 DataPieV3.7.1  2014年6月11日
 新增csv文件导入功能
+
+
+DataPieV3.8  2014年6月12日
+将UI与核心类分类，重写csv导出逻辑，由DataTable方式导出，修改为DataReader方式导出，大幅降低csv导出的内存消耗

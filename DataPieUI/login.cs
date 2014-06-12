@@ -9,14 +9,18 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Net;
+using DataPie;
+using System.ServiceProcess;
 
 
-namespace DataPie
+namespace DataPieUI
 {
     public partial class login : Form
     {
         public static FormMain main = null;
-        private DBConfig _DBConfig = new DBConfig();
+
+        public static DBConfig _DBConfig = new DBConfig();
+
         string _conString;
 
         public login()
@@ -33,7 +37,7 @@ namespace DataPie
         }
 
         private int checkDb()
-        {
+        {    
             System.ServiceProcess.ServiceController sc = new System.ServiceProcess.ServiceController();
             sc.ServiceName = "MSSQLSERVER";
             if (sc == null)
@@ -75,7 +79,8 @@ namespace DataPie
 
               }
               _conString = GetSQLmasterConstring(_DBConfig);
-              _DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
+              _DBConfig.DBProvider = new DataPie.DBUtility.DbHelperSQL(_conString);
+              //_DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
               _DataBaseList = _DBConfig.DBProvider.GetDataBaseInfo();
               if (_DataBaseList.Count > 0)
               {
@@ -134,7 +139,8 @@ namespace DataPie
             _DBConfig.ProviderName = "SQL";
             _DBConfig.DataBase = cboDataBase.Text.ToString();
             _conString = GetConstring(_DBConfig);
-            _DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
+            _DBConfig.DBProvider = new  DataPie.DBUtility.DbHelperSQL(_conString);
+
             MainfromShow();
             this.Hide();
         }
@@ -172,14 +178,14 @@ namespace DataPie
             {
                 _DBConfig.ProviderName = "ACC";
                 _conString = GetConstring(_DBConfig);
-                _DBConfig.DBProvider = new DBUtility.DbHelperOleDb(_conString);
+                _DBConfig.DBProvider = new DataPie.DBUtility.DbHelperOleDb(_conString);
              
             }
             else
             {
                 _DBConfig.ProviderName = "SQLite";
                 _conString = GetConstring(_DBConfig);
-                _DBConfig.DBProvider = new DBUtility.DbHelperSQLite(_conString);
+                _DBConfig.DBProvider = new DataPie.DBUtility.DbHelperSQLite(_conString);
              
 
             }

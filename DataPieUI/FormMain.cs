@@ -7,15 +7,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
+//using OfficeOpenXml;
+//using OfficeOpenXml.Style;
 using System.Diagnostics;
 using System.IO;
 using Kent.Boogaart.KBCsv;
 using System.Threading.Tasks;
+using DataPie;
+using DataPie.Core;
 
 
-namespace DataPie
+namespace DataPieUI
 {
     public partial class FormMain : Form
     {
@@ -761,7 +763,7 @@ namespace DataPie
 
                         string sql = "select * from [" + SheetNames[i] + "]";
                         IDataReader reader = db.DBProvider.ExecuteReader(sql);
-                        time += Core.DBToCsv.SaveCsv(reader, newfileName.ToString());
+                        time += DataPie.Core.DBToCsv.SaveCsv(reader, newfileName.ToString());
 
                     }
                     string s1 = string.Format("导出的时间为:{0}秒", time);
@@ -902,7 +904,7 @@ namespace DataPie
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 if (filename != null)
                 {
-                    Core.Common.CreatDataBase(filename);
+                    DataPie.Core.Common.CreatDataBase(filename);
                     Task t = TaskExportToACC(SheetNames, filename); 
                 }
 
@@ -923,7 +925,7 @@ namespace DataPie
                     int time = 0;
                     foreach (var table in SheetNames) {
                         dt = UiServices.GetDataTableFromName(table);
-                        time += Core.DBToAccess.DataTableExportToAccess(dt, filename, table);
+                        time += DataPie.Core.DBToAccess.DataTableExportToAccess(dt, filename, table);
                     }
                     string s = string.Format("导出的时间为:{0}秒", time);
                     this.BeginInvoke(new System.EventHandler(ShowMessage), s);
@@ -969,7 +971,7 @@ namespace DataPie
 
                     string sql = "select * from [" + TableName + "]";
                     IDataReader reader = db.DBProvider.ExecuteReader(sql);
-                    int time = Core.DBToCsv.SaveCsv(reader, filename, pagesize);
+                    int time = DataPie.Core.DBToCsv.SaveCsv(reader, filename, pagesize);
                     string s = string.Format("导出的时间为:{0}秒", time);
                     this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                     MessageBox.Show("导数已完成！");
@@ -1004,8 +1006,8 @@ namespace DataPie
             {
                 string sql = "select * from [" + TableName + "]";
                 IDataReader reader =db.DBProvider.ExecuteReader(sql);
-                Core.DBToExcel.db = db;
-                int time = Core.DBToExcel.SaveExcel(filename, sql, TableName);
+                DataPie.Core.DBToExcel.db = db;
+                int time = DataPie.Core.DBToExcel.SaveExcel(filename, sql, TableName);
                 string s = string.Format("导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导数已完成！");

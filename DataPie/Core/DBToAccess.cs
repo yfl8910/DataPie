@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace DataPie.Core
 {
-    class DBToAccess
+    public class DBToAccess
     {
 
 
