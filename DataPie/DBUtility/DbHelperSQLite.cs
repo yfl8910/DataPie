@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
-using System.Configuration;
 using System.Data.SQLite;
 using System.Collections.Generic;
 using System.Text;

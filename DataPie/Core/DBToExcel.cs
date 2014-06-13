@@ -12,8 +12,6 @@ namespace DataPie.Core
 {
     public class DBToExcel
     {
-        public static DBConfig db;
-
 
         /// <summary>
         /// 保存excel文件，覆盖相同文件名的文件
@@ -36,7 +34,7 @@ namespace DataPie.Core
                 {
                     ExcelWorksheet ws = package.Workbook.Worksheets.Add(SheetName);
 
-                    IDataReader reader = db.DBProvider.ExecuteReader(sql);
+                    IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
                     ws.Cells["A1"].LoadFromDataReader(reader, true);
                 }
                 catch (Exception ex)

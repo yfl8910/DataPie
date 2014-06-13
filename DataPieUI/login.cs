@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.OleDb;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using System.Net;
 using DataPie;
-using System.ServiceProcess;
 
 
 namespace DataPieUI
@@ -18,9 +11,6 @@ namespace DataPieUI
     public partial class login : Form
     {
         public static FormMain main = null;
-
-        public static DBConfig _DBConfig = new DBConfig();
-
         string _conString;
 
         public login()
@@ -37,7 +27,7 @@ namespace DataPieUI
         }
 
         private int checkDb()
-        {    
+        {
             System.ServiceProcess.ServiceController sc = new System.ServiceProcess.ServiceController();
             sc.ServiceName = "MSSQLSERVER";
             if (sc == null)
@@ -52,46 +42,50 @@ namespace DataPieUI
             }
 
             return 0;
-        
+
         }
         //测试连接
         private void btnOk_Click(object sender, EventArgs e)
         {
-          if (checkDb() < 0)
-          {
-              return; 
-          }
-          else {
-              IList<string> _DataBaseList = new List<string>();
-              _DBConfig.ServerName = cboServerName.Text.ToString();
+            if (checkDb() < 0)
+            {
+                return;
+            }
+            else
+            {
+                IList<string> _DataBaseList = new List<string>();
 
-              if (cboValidataType.Text == "Windows身份认证")
-              {
-                  _DBConfig.ValidataType = "Windows身份认证";
-              }
-              else
-              {
-                  txtPassword.Enabled = true;
-                  txtUser.Enabled = true;
-                  _DBConfig.ValidataType = "SQL Server身份认证";
-                  _DBConfig.UserName = txtUser.Text.ToString();
-                  _DBConfig.UserPwd = txtPassword.Text.ToString();
+                DBConfig.db.ServerName = cboServerName.Text.ToString();
 
-              }
-              _conString = GetSQLmasterConstring(_DBConfig);
-              _DBConfig.DBProvider = new DataPie.DBUtility.DbHelperSQL(_conString);
-              //_DBConfig.DBProvider = new DBUtility.DbHelperSQL(_conString);
-              _DataBaseList = _DBConfig.DBProvider.GetDataBaseInfo();
-              if (_DataBaseList.Count > 0)
-              {
-                  cboDataBase.DataSource = _DataBaseList;
-                  cboDataBase.Enabled = true;
-                  cboDataBase.SelectedIndex = 0;
-              }
-          
-          }
-          
-          
+                if (cboValidataType.Text == "Windows身份认证")
+                {
+                    DBConfig.db.ValidataType = "Windows身份认证";
+                }
+                else
+                {
+                    txtPassword.Enabled = true;
+                    txtUser.Enabled = true;
+                    DBConfig.db.ValidataType = "SQL Server身份认证";
+                    DBConfig.db.UserName = txtUser.Text.ToString();
+                    DBConfig.db.UserPwd = txtPassword.Text.ToString();
+
+                }
+
+                DBConfig.db.ProviderName = "SQL";
+                _conString = DBConfig.db.GetSQLmasterConstring();
+
+                DBConfig.db.DBProvider = new DataPie.DBUtility.DbHelperSQL(_conString);
+                _DataBaseList = DBConfig.db.DBProvider.GetDataBaseInfo();
+                if (_DataBaseList.Count > 0)
+                {
+                    cboDataBase.DataSource = _DataBaseList;
+                    cboDataBase.Enabled = true;
+                    cboDataBase.SelectedIndex = 0;
+                }
+
+            }
+
+
         }
 
         private void login_Load(object sender, EventArgs e)
@@ -112,17 +106,12 @@ namespace DataPieUI
             if (main == null)
             {
                 main = new FormMain();
-
-                FormMain.db = _DBConfig;
-                UiServices.db = _DBConfig;
                 main.Show();
 
 
             }
             else
             {
-                FormMain.db = _DBConfig;
-                UiServices.db = _DBConfig;
                 main.DataLoad();
                 main.Show();
 
@@ -136,10 +125,10 @@ namespace DataPieUI
                 MessageBox.Show("请选择数据库名称！");
                 return;
             }
-            _DBConfig.ProviderName = "SQL";
-            _DBConfig.DataBase = cboDataBase.Text.ToString();
-            _conString = GetConstring(_DBConfig);
-            _DBConfig.DBProvider = new  DataPie.DBUtility.DbHelperSQL(_conString);
+            DBConfig.db.ProviderName = "SQL";
+            DBConfig.db.DataBase = cboDataBase.Text.ToString();
+            _conString = DBConfig.db.GetConstring();
+            DBConfig.db.DBProvider = new DataPie.DBUtility.DbHelperSQL(_conString);
 
             MainfromShow();
             this.Hide();
@@ -154,7 +143,7 @@ namespace DataPieUI
             opeanfile.RestoreDirectory = true;
             opeanfile.FilterIndex = 1;
             if (opeanfile.ShowDialog() == DialogResult.OK)
-            {            
+            {
                 this.txtconn.Text = opeanfile.FileName;
                 txtconn.ReadOnly = true;
             }
@@ -172,21 +161,21 @@ namespace DataPieUI
             }
             string ext = fileName.Substring(fileName.LastIndexOf(".") + 1, fileName.Length - fileName.LastIndexOf(".") - 1);
 
-            _DBConfig.DataBase = this.txtconn.Text.ToString();
+            DBConfig.db.DataBase = this.txtconn.Text.ToString();
 
             if (ext == "accdb")
             {
-                _DBConfig.ProviderName = "ACC";
-                _conString = GetConstring(_DBConfig);
-                _DBConfig.DBProvider = new DataPie.DBUtility.DbHelperOleDb(_conString);
-             
+                DBConfig.db.ProviderName = "ACC";
+                _conString = DBConfig.db.GetConstring();
+                DBConfig.db.DBProvider = new DataPie.DBUtility.DbHelperOleDb(_conString);
+
             }
             else
             {
-                _DBConfig.ProviderName = "SQLite";
-                _conString = GetConstring(_DBConfig);
-                _DBConfig.DBProvider = new DataPie.DBUtility.DbHelperSQLite(_conString);
-             
+                DBConfig.db.ProviderName = "SQLite";
+                _conString = DBConfig.db.GetConstring();
+                DBConfig.db.DBProvider = new DataPie.DBUtility.DbHelperSQLite(_conString);
+
 
             }
             MainfromShow();
@@ -255,83 +244,8 @@ namespace DataPieUI
             }
         }
 
-        public static string GetSQLmasterConstring(DBConfig db)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Data Source=" + db.ServerName);
-            sb.Append(";Initial Catalog=master ;");
-            if (db.ValidataType == "Windows身份认证")
-            {
-                sb.Append(" Integrated Security=SSPI;");
-            }
-            else
-            {
-
-                sb.Append("User ID=" + db.UserName + ";Password=" + db.UserPwd + ";");
-
-            }
-            return sb.ToString();
-        }
-
-        public static string GetConstring(DBConfig db)
-        {
-            if (db.ProviderName == "SQL")
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("Data Source=" + db.ServerName);
-                sb.Append(";Initial Catalog=" + db.DataBase + " ; ");
-                if (db.ValidataType == "Windows身份认证")
-                {
-                    sb.Append("Integrated Security=SSPI;Connect Timeout=10000");
-                }
-                else
-                {
-
-                    sb.Append("User ID=" + db.UserName + ";Password=" + db.UserPwd + ";");
-
-                }
-                return sb.ToString();
-            }
-            else if (db.ProviderName == "ACC")
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("Provider=Microsoft.Ace.OleDb.12.0");
-                sb.Append(";Data Source= " + db.DataBase);
-                sb.Append(";Persist Security Info=False;");
-                return sb.ToString();
-            }
-            else if (db.ProviderName == "SQLite")
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("Data Source= " + db.DataBase + ";");
-                return sb.ToString();
-            }
-            else return "";
-
-        }
 
 
-        //不再支持ORACEL数据库
-        //private void btnOracLogin_Click(object sender, EventArgs e)
-        //{
-        //    if (textBox1.Text == "" || textBox2.Text == "" || comboBox2.Text == "")
-        //    {
-        //        MessageBox.Show("用户名、名称、登陆的数据库不能为空！");
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        string connectionString = "User Id=" + textBox1.Text.ToString().Trim() + ";Password=" + textBox2.Text.ToString().Trim() +
-        //      ";Data Source=" + comboBox2.Text.ToString().Trim();
-        //        _DBConfig.DBProvider = new DBUtility.DbHelperOra(connectionString);
-        //        MainfromShow();
-        //        this.Hide();
-
-        //    }
-        //}
-
-      
-     
         public void GetLocalServerIP()
         {
             cboServerName.Items.Clear();

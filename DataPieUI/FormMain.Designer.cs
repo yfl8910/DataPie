@@ -59,7 +59,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
@@ -414,7 +413,6 @@
             // 
             this.groupBox4.Controls.Add(this.button8);
             this.groupBox4.Controls.Add(this.button6);
-            this.groupBox4.Controls.Add(this.button5);
             this.groupBox4.Controls.Add(this.comboBox4);
             this.groupBox4.Controls.Add(this.button3);
             this.groupBox4.Controls.Add(this.comboBox3);
@@ -422,16 +420,16 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Location = new System.Drawing.Point(62, 31);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(528, 285);
+            this.groupBox4.Size = new System.Drawing.Size(635, 285);
             this.groupBox4.TabIndex = 55;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "导出设置";
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(77, 226);
+            this.button8.Location = new System.Drawing.Point(224, 174);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(142, 34);
+            this.button8.Size = new System.Drawing.Size(125, 40);
             this.button8.TabIndex = 58;
             this.button8.Text = "导出EXCEL（方式2）";
             this.button8.UseVisualStyleBackColor = true;
@@ -439,23 +437,13 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(247, 221);
+            this.button6.Location = new System.Drawing.Point(367, 175);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(151, 39);
+            this.button6.Size = new System.Drawing.Size(125, 39);
             this.button6.TabIndex = 57;
-            this.button6.Text = "导出CSV（最高效）";
+            this.button6.Text = "导出为CSV文件";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(247, 168);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(151, 34);
-            this.button5.TabIndex = 56;
-            this.button5.Text = "导出CSV（待废弃)";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // comboBox4
             // 
@@ -463,14 +451,14 @@
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(224, 40);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(211, 22);
+            this.comboBox4.Size = new System.Drawing.Size(268, 22);
             this.comboBox4.TabIndex = 53;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(76, 168);
+            this.button3.Location = new System.Drawing.Point(76, 175);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 34);
+            this.button3.Size = new System.Drawing.Size(125, 39);
             this.button3.TabIndex = 55;
             this.button3.Text = "导出EXCEL(方式1)";
             this.button3.UseVisualStyleBackColor = true;
@@ -490,7 +478,7 @@
             "800000"});
             this.comboBox3.Location = new System.Drawing.Point(224, 94);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(211, 22);
+            this.comboBox3.Size = new System.Drawing.Size(268, 22);
             this.comboBox3.TabIndex = 49;
             this.comboBox3.Text = "200000";
             // 
@@ -841,7 +829,6 @@
          private System.Windows.Forms.TabPage tabPage7;
          private System.Windows.Forms.GroupBox groupBox6;
          private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-         private System.Windows.Forms.Button button5;
          private System.Windows.Forms.Button button7;
          private System.Windows.Forms.TabPage tabPage8;
          private System.Windows.Forms.ComboBox comboBox5;

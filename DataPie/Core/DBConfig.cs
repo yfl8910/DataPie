@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +10,15 @@ namespace DataPie
     /// </summary>
     public class DBConfig
     {
-        private string serverName;
-        /// <summary>
-        /// 服务器名
-        /// </summary>
-        public string ServerName
+
+        public static DBConfig db = new DBConfig();
+
+
+        public DBConfig()
         {
-            get { return serverName; }
-            set { serverName = value; }
+
         }
+
         private string providerName;
         /// <summary>
         ///数据提供程序
@@ -29,6 +28,17 @@ namespace DataPie
             get { return providerName; }
             set { providerName = value; }
         }
+
+        private string serverName;
+        /// <summary>
+        /// 服务器名
+        /// </summary>
+        public string ServerName
+        {
+            get { return serverName; }
+            set { serverName = value; }
+        }
+
         private string validataType;
         /// <summary>
         /// 验证类型
@@ -84,5 +94,70 @@ namespace DataPie
             get { return dbProvider; }
             set { dbProvider = value; }
         }
+
+        public string GetSQLmasterConstring()
+        {
+            if (db.ProviderName == "SQL")
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Data Source=" + db.ServerName);
+                sb.Append(";Initial Catalog=master ;");
+                if (db.ValidataType == "Windows身份认证")
+                {
+                    sb.Append(" Integrated Security=SSPI;");
+                }
+                else
+                {
+
+                    sb.Append("User ID=" + db.UserName + ";Password=" + db.UserPwd + ";");
+
+                }
+                return sb.ToString();
+            }
+            return "";
+        }
+
+        public string GetConstring()
+        {
+            if (db.ProviderName == "SQL")
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Data Source=" + db.ServerName);
+                sb.Append(";Initial Catalog=" + db.DataBase + " ; ");
+                if (db.ValidataType == "Windows身份认证")
+                {
+                    sb.Append("Integrated Security=SSPI;Connect Timeout=10000");
+                }
+                else
+                {
+
+                    sb.Append("User ID=" + db.UserName + ";Password=" + db.UserPwd + ";");
+
+                }
+                return sb.ToString();
+            }
+            else if (db.ProviderName == "ACC")
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Provider=Microsoft.Ace.OleDb.12.0");
+                sb.Append(";Data Source= " + db.DataBase);
+                sb.Append(";Persist Security Info=False;");
+                return sb.ToString();
+            }
+            else if (db.ProviderName == "SQLite")
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Data Source= " + db.DataBase + ";");
+                return sb.ToString();
+            }
+            else return "";
+
+        }
+
+
+
     }
+
+
+
 }

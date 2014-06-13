@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Data;
 using System.Data.OleDb;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Text;
 
@@ -819,7 +817,7 @@ namespace DataPie.DBUtility
                   cmd.Transaction = tx;
                   if (needCreate)
                   {
-                      string creatDLL = Core.Common.CreateTable(dt, TableName);
+                      string creatDLL = Core.DBToAccess.CreateTable(dt, TableName);
                       cmd.CommandText = creatDLL;
                       cmd.ExecuteNonQuery();
 

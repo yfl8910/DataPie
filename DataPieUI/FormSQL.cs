@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using DataPie;
 
@@ -14,7 +11,6 @@ namespace DataPieUI
 {
     public partial class FormSQL : Form
     {
-        public static DBConfig _DBConfig;
         private Point pi;
         public FormSQL()
         {
@@ -34,13 +30,13 @@ namespace DataPieUI
             Node.Text = "所有表：";
             dbTreeView.Nodes.Add(Node);
 
-            IList<string> list = _DBConfig.DBProvider.GetTableInfo();
+            IList<string> list = DBConfig.db.DBProvider.GetTableInfo();
             foreach (string s in list)
             {
                 TreeNode tn = new TreeNode();
                 tn.Name = s;
                 tn.Text = s;
-                IList<string> col = _DBConfig.DBProvider.GetColumnInfo(s);
+                IList<string> col = DBConfig.db.DBProvider.GetColumnInfo(s);
                 foreach (string c in col)
                 {
                     TreeNode colnode = new TreeNode();
@@ -77,7 +73,7 @@ namespace DataPieUI
                 string tablename = dbTreeView.SelectedNode.Text.ToString();
                 if (i > 0 && tablename != "所有表：")
                 {
-                  IList<string> col = _DBConfig.DBProvider.GetColumnInfo(tablename);
+                    IList<string> col = DBConfig.db.DBProvider.GetColumnInfo(tablename);
                   string sql=  BuildQuery(col,tablename);
                   sqlText.Text = sql;
                 }
@@ -109,8 +105,8 @@ namespace DataPieUI
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             try
-            {  
-                string filename = UiServices.ShowFileDialog("Sheet1", ".xlsx");
+            {
+                string filename = Common.ShowFileDialog("Book1", ".xlsx");
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 Task t = TaskExport("Sheet1", sqlText.Text.ToString(), filename);
@@ -129,10 +125,9 @@ namespace DataPieUI
 
             await Task.Run(() =>
             {
-                int time = UiServices.ExportExcel("Sheet1", sql, filename);
+                int time = UiServices.ExportExcel(TableName, sql, filename);
                 string s = string.Format("导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             });
 
@@ -150,7 +145,7 @@ namespace DataPieUI
             try
             {
                 BindingSource bs = new BindingSource();
-                DataTable dt = _DBConfig.DBProvider.ReturnDataTable(sqlText.Text.ToString()); 
+                DataTable dt = DBConfig.db.DBProvider.ReturnDataTable(sqlText.Text.ToString()); 
                 bs.DataSource = dt;
                 gridResults1.DataSource =bs;
                 this.bindingNavigator1.BindingSource = bs;
@@ -172,13 +167,9 @@ namespace DataPieUI
         {
             try
             {
-                System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-                saveFileDialog1.Filter = "csv文件|*.csv";
-                saveFileDialog1.FileName = "out";
-                saveFileDialog1.DefaultExt = ".csv";
-                if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                  string filename =Common.ShowFileDialog("文档", ".csv");
+                if (filename != null)
                 {
-                    string filename = saveFileDialog1.FileName.ToString();
                     toolStripStatusLabel1.Text = "导数中…";
                     toolStripStatusLabel1.ForeColor = Color.Red;
                     Task t = WriteCsvFromsql(sqlText.Text.ToString(), filename);
@@ -194,8 +185,8 @@ namespace DataPieUI
         public async Task WriteCsvFromsql(string sql, string filename)
         {
             await Task.Run(() =>
-            {
-                int time = UiServices.WriteCsvFromsql(sql, filename);
+            {    IDataReader reader=DataPie.DBConfig.db.DBProvider.ExecuteReader(sql);
+                int time = DataPie.Core.DBToCsv.SaveCsv(reader,filename) ;
                 string s = string.Format("单个csv方式导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导数已完成！");
