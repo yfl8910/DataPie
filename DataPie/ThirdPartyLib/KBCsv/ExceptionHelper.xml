@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<exceptionHelper>
+    <exceptionGroup type="Kent.Boogaart.KBCsv.Extensions.Data.DataExtensions">
+        <exception key="maximumRecordsMustBePositive" type="System.ArgumentException">
+            maximumRecords cannot be negative.
+        </exception>
+        <exception key="noColumnsAndNoHeaderRecord" type="System.InvalidOperationException">
+            If the DataTable has no columns, the CsvReader must have a HeaderRecord from which columns will be constructed.
+        </exception>
+        <exception key="moreValuesThanColumns" type="System.InvalidOperationException">
+            DataTable has {0} columns, but a DataRecord had {1}. The number of columns in the DataTable must match or exceed the number of values in each DataRecord.
+        </exception>
+    </exceptionGroup>
+</exceptionHelper>

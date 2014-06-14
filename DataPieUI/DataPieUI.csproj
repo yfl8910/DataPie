@@ -36,9 +36,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DataPie\bin\Debug\DataPie.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus">
-      <HintPath>..\packages\EPPlus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceProcess" />
