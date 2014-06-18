@@ -181,14 +181,14 @@ namespace DataPieUI
             }
             string path = this.textBox2.Text.ToString();
             string tname = comboBox1.Text.ToString();
-            IList<string> List = DBConfig.db.DBProvider.GetColumnInfo(tname);
+            IList<string> mapList = DBConfig.db.DBProvider.GetColumnInfo(tname);
             toolStripStatusLabel1.Text = "导数中…";
             toolStripStatusLabel1.ForeColor = Color.Red;
-            Task t = TaskImportCsv(List, path, tname);
+            Task t = TaskImportCsv(mapList, path, tname);
         }
 
       
-        public async Task TaskImportCsv(IList<string> List, string path, string tname)
+        public async Task TaskImportCsv(IList<string> mapList, string path, string tname)
         {
 
             await Task.Run(() =>
@@ -203,7 +203,7 @@ namespace DataPieUI
                         string m = "正在导入第 " + (i + 1) + " 个文件：" + filelist[i].ToString();
                         this.BeginInvoke(new System.EventHandler(ShowMessage), m);
                         DataTable dt =DataPie.Core.FileToDB.GetDataTableFromCSV(filelist[i]);
-                        DBConfig.db.DBProvider.DatatableImport(List, tname, dt);
+                        DBConfig.db.DBProvider.DatatableImport(mapList, tname, dt);
                     }
                     catch (Exception ee)
                     {
@@ -875,6 +875,64 @@ namespace DataPieUI
                 GC.Collect();
             });
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (listBox1.Items.Count < 1)
+            {
+                MessageBox.Show("请选择需要导入的表名！");
+            }
+            else
+            {
+                IList<string> SheetNames = new List<string>();
+                foreach (var item in listBox1.Items)
+                {
+                    SheetNames.Add(item.ToString());
+                }
+                string filename = Common.ShowFileDialog(SheetNames[0], ".zip");
+                if (filename != null)
+                {
+                    toolStripStatusLabel1.Text = "导数中…";
+                    toolStripStatusLabel1.ForeColor = Color.Red;
+                    Task t = TaskExportZIP(SheetNames, filename);
+                }
+            }
+        }
+
+        public async Task TaskExportZIP(IList<string> SheetNames, string filename)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    int count = SheetNames.Count();
+                    int time = 0;
+                    FileInfo fi = new FileInfo(filename);
+                    if (fi.Exists)
+                    {
+                        fi.Delete();
+                    }
+                    for (int i = 0; i < count; i++)
+                    {
+                        string sql = "select * from [" + SheetNames[i] + "]";
+                        IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
+                        time += DataPie.Core.DBToZip.DataReaderToZip(filename, reader, SheetNames[i]);
+
+                    }
+                    string s = string.Format("导出的时间为:{0}秒", time);
+                    this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                    MessageBox.Show("导数已完成！");
+                    GC.Collect();
+                }
+                catch (Exception ee)
+                {
+                    this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                    return;
+                }
+            });
+
+        }
+
 
 
 

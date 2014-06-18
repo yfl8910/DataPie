@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataPie.Core
 {
@@ -59,49 +60,41 @@ namespace DataPie.Core
         public static List<FileInfo> GetFilelist(string DirectoryPath, bool rec)
         {
             List<FileInfo> fileList = FileManager.FileList(DirectoryPath, rec);
-            List<FileInfo> files = new List<FileInfo>();
-            int n = 0;
-            foreach (FileInfo f in fileList)
-            {
-                if (f.Extension == ".csv")
-                {
-                    n++;
-                    files.Add(f);
-                }
-            }
-            if (n > 0)
-            {
-                return files;
-            }
-            else
-            {
-                return null;
-            }
+
+            var csvlist = from f in fileList
+                          where f.Extension == ".csv"
+                          select f;
+            return csvlist.ToList();
+
+
+            //List<FileInfo> files = new List<FileInfo>();
+            //int n = 0;
+            //foreach (FileInfo f in fileList)
+            //{
+            //    if (f.Extension == ".csv")
+            //    {
+            //        n++;
+            //        files.Add(f);
+            //    }
+            //}
+            //if (n > 0)
+            //{
+            //    return files;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
 
 
         }
 
- 
         public static DataTable GetDataTableFromCSV(FileInfo file)
         {
             string tablename = file.Name.Substring(0, file.Name.LastIndexOf("."));
             return  GetDataTableFromFile(file.FullName, tablename);
         }
 
-        //public static DataTable GetDataTableFromKBCSV(FileInfo file)
-        //{
-        //    string tablename = file.Name.Substring(0, file.Name.LastIndexOf("."));
-        //    DataTable dt = new DataTable(tablename);
-        //    using (var stream = new FileStream(file.FullName, FileMode.Open))
-        //    using (var reader = new CsvReader(stream))
-        //    {
-        //        reader.ReadHeaderRecord();
-        //        dt.Fill(reader);
-        //    }
-        //    return dt;
-
-        //}
-
-
+ 
     }
 }

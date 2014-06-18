@@ -88,6 +88,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label6 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -305,6 +306,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button5);
             this.tabPage2.Controls.Add(this.btnToAccdb);
             this.tabPage2.Controls.Add(this.button7);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -319,7 +321,7 @@
             // 
             // btnToAccdb
             // 
-            this.btnToAccdb.Location = new System.Drawing.Point(162, 395);
+            this.btnToAccdb.Location = new System.Drawing.Point(27, 395);
             this.btnToAccdb.Name = "btnToAccdb";
             this.btnToAccdb.Size = new System.Drawing.Size(131, 48);
             this.btnToAccdb.TabIndex = 43;
@@ -329,7 +331,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(322, 395);
+            this.button7.Location = new System.Drawing.Point(179, 395);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(140, 48);
             this.button7.TabIndex = 42;
@@ -391,7 +393,7 @@
             // 
             // btnDtout
             // 
-            this.btnDtout.Location = new System.Drawing.Point(493, 395);
+            this.btnDtout.Location = new System.Drawing.Point(534, 395);
             this.btnDtout.Name = "btnDtout";
             this.btnDtout.Size = new System.Drawing.Size(135, 48);
             this.btnDtout.TabIndex = 39;
@@ -735,6 +737,16 @@
             this.label6.TabIndex = 50;
             this.label6.Text = "杨福来 @ 2014";
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(366, 395);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(135, 48);
+            this.button5.TabIndex = 44;
+            this.button5.Text = "导出ZIP压缩文件";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -842,5 +854,6 @@
          private System.Windows.Forms.Button btnToAccdb;
          private System.Windows.Forms.Button button8;
          private System.Windows.Forms.Button button6;
+         private System.Windows.Forms.Button button5;
      }
  }

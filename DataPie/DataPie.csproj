@@ -58,6 +58,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.92.0\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
@@ -76,6 +78,7 @@
     <Compile Include="Core\DBConfig.cs" />
     <Compile Include="Core\DBToCsv.cs" />
     <Compile Include="Core\DBToExcel.cs" />
+    <Compile Include="Core\DBToZip.cs" />
     <Compile Include="Core\FileToDB.cs" />
     <Compile Include="DBUtility\CommandInfo.cs" />
     <Compile Include="DBUtility\DbHelperOleDb.cs" />

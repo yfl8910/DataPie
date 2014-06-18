@@ -32,6 +32,11 @@ namespace DataPieUI
                     saveFileDialog1.FileName = FileName;
                     saveFileDialog1.DefaultExt = ".csv";
                     break;
+                case ".zip":
+                    saveFileDialog1.Filter = "zip压缩文件|*.zip";
+                    saveFileDialog1.FileName = FileName;
+                    saveFileDialog1.DefaultExt = ".zip";
+                    break;
                 default:
                     break;
 
