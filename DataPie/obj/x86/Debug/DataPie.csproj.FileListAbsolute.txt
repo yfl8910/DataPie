@@ -1,9 +1,0 @@
-F:\源码\我的工具\DataPie\DataPie\bin\Debug\DataPie.dll
-F:\源码\我的工具\DataPie\DataPie\bin\Debug\DataPie.pdb
-F:\源码\我的工具\DataPie\DataPie\bin\Debug\System.Data.SQLite.dll
-F:\源码\我的工具\DataPie\DataPie\bin\Debug\System.Data.SQLite.xml
-F:\源码\我的工具\DataPie\DataPie\obj\x86\Debug\DataPie.Properties.Resources.resources
-F:\源码\我的工具\DataPie\DataPie\obj\x86\Debug\DataPie.csproj.GenerateResource.Cache
-F:\源码\我的工具\DataPie\DataPie\obj\x86\Debug\DataPie.dll
-F:\源码\我的工具\DataPie\DataPie\obj\x86\Debug\DataPie.pdb
-F:\源码\我的工具\DataPie\DataPie\obj\x86\Debug\DataPie.csprojResolveAssemblyReference.cache
