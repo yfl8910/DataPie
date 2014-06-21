@@ -47,6 +47,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.btnToAccdb = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -81,6 +82,11 @@
             this.button9 = new System.Windows.Forms.Button();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.button11 = new System.Windows.Forms.Button();
+            this.comboColSel = new System.Windows.Forms.ComboBox();
+            this.comboRowNumber = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.登陆ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +94,11 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.label6 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.whereText = new System.Windows.Forms.TextBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -106,8 +116,10 @@
             this.tabPage5.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.tabPage9.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnTP
@@ -199,6 +211,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage8);
+            this.tabControl1.Controls.Add(this.tabPage9);
             this.tabControl1.Location = new System.Drawing.Point(26, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -319,6 +332,16 @@
             this.tabPage2.Text = "数据导出(支持多表)";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(322, 395);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(135, 48);
+            this.button5.TabIndex = 44;
+            this.button5.Text = "导出ZIP压缩文件";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // btnToAccdb
             // 
             this.btnToAccdb.Location = new System.Drawing.Point(27, 395);
@@ -331,7 +354,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(179, 395);
+            this.button7.Location = new System.Drawing.Point(164, 395);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(140, 48);
             this.button7.TabIndex = 42;
@@ -393,7 +416,7 @@
             // 
             // btnDtout
             // 
-            this.btnDtout.Location = new System.Drawing.Point(534, 395);
+            this.btnDtout.Location = new System.Drawing.Point(476, 395);
             this.btnDtout.Name = "btnDtout";
             this.btnDtout.Size = new System.Drawing.Size(135, 48);
             this.btnDtout.TabIndex = 39;
@@ -670,6 +693,7 @@
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(297, 24);
             this.comboBox5.TabIndex = 4;
+            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
             // 
             // comboBox2
             // 
@@ -680,6 +704,75 @@
             this.comboBox2.Size = new System.Drawing.Size(297, 24);
             this.comboBox2.TabIndex = 3;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.checkBox1);
+            this.tabPage9.Controls.Add(this.label8);
+            this.tabPage9.Controls.Add(this.button12);
+            this.tabPage9.Controls.Add(this.button11);
+            this.tabPage9.Controls.Add(this.groupBox7);
+            this.tabPage9.Controls.Add(this.comboColSel);
+            this.tabPage9.Controls.Add(this.label7);
+            this.tabPage9.Controls.Add(this.comboRowNumber);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(772, 462);
+            this.tabPage9.TabIndex = 6;
+            this.tabPage9.Text = "设置";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(569, 49);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(106, 28);
+            this.button11.TabIndex = 54;
+            this.button11.Text = "获数据拆分字段";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // comboColSel
+            // 
+            this.comboColSel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboColSel.FormattingEnabled = true;
+            this.comboColSel.Items.AddRange(new object[] {
+            "无"});
+            this.comboColSel.Location = new System.Drawing.Point(274, 50);
+            this.comboColSel.Name = "comboColSel";
+            this.comboColSel.Size = new System.Drawing.Size(268, 24);
+            this.comboColSel.TabIndex = 52;
+            this.comboColSel.Text = "无";
+            // 
+            // comboRowNumber
+            // 
+            this.comboRowNumber.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboRowNumber.FormattingEnabled = true;
+            this.comboRowNumber.ItemHeight = 14;
+            this.comboRowNumber.Items.AddRange(new object[] {
+            "ALL",
+            "100000",
+            "200000",
+            "300000",
+            "400000",
+            "600000",
+            "800000"});
+            this.comboRowNumber.Location = new System.Drawing.Point(274, 18);
+            this.comboRowNumber.Name = "comboRowNumber";
+            this.comboRowNumber.Size = new System.Drawing.Size(268, 22);
+            this.comboRowNumber.TabIndex = 51;
+            this.comboRowNumber.Text = "ALL";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(78, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 14);
+            this.label7.TabIndex = 50;
+            this.label7.Text = "最大导出行数：";
             // 
             // menuStrip1
             // 
@@ -737,15 +830,64 @@
             this.label6.TabIndex = 50;
             this.label6.Text = "杨福来 @ 2014";
             // 
-            // button5
+            // groupBox7
             // 
-            this.button5.Location = new System.Drawing.Point(366, 395);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(135, 48);
-            this.button5.TabIndex = 44;
-            this.button5.Text = "导出ZIP压缩文件";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.groupBox7.Controls.Add(this.whereText);
+            this.groupBox7.Location = new System.Drawing.Point(81, 123);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(597, 296);
+            this.groupBox7.TabIndex = 57;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Visible = false;
+            // 
+            // whereText
+            // 
+            this.whereText.AcceptsReturn = true;
+            this.whereText.AcceptsTab = true;
+            this.whereText.AllowDrop = true;
+            this.whereText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.whereText.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.whereText.HideSelection = false;
+            this.whereText.Location = new System.Drawing.Point(3, 17);
+            this.whereText.MaxLength = 0;
+            this.whereText.Multiline = true;
+            this.whereText.Name = "whereText";
+            this.whereText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.whereText.Size = new System.Drawing.Size(591, 276);
+            this.whereText.TabIndex = 2;
+            this.whereText.WordWrap = false;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(274, 89);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(138, 28);
+            this.button12.TabIndex = 58;
+            this.button12.Text = "生成拆分where条件集";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Visible = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Location = new System.Drawing.Point(78, 53);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(91, 14);
+            this.label8.TabIndex = 59;
+            this.label8.Text = "拆分字段名：";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(84, 101);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(72, 16);
+            this.checkBox1.TabIndex = 60;
+            this.checkBox1.Text = "是否拆分";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // FormMain
             // 
@@ -783,10 +925,14 @@
             this.tabPage8.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -855,5 +1001,15 @@
          private System.Windows.Forms.Button button8;
          private System.Windows.Forms.Button button6;
          private System.Windows.Forms.Button button5;
+         private System.Windows.Forms.TabPage tabPage9;
+         private System.Windows.Forms.ComboBox comboRowNumber;
+         private System.Windows.Forms.Label label7;
+         private System.Windows.Forms.ComboBox comboColSel;
+         private System.Windows.Forms.Button button11;
+         private System.Windows.Forms.GroupBox groupBox7;
+         private System.Windows.Forms.TextBox whereText;
+         private System.Windows.Forms.Label label8;
+         private System.Windows.Forms.Button button12;
+         private System.Windows.Forms.CheckBox checkBox1;
      }
  }

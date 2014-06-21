@@ -187,7 +187,7 @@ namespace DataPieUI
             Task t = TaskImportCsv(mapList, path, tname);
         }
 
-      
+
         public async Task TaskImportCsv(IList<string> mapList, string path, string tname)
         {
 
@@ -195,14 +195,14 @@ namespace DataPieUI
             {
                 Stopwatch watch = Stopwatch.StartNew();
                 watch.Start();
-                List<FileInfo> filelist =DataPie.Core.FileToDB.GetFilelist(path, false);
+                List<FileInfo> filelist = DataPie.Core.FileToDB.GetFilelist(path, false);
                 for (int i = 0; i < filelist.Count(); i++)
                 {
                     try
                     {
                         string m = "正在导入第 " + (i + 1) + " 个文件：" + filelist[i].ToString();
                         this.BeginInvoke(new System.EventHandler(ShowMessage), m);
-                        DataTable dt =DataPie.Core.FileToDB.GetDataTableFromCSV(filelist[i]);
+                        DataTable dt = DataPie.Core.FileToDB.GetDataTableFromCSV(filelist[i]);
                         DBConfig.db.DBProvider.DatatableImport(mapList, tname, dt);
                     }
                     catch (Exception ee)
@@ -232,7 +232,7 @@ namespace DataPieUI
             {
 
                 string TableName = comboBox1.Text.ToString();
-                string filename =Common.ShowFileDialog(TableName, ".xlsx");
+                string filename = Common.ShowFileDialog(TableName, ".xlsx");
                 int time = UiServices.ExportTemplate(TableName, filename);
                 toolStripStatusLabel1.Text = string.Format("导出的时间为:{0}秒", time);
                 toolStripStatusLabel1.ForeColor = Color.Red;
@@ -287,7 +287,7 @@ namespace DataPieUI
                 {
                     SheetNames.Add(item.ToString());
                 }
-                string filename =Common.ShowFileDialog(SheetNames[0], ".xlsx");
+                string filename = Common.ShowFileDialog(SheetNames[0], ".xlsx");
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 if (filename != null)
@@ -488,7 +488,10 @@ namespace DataPieUI
                 if (!listBox1.Items.Contains(treeView1.SelectedNode.Text.ToString()) && i == 0)
 
                     listBox1.Items.Add(treeView1.SelectedNode.Text.ToString());
+                    comboColSel.DataSource = getspcol();
             }
+
+
         }
         private void treeView2_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
@@ -584,7 +587,7 @@ namespace DataPieUI
             });
         }
 
-   
+
 
 
         private void button7_Click(object sender, EventArgs e)
@@ -601,7 +604,7 @@ namespace DataPieUI
                     SheetNames.Add(item.ToString());
                 }
 
-                 string filename =Common.ShowFileDialog(SheetNames[0], ".csv");
+                string filename = Common.ShowFileDialog(SheetNames[0], ".csv");
                 if (filename != null)
                 {
                     toolStripStatusLabel1.Text = "导数中…";
@@ -613,7 +616,7 @@ namespace DataPieUI
             }
         }
         //异步导出多csv
-    
+
         public async Task TaskExportMuticsv(IList<string> SheetNames, string filename)
         {
 
@@ -677,7 +680,7 @@ namespace DataPieUI
                     clums.Add(_DataRowItem[colname].ToString());
                 }
             }
-            string filename =Common.ShowFileDialog(tbname, ".xlsx");
+            string filename = Common.ShowFileDialog(tbname, ".xlsx");
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();
             foreach (var a in clums)
@@ -728,8 +731,8 @@ namespace DataPieUI
                 }
             }
 
-               string filename =Common.ShowFileDialog( tbname, ".csv");
-               if (filename == null) { return; } 
+            string filename = Common.ShowFileDialog(tbname, ".csv");
+            if (filename == null) { return; }
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();
             foreach (var a in clums)
@@ -761,13 +764,13 @@ namespace DataPieUI
                     SheetNames.Add(item.ToString());
                 }
                 string filename = Common.ShowFileDialog(SheetNames[0], ".accdb");
-         
+
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 if (filename != null)
                 {
                     DataPie.Core.DBToAccess.CreatDataBase(filename);
-                    Task t = TaskExportToACC(SheetNames, filename); 
+                    Task t = TaskExportToACC(SheetNames, filename);
                 }
 
 
@@ -783,9 +786,10 @@ namespace DataPieUI
                 try
                 {
 
-                    DataTable dt=new DataTable();
+                    DataTable dt = new DataTable();
                     int time = 0;
-                    foreach (var table in SheetNames) {
+                    foreach (var table in SheetNames)
+                    {
                         dt = UiServices.GetDataTableFromName(table);
                         time += DataPie.Core.DBToAccess.DataTableExportToAccess(dt, filename, table);
                     }
@@ -859,8 +863,8 @@ namespace DataPieUI
             if (filename != null)
             { Task t = TaskExport2(TableName, filename); }
         }
-        
-     
+
+
         public async Task TaskExport2(string TableName, string filename)
         {
 
@@ -894,35 +898,94 @@ namespace DataPieUI
                 {
                     toolStripStatusLabel1.Text = "导数中…";
                     toolStripStatusLabel1.ForeColor = Color.Red;
-                    Task t = TaskExportZIP(SheetNames, filename);
+                    string[] whereSQLArr = null;
+                    if (checkBox1.Checked)
+                    {
+                        whereSQLArr = whereText.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                     
+                    }
+                    Task t = TaskExportZIP(SheetNames, filename, whereSQLArr);
+                    
+
+                    
                 }
             }
         }
 
-        public async Task TaskExportZIP(IList<string> SheetNames, string filename)
+        public async Task TaskExportZIP(IList<string> SheetNames, string filename, string[] whereSQLArr)
         {
             await Task.Run(() =>
             {
                 try
                 {
-                    int count = SheetNames.Count();
-                    int time = 0;
                     FileInfo fi = new FileInfo(filename);
                     if (fi.Exists)
                     {
                         fi.Delete();
                     }
-                    for (int i = 0; i < count; i++)
-                    {
-                        string sql = "select * from [" + SheetNames[i] + "]";
-                        IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
-                        time += DataPie.Core.DBToZip.DataReaderToZip(filename, reader, SheetNames[i]);
 
+                    if (whereSQLArr == null)
+                    {
+
+                        int count = SheetNames.Count();
+                        int time = 0;
+                      
+                        for (int i = 0; i < count; i++)
+                        {
+                            string sql = "select * from [" + SheetNames[i] + "]";
+                            IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
+                            time += DataPie.Core.DBToZip.DataReaderToZip(filename, reader, SheetNames[i]);
+
+                        }
+                        string s = string.Format("导出的时间为:{0}秒", time);
+                        this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                        MessageBox.Show("导数已完成！");
+                        GC.Collect();
                     }
-                    string s = string.Format("导出的时间为:{0}秒", time);
-                    this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                    MessageBox.Show("导数已完成！");
-                    GC.Collect();
+
+                  else
+                    {
+                        int wherecount = whereSQLArr.Count();
+                        int count = SheetNames.Count();
+                        int time = 0;
+
+                        for (int i = 0; i < wherecount; i++)
+                        {
+                            string s = filename.Substring(0, filename.LastIndexOf("\\"));
+                            StringBuilder newfileName = new StringBuilder(s);
+                            int index = whereSQLArr[i].LastIndexOf("=");
+                          string sp=  whereSQLArr[i].Substring(index + 2, whereSQLArr[i].Length - index-3 );
+
+                          newfileName.Append("\\" + fi.Name.Substring(0, fi.Name.LastIndexOf("."))+"_" + sp + ".zip");
+                            FileInfo newFile = new FileInfo(newfileName.ToString());
+                            if (newFile.Exists)
+                            {
+                                newFile.Delete();
+                                newFile = new FileInfo(newfileName.ToString());
+                            }
+
+                            for (int j = 0; j < count; j++)
+                            {
+                                string sql = "select * from [" + SheetNames[j] + "]"+ whereSQLArr[i];
+                                IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
+                                time += DataPie.Core.DBToZip.DataReaderToZip(newfileName.ToString(), reader, SheetNames[j]);
+
+                            }
+                          
+
+                        }
+                        string s1 = string.Format("导出的时间为:{0}秒", time);
+                        this.BeginInvoke(new System.EventHandler(ShowMessage), s1);
+                        MessageBox.Show("导数已完成！");
+                        GC.Collect();
+
+
+
+                     
+                  }
+
+
+              
                 }
                 catch (Exception ee)
                 {
@@ -931,6 +994,76 @@ namespace DataPieUI
                 }
             });
 
+        }
+
+        private  IList<string> getspcol(){
+        
+         if (listBox1.Items.Count > 0) {
+
+                IList<string> list = new List<string>();
+                list = DBConfig.db.DBProvider.GetColumnInfo(listBox1.Items[0].ToString());
+
+                for (int i = 1; i < listBox1.Items.Count; i++)
+                {
+                    IList<string> list2 = DBConfig.db.DBProvider.GetColumnInfo(listBox1.Items[i].ToString());
+                    list = list.Intersect<string>(list2).ToList<string>();
+                }
+                return list;
+            }
+         return null;
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            comboColSel.DataSource = getspcol();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+         
+
+            whereText.Text = "";
+
+         string colname = comboColSel.Text;
+         string tbname = listBox1.Items[0].ToString();
+         string csql = " select distinct " + "[" + colname + "]" + " from " + "[" + tbname + "]";
+          IList<string> clums = new List<string>();
+          DataTable dt = UiServices.GetDataTableFromSQL(csql);
+          int num = dt.Rows.Count;
+          if (dt.Rows.Count > 0)
+          {
+              foreach (DataRow _DataRowItem in dt.Rows)
+              {
+                  clums.Add(_DataRowItem[colname].ToString());
+              }
+
+
+              foreach (var item in clums)
+              {
+                  string wheresql = " where " + "[" + colname + "]" + " ='" + item.ToString() + "'\r\n";
+                  whereText.Text = whereText.Text + wheresql;
+              }
+          }
+
+  
+
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked) { button12.Visible = true; groupBox7.Visible = true; }
+            else { button12.Visible = false; groupBox7.Visible = false; }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboColSel.DataSource = getspcol();
         }
 
 
