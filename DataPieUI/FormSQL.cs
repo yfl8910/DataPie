@@ -125,7 +125,10 @@ namespace DataPieUI
 
             await Task.Run(() =>
             {
-                int time = UiServices.ExportExcel(TableName, sql, filename);
+             
+                IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
+                int time = DataPie.Core.DBToExcel.SaveExcel(filename, sql, TableName);
+                //int time =DataPie.Core.DataTableToExcel.ExportExcel(TableName, sql, filename);
                 string s = string.Format("导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 GC.Collect();

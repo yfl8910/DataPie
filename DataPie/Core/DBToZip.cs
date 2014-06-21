@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO.Compression;
-using System.Data.Common;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -64,6 +61,8 @@ namespace DataPie.Core
             return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
 
         }
+
+
 
     }
 }
