@@ -39,24 +39,25 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnToAccdb = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.btnDtout = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDeleteOne = new System.Windows.Forms.Button();
             this.btnAddOne = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.btnDtout = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
@@ -84,24 +85,24 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.author = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -110,7 +111,6 @@
             this.tabPage9.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -202,10 +202,10 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage9);
-            this.tabControl1.Location = new System.Drawing.Point(28, 38);
+            this.tabControl1.Location = new System.Drawing.Point(28, 37);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(762, 500);
+            this.tabControl1.Size = new System.Drawing.Size(776, 493);
             this.tabControl1.TabIndex = 46;
             // 
             // tabPage1
@@ -220,19 +220,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "数据导入";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.btnDel);
-            this.groupBox6.Controls.Add(this.label3);
-            this.groupBox6.Controls.Add(this.btnTP);
-            this.groupBox6.Controls.Add(this.comboBox1);
-            this.groupBox6.Location = new System.Drawing.Point(60, 33);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(687, 117);
-            this.groupBox6.TabIndex = 47;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "导入表";
             // 
             // groupBox5
             // 
@@ -274,6 +261,19 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnDel);
+            this.groupBox6.Controls.Add(this.label3);
+            this.groupBox6.Controls.Add(this.btnTP);
+            this.groupBox6.Controls.Add(this.comboBox1);
+            this.groupBox6.Location = new System.Drawing.Point(60, 33);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(687, 117);
+            this.groupBox6.TabIndex = 47;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "导入表";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.groupBox8);
@@ -281,40 +281,25 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(754, 474);
+            this.tabPage2.Size = new System.Drawing.Size(768, 467);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "数据导出";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button14
+            // groupBox8
             // 
-            this.button14.Location = new System.Drawing.Point(258, 74);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(128, 48);
-            this.button14.TabIndex = 46;
-            this.button14.Text = "分拆导出zip文件";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(258, 20);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(128, 48);
-            this.button13.TabIndex = 45;
-            this.button13.Text = "分拆导出EXCEL";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(6, 73);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(131, 48);
-            this.button5.TabIndex = 44;
-            this.button5.Text = "导出ZIP压缩文件";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.groupBox8.Controls.Add(this.btnToAccdb);
+            this.groupBox8.Controls.Add(this.button7);
+            this.groupBox8.Controls.Add(this.button14);
+            this.groupBox8.Controls.Add(this.button5);
+            this.groupBox8.Controls.Add(this.btnDtout);
+            this.groupBox8.Controls.Add(this.button13);
+            this.groupBox8.Location = new System.Drawing.Point(6, 331);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(718, 135);
+            this.groupBox8.TabIndex = 47;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "导出类型";
             // 
             // btnToAccdb
             // 
@@ -335,6 +320,46 @@
             this.button7.Text = "导出到CSV";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(258, 74);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(128, 48);
+            this.button14.TabIndex = 46;
+            this.button14.Text = "分拆导出zip文件";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(6, 73);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(131, 48);
+            this.button5.TabIndex = 44;
+            this.button5.Text = "导出ZIP压缩文件";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // btnDtout
+            // 
+            this.btnDtout.Location = new System.Drawing.Point(495, 19);
+            this.btnDtout.Name = "btnDtout";
+            this.btnDtout.Size = new System.Drawing.Size(131, 48);
+            this.btnDtout.TabIndex = 39;
+            this.btnDtout.Text = "导出到EXCEL";
+            this.btnDtout.UseVisualStyleBackColor = true;
+            this.btnDtout.Click += new System.EventHandler(this.btnDtout_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(258, 20);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(128, 48);
+            this.button13.TabIndex = 45;
+            this.button13.Text = "分拆导出EXCEL";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // groupBox2
             // 
@@ -384,7 +409,7 @@
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(495, 17);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(186, 304);
+            this.listBox1.Size = new System.Drawing.Size(186, 292);
             this.listBox1.TabIndex = 43;
             this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
@@ -392,21 +417,11 @@
             // 
             this.treeView1.Location = new System.Drawing.Point(6, 13);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(197, 302);
+            this.treeView1.Size = new System.Drawing.Size(197, 296);
             this.treeView1.TabIndex = 42;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
             this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseDown);
-            // 
-            // btnDtout
-            // 
-            this.btnDtout.Location = new System.Drawing.Point(495, 19);
-            this.btnDtout.Name = "btnDtout";
-            this.btnDtout.Size = new System.Drawing.Size(131, 48);
-            this.btnDtout.TabIndex = 39;
-            this.btnDtout.Text = "导出到EXCEL";
-            this.btnDtout.UseVisualStyleBackColor = true;
-            this.btnDtout.Click += new System.EventHandler(this.btnDtout_Click);
             // 
             // tabPage4
             // 
@@ -665,7 +680,7 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel3,
             this.author});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 528);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 533);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.statusStrip1.Size = new System.Drawing.Size(816, 22);
@@ -695,21 +710,6 @@
             this.author.Size = new System.Drawing.Size(92, 17);
             this.author.Text = "杨福来@2014  ";
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.btnToAccdb);
-            this.groupBox8.Controls.Add(this.button7);
-            this.groupBox8.Controls.Add(this.button14);
-            this.groupBox8.Controls.Add(this.button5);
-            this.groupBox8.Controls.Add(this.btnDtout);
-            this.groupBox8.Controls.Add(this.button13);
-            this.groupBox8.Location = new System.Drawing.Point(6, 333);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(718, 135);
-            this.groupBox8.TabIndex = 47;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "导出类型";
-            // 
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
@@ -731,21 +731,6 @@
             this.toolStrip1.TabIndex = 50;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(111, 37);
-            this.toolStripButton1.Text = "自定义SQL导出";
-            this.toolStripButton1.ToolTipText = "自定义SQL导出";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 40);
-            // 
             // toolStripButton4
             // 
             this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
@@ -756,38 +741,44 @@
             this.toolStripButton4.ToolTipText = "登录切换";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
-            // toolStripSeparator2
+            // toolStripSeparator1
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
             // 
-            // toolStripButton2
+            // toolStripSeparator4
             // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(52, 37);
-            this.toolStripButton2.Text = "退出";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 35);
             // 
-            // toolStripButton3
+            // toolStripButton1
             // 
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(52, 37);
-            this.toolStripButton3.Text = "关于";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(111, 32);
+            this.toolStripButton1.Text = "自定义SQL导出";
+            this.toolStripButton1.ToolTipText = "自定义SQL导出";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
             // 
-            // toolStripSeparator4
+            // toolStripSeparator2
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 35);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(52, 32);
+            this.toolStripButton2.Text = "退出";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripSeparator5
             // 
@@ -799,11 +790,20 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 35);
             // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(52, 32);
+            this.toolStripButton3.Text = "关于";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(816, 550);
+            this.ClientSize = new System.Drawing.Size(816, 555);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
@@ -815,11 +815,12 @@
             this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -833,7 +834,6 @@
             this.groupBox7.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
