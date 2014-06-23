@@ -201,18 +201,7 @@ namespace DataPieUI
             }
         }
 
-        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-            System.Environment.Exit(0);
-        }
-
-        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            About about = new About();
-            about.ShowDialog();
-
-        }
+  
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -259,6 +248,18 @@ namespace DataPieUI
             {
                 cboServerName.Items.Add(ipEntry.AddressList[i].ToString());
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+            System.Environment.Exit(0);
         }
 
 

@@ -375,8 +375,7 @@ namespace DataPieUI
 
         private void 登陆ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            login log = new login();
-            log.Show();
+           
         }
 
         //请求计算事件
@@ -523,8 +522,7 @@ namespace DataPieUI
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-            System.Environment.Exit(0);
+           
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -557,12 +555,7 @@ namespace DataPieUI
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            FormSQL F = new FormSQL();
-            F.Show();
-        }
-
+  
 
 
         /// <summary>
@@ -896,10 +889,7 @@ namespace DataPieUI
 
         }
 
-        private void button11_Click(object sender, EventArgs e)
-        {
-            comboColSel.DataSource = getspcol();
-        }
+      
 
         private void button12_Click(object sender, EventArgs e)
         {
@@ -914,6 +904,7 @@ namespace DataPieUI
             IList<string> clums = new List<string>();
             DataTable dt = DataPie.Core.DataTableToExcel.GetDataTableFromSQL(csql);
             int num = dt.Rows.Count;
+            StringBuilder sb = new StringBuilder();
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow _DataRowItem in dt.Rows)
@@ -925,9 +916,11 @@ namespace DataPieUI
                 foreach (var item in clums)
                 {
                     string wheresql = " where " + "[" + colname + "]" + " ='" + item.ToString() + "'\r\n";
-                    whereText.Text = whereText.Text + wheresql;
+                    sb.Append(wheresql);
                 }
             }
+
+            whereText.Text = sb.ToString();
 
 
 
@@ -1012,6 +1005,30 @@ namespace DataPieUI
                 whereSQLArr = whereText.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
                 Task t = TaskExportEXCEL(SheetNames, filename, whereSQLArr);
             }
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            login log = new login();
+            log.Show();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            FormSQL F = new FormSQL();
+            F.Show();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+            System.Environment.Exit(0);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
         }
 
 
