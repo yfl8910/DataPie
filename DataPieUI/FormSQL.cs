@@ -12,6 +12,9 @@ namespace DataPieUI
     public partial class FormSQL : Form
     {
         private Point pi;
+        string tablename;
+        IList<string> col = null;
+
         public FormSQL()
         {
             InitializeComponent();
@@ -19,7 +22,20 @@ namespace DataPieUI
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                BindingSource bs = new BindingSource();
+                DataTable dt = DBConfig.db.DBProvider.ReturnDataTable(sqlText.Text.ToString());
+                bs.DataSource = dt;
+                gridResults1.DataSource = bs;
+                this.bindingNavigator1.BindingSource = bs;
+                dt = null;
+                GC.Collect();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void LoadInfo()
@@ -70,18 +86,21 @@ namespace DataPieUI
             else
             {
                 int i = dbTreeView.SelectedNode.GetNodeCount(false);
-                string tablename = dbTreeView.SelectedNode.Text.ToString();
+                tablename = dbTreeView.SelectedNode.Text.ToString();
                 if (i > 0 && tablename != "所有表：")
                 {
-                    IList<string> col = DBConfig.db.DBProvider.GetColumnInfo(tablename);
-                  string sql=  BuildQuery(col,tablename);
-                  sqlText.Text = sql;
+                    col = DBConfig.db.DBProvider.GetColumnInfo(tablename);
+                    string sql = BuildQuery(col, tablename);
+                    sqlText.Text = sql;
+
+                    toolStripComboBox1.ComboBox.DataSource = col;
+
                 }
-                    
+
             }
         }
 
-        private static string BuildQuery(IList<string> col,string tablename)
+        private static string BuildQuery(IList<string> col, string tablename)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT ");
@@ -97,6 +116,23 @@ namespace DataPieUI
             return sb.ToString();
         }
 
+        private static string BuildQuery(IList<string> col, string tablename, int top)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT  TOP " + top);
+            sb.Append("\r\n");
+            for (int i = 0; i < col.Count; i++)
+            {
+                sb.Append("[" + col[i] + "]");
+                if (i < col.Count - 1)
+                    sb.Append(", ");
+                sb.Append("\r\n");
+            }
+            sb.Append("FROM " + "[" + tablename + "]");
+            return sb.ToString();
+
+        }
+
         private void FormSQL_Load(object sender, EventArgs e)
         {
             LoadInfo();
@@ -110,7 +146,7 @@ namespace DataPieUI
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 Task t = TaskExport("Sheet1", sqlText.Text.ToString(), filename);
-              
+
             }
             catch (Exception ex)
             {
@@ -120,12 +156,12 @@ namespace DataPieUI
 
         }
 
-        public async Task TaskExport(string TableName,string sql, string filename)
+        public async Task TaskExport(string TableName, string sql, string filename)
         {
 
             await Task.Run(() =>
             {
-             
+
                 IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
                 int time = DataPie.Core.DBToExcel.SaveExcel(filename, sql, TableName);
                 //int time =DataPie.Core.DataTableToExcel.ExportExcel(TableName, sql, filename);
@@ -143,24 +179,6 @@ namespace DataPieUI
         }
 
 
-        private void toolStripButton2_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                BindingSource bs = new BindingSource();
-                DataTable dt = DBConfig.db.DBProvider.ReturnDataTable(sqlText.Text.ToString()); 
-                bs.DataSource = dt;
-                gridResults1.DataSource =bs;
-                this.bindingNavigator1.BindingSource = bs;
-                dt = null;
-                GC.Collect();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         private void gridResults1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -170,7 +188,7 @@ namespace DataPieUI
         {
             try
             {
-                  string filename =Common.ShowFileDialog("文档", ".csv");
+                string filename = Common.ShowFileDialog("文档", ".csv");
                 if (filename != null)
                 {
                     toolStripStatusLabel1.Text = "导数中…";
@@ -188,13 +206,41 @@ namespace DataPieUI
         public async Task WriteCsvFromsql(string sql, string filename)
         {
             await Task.Run(() =>
-            {    IDataReader reader=DataPie.DBConfig.db.DBProvider.ExecuteReader(sql);
-                int time = DataPie.Core.DBToCsv.SaveCsv(reader,filename) ;
+            {
+                IDataReader reader = DataPie.DBConfig.db.DBProvider.ExecuteReader(sql);
+                int time = DataPie.Core.DBToCsv.SaveCsv(reader, filename);
                 string s = string.Format("单个csv方式导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导数已完成！");
                 GC.Collect();
             });
+
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            if (toolStripComboBox1.Text != "") 
+            {   string where = " where [" + toolStripComboBox1.Text + "] = '" + toolStripTextBox1.Text + "'";
+            sqlText.Text = BuildQuery(col, tablename) + where;  }
+         
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            sqlText.Text = BuildQuery(col, tablename,1000) ;
+        }
+
+
+
+      
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            if (toolStripComboBox1.Text != "")
+            {
+                string where = " where [" + toolStripComboBox1.Text + "] = '" + toolStripTextBox1.Text + "'";
+                sqlText.Text = BuildQuery(col, tablename, 1000) + where;
+            }
+
 
         }
 
