@@ -6,6 +6,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using DataPie;
+using DataPie.Core;
+using System.Linq;
 
 namespace DataPieUI
 {
@@ -26,6 +28,7 @@ namespace DataPieUI
             {
                 BindingSource bs = new BindingSource();
                 DataTable dt = DBConfig.db.DBProvider.ReturnDataTable(sqlText.Text.ToString());
+                //bs.DataSource = dt.Select().Take(1000).CopyToDataTable();
                 bs.DataSource = dt;
                 gridResults1.DataSource = bs;
                 this.bindingNavigator1.BindingSource = bs;
@@ -142,11 +145,9 @@ namespace DataPieUI
         {
             try
             {
-                string filename = Common.ShowFileDialog(tablename, ".xlsx");
-                toolStripStatusLabel1.Text = "导数中…";
-                toolStripStatusLabel1.ForeColor = Color.Red;
-                Task t = TaskExport(tablename, sqlText.Text.ToString(), filename);
 
+                string filename = Common.ShowFileDialog(tablename + "_" + toolStripTextBox1.Text, ".xlsx");
+                ExportExcelAsync(tablename, sqlText.Text.ToString(), filename);
             }
             catch (Exception ex)
             {
@@ -156,19 +157,25 @@ namespace DataPieUI
 
         }
 
-        public async Task TaskExport(string TableName, string sql, string filename)
+        public async void ExportExcelAsync(string TableName, string sql, string filename)
         {
-
-            await Task.Run(() =>
+            try
             {
-
+                this.BeginInvoke(new System.EventHandler(ShowMessage), "导数中…");
                 IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
-                int time = DataPie.Core.DBToExcel.ExportExcel(filename,sql,TableName);
-                //int time =DataPie.Core.DataTableToExcel.ExportExcel(TableName, sql, filename);
-                string s = string.Format("导出的时间为:{0}秒", time);
+                var t = DataPie.Core.DBToExcel.ExportExcelAsync(filename, sql, TableName);
+                await t;
+                string s = string.Format("导出的时间为:{0}秒", t.Result);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                MessageBox.Show("导数已完成！");
                 GC.Collect();
-            });
+            }
+            catch (Exception ee)
+            {
+                this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                return;
+            }
+
 
         }
 
@@ -176,6 +183,13 @@ namespace DataPieUI
         {
             toolStripStatusLabel1.Text = o.ToString();
             toolStripStatusLabel1.ForeColor = Color.Red;
+        }
+        private void ShowErr(object o, System.EventArgs e)
+        {
+            toolStripStatusLabel1.Text = "发生错误！";
+            toolStripStatusLabel1.ForeColor = Color.Red;
+            Exception ee = o as Exception;
+            throw ee;
         }
 
 
@@ -188,14 +202,11 @@ namespace DataPieUI
         {
             try
             {
-                string filename = Common.ShowFileDialog("文档", ".csv");
+                string filename = Common.ShowFileDialog(tablename +"_"+ toolStripTextBox1.Text, ".csv");
                 if (filename != null)
                 {
-                    toolStripStatusLabel1.Text = "导数中…";
-                    toolStripStatusLabel1.ForeColor = Color.Red;
-                    Task t = WriteCsvFromsql(sqlText.Text.ToString(), filename);
+                    WriteCsvFromsql(sqlText.Text.ToString(), filename);
                 }
-
 
             }
             catch (Exception ex)
@@ -203,36 +214,44 @@ namespace DataPieUI
                 throw new Exception(ex.Message);
             }
         }
-        public async Task WriteCsvFromsql(string sql, string filename)
+        public async void WriteCsvFromsql(string sql, string filename)
         {
-            await Task.Run(() =>
+            try
             {
+                this.BeginInvoke(new System.EventHandler(ShowMessage), "导数中…");
                 IDataReader reader = DataPie.DBConfig.db.DBProvider.ExecuteReader(sql);
-                int time = DataPie.Core.DBToCsv.SaveCsv(reader, filename);
-                string s = string.Format("单个csv方式导出的时间为:{0}秒", time);
+                var t = DataPie.Core.DBToCsv.ExportCsvAsync(reader, filename);
+                await t;
+                string s = string.Format("单个csv方式导出的时间为:{0}秒", t.Result);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
                 MessageBox.Show("导数已完成！");
                 GC.Collect();
-            });
+            }
+
+            catch (Exception ee)
+            {
+                this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                return;
+            }
 
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
-            if (toolStripComboBox1.Text != "") 
-            {   string where = " where [" + toolStripComboBox1.Text + "] = '" + toolStripTextBox1.Text + "'";
-            sqlText.Text = BuildQuery(col, tablename) + where;  }
-         
+            if (toolStripComboBox1.Text != "")
+            {
+                string where = " where [" + toolStripComboBox1.Text + "] = '" + toolStripTextBox1.Text + "'";
+                sqlText.Text = BuildQuery(col, tablename) + where;
+            }
+
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
-            sqlText.Text = BuildQuery(col, tablename,1000) ;
+            sqlText.Text = BuildQuery(col, tablename, 1000);
         }
 
 
-
-      
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             if (toolStripComboBox1.Text != "")

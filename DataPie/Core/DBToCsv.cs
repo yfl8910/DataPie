@@ -4,13 +4,12 @@ using System.Text;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace DataPie.Core
 {
     public class DBToCsv
     {
-
-
         private static void WriteHeader(IDataReader reader, StreamWriter sw)
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -21,7 +20,6 @@ namespace DataPie.Core
             }
             sw.Write(Environment.NewLine);
         }
-
         private static void WriteContent(IDataReader reader, StreamWriter sw)
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -43,7 +41,6 @@ namespace DataPie.Core
             sw.Write(Environment.NewLine);
         }
 
-
         public static int SaveCsv(IDataReader reader, string filename)
         {
             Stopwatch watch = Stopwatch.StartNew();
@@ -63,6 +60,10 @@ namespace DataPie.Core
             watch.Stop();
             return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
         }
+        public static async Task<int> ExportCsvAsync(IDataReader reader, string filename)
+        {
+            return await Task.Run( () => { return SaveCsv( reader,  filename);} );
+        }
 
         public static StreamWriter GetStreamWriter(string filename, int outCount)
         {
@@ -78,29 +79,21 @@ namespace DataPie.Core
             StreamWriter sw = new StreamWriter(newfileName.ToString(), false, Encoding.GetEncoding("gb2312"));
             return sw;
         }
+    
         public static int SaveCsv(IDataReader reader, string filename, int pagesize)
         {
             int innerCount = 0, outCount = 0;
-
             Stopwatch watch = Stopwatch.StartNew();
             watch.Start();
-
             StreamWriter sw = GetStreamWriter(filename, outCount);
             WriteHeader(reader, sw);
-
             while (reader.Read())
             {
-
-
                 if (innerCount < pagesize)
                 {
-
-
                     WriteContent(reader, sw);
                     innerCount++;
-
                 }
-
                 else
                 {
                     innerCount = 0;
@@ -113,12 +106,15 @@ namespace DataPie.Core
                     innerCount++;
                 }
             }
-
             sw.Flush();
             sw.Close();
             watch.Stop();
             return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
 
+        }
+        public static async Task<int> ExportCsvAsync(IDataReader reader, string filename, int pagesize)
+        {
+            return await Task.Run(() => { return SaveCsv(reader, filename,pagesize); });
         }
 
     }

@@ -66,27 +66,6 @@ namespace DataPie.Core
                           select f;
             return csvlist.ToList();
 
-
-            //List<FileInfo> files = new List<FileInfo>();
-            //int n = 0;
-            //foreach (FileInfo f in fileList)
-            //{
-            //    if (f.Extension == ".csv")
-            //    {
-            //        n++;
-            //        files.Add(f);
-            //    }
-            //}
-            //if (n > 0)
-            //{
-            //    return files;
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-
-
         }
 
         public static DataTable GetDataTableFromCSV(FileInfo file)
