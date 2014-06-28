@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using System.Data;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 namespace DataPie.Core
 {
     public class DBToExcel
@@ -12,11 +13,8 @@ namespace DataPie.Core
         /// <summary>
         /// 保存excel文件，覆盖相同文件名的文件
         /// </summary>
-        public static int SaveExcel(string FileName, string sql, string SheetName)
+        public static void SaveExcel(string FileName, string sql, string SheetName)
         {
-
-            Stopwatch watch = Stopwatch.StartNew();
-            watch.Start();
 
             FileInfo newFile = new FileInfo(FileName);
             if (newFile.Exists)
@@ -39,8 +37,7 @@ namespace DataPie.Core
                 }
                 package.Save();
             }
-            watch.Stop();
-            return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
+         
         }
 
         /// <summary>
@@ -62,7 +59,32 @@ namespace DataPie.Core
                 throw ex;
             }
         }
+        /// <summary>
+        /// 单表格导出到一个EXCEL工作簿
+        /// </summary>
+        public static int ExportExcel(string FileName, string sql, string SheetName)
+        {
+            if (FileName != null)
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                watch.Start();
 
+                SaveExcel(FileName, sql, SheetName);
+                watch.Stop();
+                return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
+            }
+
+            return -1;
+        }
+
+        public static async Task<int> ExportExcelAsync(string FileName, string sql, string SheetName)
+        {
+
+            return await Task.Run(
+                () => { return ExportExcel(FileName,sql,SheetName); }
+                );
+
+        }
 
         /// <summary>
         /// 多表格导出到一个EXCEL工作簿
@@ -98,6 +120,14 @@ namespace DataPie.Core
             }
 
             return -1;
+        }
+
+        public static  async Task<int> ExportExcelAsync(string[] TabelNameArray, string filename) {
+
+            return await Task.Run(
+                () => { return ExportExcel( TabelNameArray,filename); }      
+                );
+
         }
 
         /// <summary>
@@ -142,6 +172,15 @@ namespace DataPie.Core
             }
 
             return -1;
+        }
+
+        public static async Task<int> ExportExcelAsync(string[] TabelNameArray, string filename, string[] whereSQLArr)
+        {
+
+            return await Task.Run(
+                () => { return ExportExcel(TabelNameArray,filename,whereSQLArr); }
+                );
+
         }
 
 

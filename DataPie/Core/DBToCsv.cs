@@ -101,7 +101,6 @@ namespace DataPie.Core
 
                 }
 
-
                 else
                 {
                     innerCount = 0;
@@ -117,7 +116,6 @@ namespace DataPie.Core
 
             sw.Flush();
             sw.Close();
-
             watch.Stop();
             return Convert.ToInt32(watch.ElapsedMilliseconds / 1000);
 

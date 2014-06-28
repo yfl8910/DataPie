@@ -142,10 +142,10 @@ namespace DataPieUI
         {
             try
             {
-                string filename = Common.ShowFileDialog("Book1", ".xlsx");
+                string filename = Common.ShowFileDialog(tablename, ".xlsx");
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
-                Task t = TaskExport("Sheet1", sqlText.Text.ToString(), filename);
+                Task t = TaskExport(tablename, sqlText.Text.ToString(), filename);
 
             }
             catch (Exception ex)
@@ -163,7 +163,7 @@ namespace DataPieUI
             {
 
                 IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
-                int time = DataPie.Core.DBToExcel.SaveExcel(filename, sql, TableName);
+                int time = DataPie.Core.DBToExcel.ExportExcel(filename,sql,TableName);
                 //int time =DataPie.Core.DataTableToExcel.ExportExcel(TableName, sql, filename);
                 string s = string.Format("导出的时间为:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);

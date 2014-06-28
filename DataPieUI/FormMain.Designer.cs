@@ -178,7 +178,7 @@
             this.groupBox1.Controls.Add(this.btnImport);
             this.groupBox1.Controls.Add(this.btnBrwse);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(60, 169);
+            this.groupBox1.Location = new System.Drawing.Point(60, 156);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(687, 131);
             this.groupBox1.TabIndex = 45;
@@ -216,7 +216,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(754, 474);
+            this.tabPage1.Size = new System.Drawing.Size(768, 467);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "数据导入";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -226,7 +226,7 @@
             this.groupBox5.Controls.Add(this.button2);
             this.groupBox5.Controls.Add(this.textBox2);
             this.groupBox5.Controls.Add(this.button1);
-            this.groupBox5.Location = new System.Drawing.Point(60, 306);
+            this.groupBox5.Location = new System.Drawing.Point(60, 293);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(687, 131);
             this.groupBox5.TabIndex = 46;
@@ -428,7 +428,7 @@
             this.tabPage4.Controls.Add(this.groupBox4);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(754, 474);
+            this.tabPage4.Size = new System.Drawing.Size(768, 467);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "数据导出（大数据）";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -521,7 +521,7 @@
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(754, 474);
+            this.tabPage3.Size = new System.Drawing.Size(768, 467);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "存储过程运算（无参数）";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -597,7 +597,7 @@
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(754, 474);
+            this.tabPage9.Size = new System.Drawing.Size(768, 467);
             this.tabPage9.TabIndex = 6;
             this.tabPage9.Text = "导出设置";
             this.tabPage9.UseVisualStyleBackColor = true;

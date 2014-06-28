@@ -294,47 +294,41 @@ namespace DataPieUI
                 toolStripStatusLabel1.Text = "导数中…";
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 if (filename != null)
-                { Task t = TaskExportEXCEL(SheetNames, filename,null); }
-
-            
+                {
+                    TaskExportExcelAsync(SheetNames, filename, null);
+                }
         }
 
 
-
-        //异步导出EXCEL
-        public async Task TaskExportEXCEL(IList<string> SheetNames, string filename, string[] whereSQLArr)
+        //异步方式导出EXCEL
+        public async void TaskExportExcelAsync(IList<string> SheetNames, string filename, string[] whereSQLArr)
         {
-
-            await Task.Run(() =>
-              {
-
-                  try
-                  {
-                      int time = 0;
-                      if (whereSQLArr == null)
-                      {
-                          time = DBToExcel.ExportExcel(SheetNames.ToArray(), filename);
-                      }
-                      else
-                      {
-                          time = DBToExcel.ExportExcel(SheetNames.ToArray(), filename, whereSQLArr);
-                      }
-                    
-                      string s = string.Format("导出的时间为:{0}秒", time);
-                      this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                      MessageBox.Show("导数已完成！");
-                      GC.Collect();
-
-                  }
-                  catch (Exception ee)
-                  {
-                      this.BeginInvoke(new System.EventHandler(ShowErr), ee);
-                      return;
-                  }
-
-              });
-
+                try
+                {
+                    Task<int> t = null;
+                    if (whereSQLArr == null)
+                    {
+                         t= DBToExcel.ExportExcelAsync(SheetNames.ToArray(), filename);
+                    }
+                    else
+                    {
+                        t = DBToExcel.ExportExcelAsync(SheetNames.ToArray(), filename, whereSQLArr);
+                    }
+                    await t; 
+                    string s = string.Format("导出的时间为:{0}秒", t.Result);
+                    this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                    MessageBox.Show("导数已完成！");
+                    GC.Collect();
+                }
+                catch (Exception ee)
+                {
+                    this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                    return;
+                }
         }
+
+
+  
 
         private void ShowMessage(object o, System.EventArgs e)
         {
@@ -1003,7 +997,7 @@ namespace DataPieUI
                 toolStripStatusLabel1.ForeColor = Color.Red;
                 string[] whereSQLArr = null;
                 whereSQLArr = whereText.Text.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-                Task t = TaskExportEXCEL(SheetNames, filename, whereSQLArr);
+                TaskExportExcelAsync(SheetNames, filename, whereSQLArr);
             }
         }
 
