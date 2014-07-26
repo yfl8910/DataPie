@@ -95,7 +95,7 @@ namespace DataPieUI
                     col = DBConfig.db.DBProvider.GetColumnInfo(tablename);
                     string sql = BuildQuery(col, tablename);
                     sqlText.Text = sql;
-
+                    toolStripTextBox1.Text = "";
                     toolStripComboBox1.ComboBox.DataSource = col;
 
                 }
@@ -165,9 +165,9 @@ namespace DataPieUI
                 IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
                 var t = DataPie.Core.DBToExcel.ExportExcelAsync(filename, sql, TableName);
                 await t;
-                string s = string.Format("导出的时间为:{0}秒", t.Result);
+                string s = string.Format("导出成功！耗时:{0}秒", t.Result);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             }
             catch (Exception ee)
@@ -222,9 +222,9 @@ namespace DataPieUI
                 IDataReader reader = DataPie.DBConfig.db.DBProvider.ExecuteReader(sql);
                 var t = DataPie.Core.DBToCsv.ExportCsvAsync(reader, filename);
                 await t;
-                string s = string.Format("单个csv方式导出的时间为:{0}秒", t.Result);
+                string s = string.Format("导出成功！耗时:{0}秒", t.Result);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             }
 
@@ -246,20 +246,65 @@ namespace DataPieUI
 
         }
 
-        private void toolStripButton6_Click(object sender, EventArgs e)
-        {
-            sqlText.Text = BuildQuery(col, tablename, 1000);
-        }
 
 
         private void toolStripButton5_Click(object sender, EventArgs e)
         {
             if (toolStripComboBox1.Text != "")
             {
-                string where = " where [" + toolStripComboBox1.Text + "] = '" + toolStripTextBox1.Text + "'";
-                sqlText.Text = BuildQuery(col, tablename, 1000) + where;
+                //string where = " where [" + toolStripComboBox1.Text + "] = '" + toolStripTextBox1.Text + "'";
+                //sqlText.Text = BuildQuery(col, tablename, 1000) + where;
+                sqlText.Text = BuildQuery(col, tablename, 1000);
             }
 
+
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string filename = Common.ShowFileDialog(tablename + "_" + toolStripTextBox1.Text, ".csv");
+                string sql = sqlText.Text;
+                IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
+                if (filename != null)
+                {
+                    ExportCSVAsync(reader, filename, DataPie.DataPieConfig.RowOutCount);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async void ExportCSVAsync(IDataReader reader, string filename, int pagesize)
+        {
+
+            try
+            {
+                this.BeginInvoke(new System.EventHandler(ShowMessage), "导数中…");
+                var t = DataPie.Core.DBToCsv.ExportCsvAsync(reader, filename, pagesize);
+                await t;
+                string s = string.Format("导出成功！耗时:{0}秒", t.Result);
+                this.BeginInvoke(new System.EventHandler(ShowMessage), s);
+                //MessageBox.Show("导数已完成！");
+                GC.Collect();
+
+            }
+            catch (Exception ee)
+            {
+                this.BeginInvoke(new System.EventHandler(ShowErr), ee);
+                return;
+            }
+
+
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
 
         }
 

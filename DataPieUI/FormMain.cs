@@ -81,12 +81,12 @@ namespace DataPieUI
 
             IEnumerable<string> totallist = tableList.Union(new List<string> { "============" }).Union(viewList);
             comboBox1.DataSource = tableList;
-            //comboBox2.DataSource = totallist.ToList(); ;
             comboBox4.DataSource = totallist.ToList(); ;
             listBox1.Items.Clear();
             listBox2.Items.Clear();
             textBox1.Text = "";
             toolStripStatusLabel2.Text = "     " + DBConfig.db.DataBase;
+            comboColSel.Text = "";
 
         }
 
@@ -154,9 +154,9 @@ namespace DataPieUI
                     return;
                 }
                 watch.Stop();
-                string s = "导入成功！ 使用时间：" + watch.ElapsedMilliseconds / 1000 + "秒";
+                string s = "导入成功！耗时：" + watch.ElapsedMilliseconds / 1000 + "秒";
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导入成功！");
+                //MessageBox.Show("导入成功！");
                 GC.Collect();
             });
 
@@ -214,7 +214,7 @@ namespace DataPieUI
                 watch.Stop();
                 string s = "导入成功！ 使用时间：" + watch.ElapsedMilliseconds / 1000 + "秒";
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导入成功");
+                //MessageBox.Show("导入成功");
                 GC.Collect();
             });
 
@@ -256,17 +256,17 @@ namespace DataPieUI
                 toolStripStatusLabel1.ForeColor = Color.Red;
 
                 string tname = comboBox1.Text.ToString();
-                int num = DBConfig.db.DBProvider.TruncateTable(tname);
+                DBConfig.db.DBProvider.TruncateTable(tname);
                 watch.Stop();
-                if (num > 0)
-                {
-                    MessageBox.Show("删除成功");
-                }
-                else
-                {
-                    MessageBox.Show("删除失败");
-                }
-                toolStripStatusLabel1.Text = string.Format("删除数据所用时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
+                //if (num > 0)
+                //{
+                //    MessageBox.Show("删除成功");
+                //}
+                //else
+                //{
+                //    MessageBox.Show("删除失败");
+                //}
+                toolStripStatusLabel1.Text = string.Format("删除成功!耗时:{0}秒", watch.ElapsedMilliseconds / 1000);
                 toolStripStatusLabel1.ForeColor = Color.Red;
 
             }
@@ -314,9 +314,9 @@ namespace DataPieUI
                     t = DBToExcel.ExportExcelAsync(SheetNames.ToArray(), filename, whereSQLArr);
                 }
                 await t;
-                string s = string.Format("导出的时间为:{0}秒", t.Result);
+                string s = string.Format("导出成功！耗时:{0}秒", t.Result);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             }
             catch (Exception ee)
@@ -405,11 +405,10 @@ namespace DataPieUI
 
                     foreach (var item in procs)
                     {
-                        int i = DBConfig.db.DBProvider.RunProcedure(item.ToString());
-                        if (i > 0)
-                        { s = "存储过程:[" + item.ToString() + "]运算成功！" + "\r\n"; }
-                        else
-                        { s = "存储过程:[" + item.ToString() + "]运算失败！" + "\r\n"; }
+                        int i = DBConfig.db.DBProvider.RunProcedure("[" + item.ToString() + "]");
+
+                        s = "存储过程:[" + item.ToString() + "]运算成功！" + "\r\n";
+
                     }
 
 
@@ -422,9 +421,9 @@ namespace DataPieUI
 
                 watch.Stop();
 
-                s = s + string.Format("请求运算时间为:{0}秒", watch.ElapsedMilliseconds / 1000);
+                s = s + string.Format("请求运算成功！耗时:{0}秒", watch.ElapsedMilliseconds / 1000);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("请求运算结束！");
+                //MessageBox.Show("请求运算结束！");
                 return;
             });
         }
@@ -571,9 +570,9 @@ namespace DataPieUI
             {
                 this.BeginInvoke(new System.EventHandler(ShowMessage), "导数中…");
                 int time = DataPie.Core.DataTableToExcel.ExportExcel(TableName, pagesize, filename);
-                string s = string.Format("分页OpenXML方式导出的时间为:{0}秒", time);
+                string s = string.Format("导出成功！耗时:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             });
         }
@@ -626,9 +625,9 @@ namespace DataPieUI
                     time += t.Result;
 
                 }
-                string s1 = string.Format("导出的时间为:{0}秒", time);
+                string s1 = string.Format("导出成功！耗时:{0}秒", time);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s1);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
             }
             catch (Exception ee)
@@ -679,9 +678,9 @@ namespace DataPieUI
                         dt = DataPie.Core.DataTableToExcel.GetDataTableFromName(table);
                         time += DataPie.Core.DBToAccess.DataTableExportToAccess(dt, filename, table);
                     }
-                    string s = string.Format("导出的时间为:{0}秒", time);
+                    string s = string.Format("导出成功！耗时:{0}秒", time);
                     this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                    MessageBox.Show("导数已完成！");
+                    //MessageBox.Show("导数已完成！");
                     GC.Collect();
 
                 }
@@ -716,9 +715,9 @@ namespace DataPieUI
                 IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
                 var t = DataPie.Core.DBToCsv.ExportCsvAsync(reader, filename, pagesize);
                 await t;
-                string s = string.Format("导出的时间为:{0}秒", t.Result);
+                string s = string.Format("导出成功！耗时:{0}秒", t.Result);
                 this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                MessageBox.Show("导数已完成！");
+                //MessageBox.Show("导数已完成！");
                 GC.Collect();
 
             }
@@ -776,9 +775,9 @@ namespace DataPieUI
                             time += DataPie.Core.DBToZip.DataReaderToZip(filename, reader, SheetNames[i]);
 
                         }
-                        string s = string.Format("导出的时间为:{0}秒", time);
+                        string s = string.Format("导出成功！耗时:{0}秒", time);
                         this.BeginInvoke(new System.EventHandler(ShowMessage), s);
-                        MessageBox.Show("导数已完成！");
+                        //MessageBox.Show("导数已完成！");
                         GC.Collect();
                     }
 
@@ -967,6 +966,21 @@ namespace DataPieUI
         {
             About about = new About();
             about.ShowDialog();
+        }
+
+        private void listBox1_ValueMemberChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataPie.DataPieConfig.RowOutCount = int.Parse(comboBox3.Text);
+        }
+
+        private void comboColSel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 

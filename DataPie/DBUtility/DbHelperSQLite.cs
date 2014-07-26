@@ -250,6 +250,7 @@ namespace DataPie.DBUtility
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             SQLiteCommand cmd = new SQLiteCommand(strSQL, connection);
+            cmd.CommandTimeout = 10000;
             try
             {
                 connection.Open();

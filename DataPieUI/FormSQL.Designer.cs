@@ -60,6 +60,8 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.resultsTab = new System.Windows.Forms.TabControl();
             this.tabPageResults = new System.Windows.Forms.TabPage();
             this.gridResults1 = new System.Windows.Forms.DataGridView();
@@ -174,6 +176,7 @@
             this.toolStrip1.Size = new System.Drawing.Size(751, 29);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripComboBox1
             // 
@@ -274,7 +277,9 @@
             this.toolStripSeparator3,
             this.toolStripButton1,
             this.toolStripSeparator2,
-            this.toolStripButton3});
+            this.toolStripButton3,
+            this.toolStripSeparator6,
+            this.toolStripButton6});
             this.bindingNavigator1.Location = new System.Drawing.Point(0, 0);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
@@ -397,6 +402,21 @@
             this.toolStripButton3.Text = "另存为CSV";
             this.toolStripButton3.ToolTipText = "另存为csv文件";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(99, 22);
+            this.toolStripButton6.Text = "分页导出CSV";
+            this.toolStripButton6.ToolTipText = "另存为csv文件";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
             // 
             // resultsTab
             // 
@@ -545,5 +565,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
     }
 }

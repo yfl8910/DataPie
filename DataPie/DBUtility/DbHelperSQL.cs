@@ -489,6 +489,7 @@ namespace DataPie.DBUtility
         {
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(strSQL, connection);
+            cmd.CommandTimeout = 10000;
             try
             {
                 connection.Open();

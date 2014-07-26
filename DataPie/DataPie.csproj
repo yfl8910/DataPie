@@ -80,6 +80,7 @@
     <Compile Include="Core\DBToExcel.cs" />
     <Compile Include="Core\DBToZip.cs" />
     <Compile Include="Core\FileToDB.cs" />
+    <Compile Include="Core\DataPieConfig.cs" />
     <Compile Include="DBUtility\CommandInfo.cs" />
     <Compile Include="DBUtility\DbHelperOleDb.cs" />
     <Compile Include="DBUtility\DbHelperSQL.cs" />

@@ -156,13 +156,19 @@ namespace DataPie.Core
                         newFile = new FileInfo(newfileName.ToString());
                     }
 
-                    for (int j = 0; j < count; j++)
+                    using (ExcelPackage package = new ExcelPackage(newFile))
                     {
-                        string sql = "select * from [" + TabelNameArray[j] + "]" + whereSQLArr[i];
-                        IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
-                        SaveExcel(newfileName.ToString(), sql, TabelNameArray[j]);
+                        for (int j = 0; j < count; j++)
+                        {
+                            string sql = "select * from [" + TabelNameArray[j] + "]" + whereSQLArr[i];
+                            IDataReader reader = DBConfig.db.DBProvider.ExecuteReader(sql);
+                            SaveExcel(package, sql, TabelNameArray[j]);
 
+                        }
+
+                        package.Save();
                     }
+
 
 
                 }

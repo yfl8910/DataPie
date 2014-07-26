@@ -411,6 +411,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(186, 292);
             this.listBox1.TabIndex = 43;
+            this.listBox1.ValueMemberChanged += new System.EventHandler(this.listBox1_ValueMemberChanged);
             this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // treeView1
@@ -483,17 +484,20 @@
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.ItemHeight = 14;
             this.comboBox3.Items.AddRange(new object[] {
+            "65535",
             "100000",
             "200000",
             "300000",
             "400000",
             "600000",
-            "800000"});
+            "800000",
+            "1000000"});
             this.comboBox3.Location = new System.Drawing.Point(224, 94);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(268, 22);
             this.comboBox3.TabIndex = 49;
-            this.comboBox3.Text = "200000";
+            this.comboBox3.Text = "65535";
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -672,6 +676,7 @@
             this.comboColSel.Size = new System.Drawing.Size(268, 24);
             this.comboColSel.TabIndex = 52;
             this.comboColSel.Text = "无";
+            this.comboColSel.SelectedIndexChanged += new System.EventHandler(this.comboColSel_SelectedIndexChanged);
             // 
             // statusStrip1
             // 

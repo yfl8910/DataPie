@@ -249,6 +249,7 @@ namespace DataPie.DBUtility
         {
             OleDbConnection connection = new OleDbConnection(connectionString);
             OleDbCommand cmd = new OleDbCommand(strSQL, connection);
+            cmd.CommandTimeout = 10000;
             try
             {
                 connection.Open();
