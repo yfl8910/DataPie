@@ -1,34 +1,34 @@
 DataPie
 
-¹¦ÄÜ£ºÖ§³ÖSQL server¡¢SQLite¡¢ACCESSÊý¾Ý¿âµÄµ¼Èë¡¢µ¼³ö¡¢´æ´¢¹ý³Ìµ÷ÓÃ£¬Ö§³ÖEXCEL2007¡¢EXCEL2003¡¢ACCESS2007¡¢
-CSVÎÄ¼þµ¼ÈëÊý¾Ý¿â£¬Ö§³ÖEXCEL¡¢CSVÎÄ¼þ·½Ê½µ¼³ö£¬Ö§³ÖÊý¾Ý²ð·Öµ¼³ö¼°×Ô¶¨ÒåSQL²éÑ¯Óëµ¼³ö¡£
+åŠŸèƒ½ï¼šæ”¯æŒSQL serverã€SQLiteã€ACCESSæ•°æ®åº“çš„å¯¼å…¥ã€å¯¼å‡ºã€å­˜å‚¨è¿‡ç¨‹è°ƒç”¨ï¼Œæ”¯æŒEXCEL2007ã€EXCEL2003ã€ACCESS2007ã€
+CSVæ–‡ä»¶å¯¼å…¥æ•°æ®åº“ï¼Œæ”¯æŒEXCELã€CSVæ–‡ä»¶æ–¹å¼å¯¼å‡ºï¼Œæ”¯æŒæ•°æ®æ‹†åˆ†å¯¼å‡ºåŠè‡ªå®šä¹‰SQLæŸ¥è¯¢ä¸Žå¯¼å‡ºã€‚
 
-×÷Õß¼°¿ª·¢±³¾°£ºyfl8910£¬´ÓÊÂ²ÆÎñ¹ÜÀí¹¤×÷£¬Ö÷ÒªÊÇ³ö¾ß¼¯ÍÅµÄÄÚ²¿²ÆÎñ±¨±í£¬Ëæ×Å¹«Ë¾¾«Ï¸»¯¹ÜÀíµÄÐèÇó£¬¹ÜÀí±¨±íµÄÊý¾ÝÁ¿¼±ËÙÔö³¤£¬
-ÒÀÀµEXCEL¼Ó¹¤´¦ÀíÊý¾ÝÒÑ¾­±äµÃ¼«ÎªÀ§ÄÑ£¬Òò´ËÍÅ¶ÓÈ«Ãæ×ªÏò¹ØÏµÊý¾Ý¿â½øÐÐÊý¾Ý´¦Àí£¬Îª¼õÉÙ²ÆÎñÈËÔ±Ê¹ÓÃÊý¾Ý¿âµÄÄÑ¶È£¬Òò´Ë×¨ÃÅÕë¶Ô²ÆÎñ
-±¨±íºËËãÐèÒª£¬¿ª·¢ÁË¸Ã¹¤¾ß¡£Ä¿Ç°£¬ÎÒÔÂ¶È±¨±í´¦ÀíµÄÊý¾ÝÁ¿³¬¹ý5G£¬×î´óµÄµ¥´ÎÔËËãÁ¿¼ÇÂ¼½Ó½üÇ§Íò£¬¸Ã¹¤¾ßÖ÷Òª·¢»ÓµÄ×÷ÓÃ¾ÍÊÇ½«ÊÕ¼¯µ½µÄÊý¾Ý£¬
-µ¼ÈëSQL SERVERÊý¾Ý¿â£¬½øÐÐ±¨±íÔËËã£¬²¢ÇÒÊä³ö¸÷Àà²ÆÎñ±¨±í£¬¶ÔÓÚ¼¸Ê®Íò¼¶µÄÊý¾ÝÊäÈë¡¢Êä³ö»ù±¾ÉÏÄÜ¹»ÇáËÉÓ¦¸¶¡£
+ä½œè€…åŠå¼€å‘èƒŒæ™¯ï¼šyfl8910ï¼Œä»Žäº‹è´¢åŠ¡ç®¡ç†å·¥ä½œï¼Œä¸»è¦æ˜¯å‡ºå…·é›†å›¢çš„å†…éƒ¨è´¢åŠ¡æŠ¥è¡¨ï¼Œéšç€å…¬å¸ç²¾ç»†åŒ–ç®¡ç†çš„éœ€æ±‚ï¼Œç®¡ç†æŠ¥è¡¨çš„æ•°æ®é‡æ€¥é€Ÿå¢žé•¿ï¼Œ
+ä¾èµ–EXCELåŠ å·¥å¤„ç†æ•°æ®å·²ç»å˜å¾—æžä¸ºå›°éš¾ï¼Œå› æ­¤å›¢é˜Ÿå…¨é¢è½¬å‘å…³ç³»æ•°æ®åº“è¿›è¡Œæ•°æ®å¤„ç†ï¼Œä¸ºå‡å°‘è´¢åŠ¡äººå‘˜ä½¿ç”¨æ•°æ®åº“çš„éš¾åº¦ï¼Œå› æ­¤ä¸“é—¨é’ˆå¯¹è´¢åŠ¡
+æŠ¥è¡¨æ ¸ç®—éœ€è¦ï¼Œå¼€å‘äº†è¯¥å·¥å…·ã€‚ç›®å‰ï¼Œæˆ‘æœˆåº¦æŠ¥è¡¨å¤„ç†çš„æ•°æ®é‡è¶…è¿‡5Gï¼Œæœ€å¤§çš„å•æ¬¡è¿ç®—é‡è®°å½•æŽ¥è¿‘åƒä¸‡ï¼Œè¯¥å·¥å…·ä¸»è¦å‘æŒ¥çš„ä½œç”¨å°±æ˜¯å°†æ”¶é›†åˆ°çš„æ•°æ®ï¼Œ
+å¯¼å…¥SQL SERVERæ•°æ®åº“ï¼Œè¿›è¡ŒæŠ¥è¡¨è¿ç®—ï¼Œå¹¶ä¸”è¾“å‡ºå„ç±»è´¢åŠ¡æŠ¥è¡¨ï¼Œå¯¹äºŽå‡ åä¸‡çº§çš„æ•°æ®è¾“å…¥ã€è¾“å‡ºåŸºæœ¬ä¸Šèƒ½å¤Ÿè½»æ¾åº”ä»˜ã€‚
 
-ÁªÏµ·½Ê½£ºyfl8910@qq.com  DataPie¼¼Êõ½»Á÷Èº 332463290
+è”ç³»æ–¹å¼ï¼šyfl8910@qq.com  
 
-¸üÐÂ
-DataPieV3.5  2013Äê1ÔÂ25ÈÕ
-´ó·ùÌáÉýCSV·½Ê½µ¼ÊýÐ§ÂÊ£¬Ôö¼ÓÒì²½·½Ê½²Ù×÷£¬·ÀÖ¹½çÃæ¼ÙËÀ£¬ÔËÐÐ»·¾³Éý¼¶µ½.NET Framework 4.5¡£
+æ›´æ–°
+DataPieV3.5  2013å¹´1æœˆ25æ—¥
+å¤§å¹…æå‡CSVæ–¹å¼å¯¼æ•°æ•ˆçŽ‡ï¼Œå¢žåŠ å¼‚æ­¥æ–¹å¼æ“ä½œï¼Œé˜²æ­¢ç•Œé¢å‡æ­»ï¼Œè¿è¡ŒçŽ¯å¢ƒå‡çº§åˆ°.NET Framework 4.5ã€‚
 
-DataPieV3.6  2013Äê5ÔÂ16ÈÕ
-ÐÞÕýÒì²½Çé¿öÏÂ£¬µ¼Èëµ¼³öÎÞ·¨²¶»ñ´íÎóµÄbug£¬Ìí¼Ó×Ô¶¨ÒåsqlË«»÷×Ô¶¯Éú³ÉsqlµÄÊÂ¼þ¡£Ìí¼Ó±éÀúÎÄ¼þ¼ÐÏÂËùÓÐcsvÎÄ¼þ£¬²¢ºÏ²¢µ½excelÖÐ¡£
+DataPieV3.6  2013å¹´5æœˆ16æ—¥
+ä¿®æ­£å¼‚æ­¥æƒ…å†µä¸‹ï¼Œå¯¼å…¥å¯¼å‡ºæ— æ³•æ•èŽ·é”™è¯¯çš„bugï¼Œæ·»åŠ è‡ªå®šä¹‰sqlåŒå‡»è‡ªåŠ¨ç”Ÿæˆsqlçš„äº‹ä»¶ã€‚æ·»åŠ éåŽ†æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰csvæ–‡ä»¶ï¼Œå¹¶åˆå¹¶åˆ°excelä¸­ã€‚
 
-DataPieV3.6.1  2013Äê7ÔÂ24ÈÕ
-Ìí¼ÓÅúÁ¿csvµ¼³ö¹¦ÄÜ£¬×Ô¶¨Òåsqlµ¼³ö£¬Ìí¼Ócsv·½Ê½µ¼³ö¡£
+DataPieV3.6.1  2013å¹´7æœˆ24æ—¥
+æ·»åŠ æ‰¹é‡csvå¯¼å‡ºåŠŸèƒ½ï¼Œè‡ªå®šä¹‰sqlå¯¼å‡ºï¼Œæ·»åŠ csvæ–¹å¼å¯¼å‡ºã€‚
 
-DataPieV3.6.2  2013Äê9ÔÂ3ÈÕ
-Ìí¼ÓÊý¾Ý·Ö²ð¹¦ÄÜ¡£
+DataPieV3.6.2  2013å¹´9æœˆ3æ—¥
+æ·»åŠ æ•°æ®åˆ†æ‹†åŠŸèƒ½ã€‚
 
-DataPieV3.7  2014Äê5ÔÂ30ÈÕ
-Ö§³ÖSQLite,ÒÆ³ý¶ÔORACLEµÄÖ§³Ö£¬É¾³ýCSV×ªEXCELµÄ¹¦ÄÜ£¬´ó·ùÌáÉýEXCELµ¼ÈëACCESSµÄÐ§ÂÊ¡£
+DataPieV3.7  2014å¹´5æœˆ30æ—¥
+æ”¯æŒSQLite,ç§»é™¤å¯¹ORACLEçš„æ”¯æŒï¼Œåˆ é™¤CSVè½¬EXCELçš„åŠŸèƒ½ï¼Œå¤§å¹…æå‡EXCELå¯¼å…¥ACCESSçš„æ•ˆçŽ‡ã€‚
 
-DataPieV3.7.1  2014Äê6ÔÂ11ÈÕ
-ÐÂÔöcsvÎÄ¼þµ¼Èë¹¦ÄÜ
+DataPieV3.7.1  2014å¹´6æœˆ11æ—¥
+æ–°å¢žcsvæ–‡ä»¶å¯¼å…¥åŠŸèƒ½
 
 
-DataPieV3.8  2014Äê6ÔÂ12ÈÕ
-½«UIÓëºËÐÄÀà·ÖÀà£¬ÖØÐ´csvµ¼³öÂß¼­£¬ÓÉDataTable·½Ê½µ¼³ö£¬ÐÞ¸ÄÎªDataReader·½Ê½µ¼³ö£¬´ó·ù½µµÍcsvµ¼³öµÄÄÚ´æÏûºÄ
+DataPieV3.8  2014å¹´6æœˆ12æ—¥
+å°†UIä¸Žæ ¸å¿ƒç±»åˆ†ç±»ï¼Œé‡å†™csvå¯¼å‡ºé€»è¾‘ï¼Œç”±DataTableæ–¹å¼å¯¼å‡ºï¼Œä¿®æ”¹ä¸ºDataReaderæ–¹å¼å¯¼å‡ºï¼Œå¤§å¹…é™ä½Žcsvå¯¼å‡ºçš„å†…å­˜æ¶ˆè€—
