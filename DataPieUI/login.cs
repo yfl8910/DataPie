@@ -12,7 +12,7 @@ namespace DataPieUI
     {
         public static FormMain main = null;
         string _conString;
-        int version=201506;
+        int version=202006;
 
         public login()
         {    
