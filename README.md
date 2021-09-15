@@ -1,4 +1,4 @@
-.NET 5 版本请按到以下链接下载
+.NET 5 版本链接
 https://github.com/yfl8910/DataPie2
 
 
