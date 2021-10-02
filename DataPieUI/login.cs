@@ -17,14 +17,7 @@ namespace DataPieUI
         public login()
         {    
             //强制更新到最新版，有效期一年
-            DateTime dt = new DateTime(version / 100+1, version%100, 1);
-            if (DateTime.Now > dt)
-            {
-                MessageBox.Show(" 该版本已经太旧了 \r\n 请联系作者更换新版本 \r\n 邮箱：yfl8910@qq.com ");
-
-                Application.Exit();
-                System.Environment.Exit(0);
-            }
+         
             InitializeComponent();
         }
 
